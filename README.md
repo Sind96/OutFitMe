@@ -40,5 +40,3 @@ VITE_OPENWEATHER_API_KEY=placeholder
 - Save full outfit as favorite, make all favorite outfits visible in a gallery by clicking the heart icon. Outfits should have a delete option from their gallery.
 - Delete clothing items from gallery view (this should remove them form cloudinary and db simultaneously).
 - Edit clothing item data from gallery view (temperature range, rain appropriate or not, type of item).
-
-## THIS IS A TEST
