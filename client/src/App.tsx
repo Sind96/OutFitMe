@@ -6,6 +6,7 @@ import { getWeatherData } from './Services/apiService';
 import LoginPage from './Components/LoginPage/LoginPage';
 import Gallery from './Components/Gallery/Gallery';
 
+
 function App() {
   //TODO: Style the page where user accepts to give their location first, have that accept button get weather and random outfit
   // to avoid having to click two buttons
@@ -28,13 +29,13 @@ function App() {
   const [clicked, setClicked] = useState(false);
 
   //GALLERIES
-  const [itemType, setItemType] = useState('');
+  const [itemType, setItemType] = useState<string>('');
   const [gallery, setGallery] = useState('');
 
   ////////////////////////////////////////////////////////////////////////////
 
   //NAME
-  const handleName = (event) => {
+  const handleName = (event : React.MouseEvent) => {
     setName(event.target.value);
   };
 
@@ -65,7 +66,7 @@ function App() {
     }
   }, [weatherData.description]);
 
-  const getLocation = (event) => {
+  const getLocation = (event : React.MouseEvent) => {
     event.preventDefault();
 
     if ('geolocation' in navigator) {
@@ -102,7 +103,7 @@ function App() {
   };
 
   //GALLERIES
-  const onMenuClick = async (itemType) => {
+  const onMenuClick = async (itemType: string) => {
     setItemType(itemType);
     setGallery(itemType);
   };
