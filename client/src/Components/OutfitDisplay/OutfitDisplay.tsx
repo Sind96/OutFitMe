@@ -1,15 +1,28 @@
-import {
-  temperatureToWeather,
-  rainToWeather,
-  asyncCallHelper,
-} from '../../Utils/helperFunctions';
+import { temperatureToWeather, rainToWeather, asyncCallHelper } from '../../Utils/helperFunctions';
 import { useEffect, useState } from 'react';
 import Button from '../Button/Button';
 import './OutfitDisplay.css';
 
-function OutfitDisplay(weatherData) {
+
+interface WeatherData {
+  weatherData: {
+    temp: string;
+    description: string;
+  }
+} 
+interface Outfit {
+  top: string;
+  bottom: string;
+  shoe: string;
+}
+interface WeatherToday {
+  tempToday: string;
+  rainToday: boolean | null;
+}
+
+function OutfitDisplay(weatherData: WeatherData) {
   //state to set imgURL's in display
-  const [outfit, setOutfit] = useState({
+  const [outfit, setOutfit] = useState<Outfit>({
     top: 'https://www.creativefabrica.com/wp-content/uploads/2020/04/21/Tshirt-icon-black-thin-stripe-2-Graphics-3920769-1-1-580x386.jpg',
     bottom:
       'https://static.vecteezy.com/system/resources/previews/010/347/283/non_2x/pants-boy-garment-line-icon-illustration-vector.jpg',
@@ -17,20 +30,21 @@ function OutfitDisplay(weatherData) {
   });
 
   //state to gather and send current weather info as params in request URLs
-  const [weatherToday, setWeatherToday] = useState({
+  const [weatherToday, setWeatherToday] = useState<WeatherToday>({
     tempToday: '',
-    rainToday: '',
+    rainToday: null,
   });
 
   //onclick gather weather info to send via request
-  const generateOutfit = async (event) => {
+  const generateOutfit = async (event: React.MouseEvent) => {
     gatherWeather();
   };
 
   //extract info from weatherdata and set it
-  const gatherWeather = () => {
-    const weatherDataTemp = weatherData.weatherData.temp;
+  const gatherWeather = (): void => {
+    const weatherDataTemp = Number(weatherData.weatherData.temp);
     const weatherDataDescription = weatherData.weatherData.description;
+
     setWeatherToday({
       rainToday: rainToWeather(weatherDataDescription),
       tempToday: temperatureToWeather(weatherDataTemp),
@@ -39,9 +53,10 @@ function OutfitDisplay(weatherData) {
 
   //once weatherdata is correctly set, make requests and set outfit data
   useEffect(() => {
-    if (weatherToday.tempToday === '' || weatherToday.rainToday === '') return;
+    if (weatherToday.tempToday === '' || weatherToday.rainToday === false) return;
 
     const { tempToday, rainToday } = weatherToday;
+    console.log(tempToday, rainToday)
 
     asyncCallHelper('top', tempToday, rainToday).then((res) => {
       setOutfit((prevOutfit) => ({ ...prevOutfit, top: res }));

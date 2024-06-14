@@ -1,7 +1,16 @@
 import { getRandomItem } from '../Services/apiService';
 
-const temperatureToWeather = (temp) => {
-  const ranges = {
+interface Ranges {
+  [key: string]: boolean;
+  cold: boolean;
+  cool: boolean;
+  warm: boolean;
+  hot: boolean;
+}
+
+
+const temperatureToWeather = (temp: number): string => {
+  const ranges: Ranges = {
     cold: temp <= 10,
     cool: temp > 10 && temp <= 18,
     warm: temp > 18 && temp <= 25,
@@ -10,9 +19,10 @@ const temperatureToWeather = (temp) => {
   for (let weather in ranges) {
     if (ranges[weather]) return weather;
   }
+  return '';
 };
 
-const rainToWeather = (description) => {
+const rainToWeather = (description: string): boolean => {
   if (
     description === 'Thunderstorm' ||
     description === 'Drizzle' ||
@@ -25,7 +35,7 @@ const rainToWeather = (description) => {
   }
 };
 
-const asyncCallHelper = async (item, tempToday, rainToday) => {
+const asyncCallHelper = async (item: string, tempToday: string, rainToday: boolean) => {
   return await getRandomItem(item, tempToday, rainToday);
 };
 
