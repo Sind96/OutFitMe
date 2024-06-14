@@ -17,10 +17,10 @@ interface Outfit {
 }
 interface WeatherToday {
   tempToday: string;
-  rainToday: boolean | null;
+  rainToday: boolean ;
 }
 
-function OutfitDisplay(weatherData: WeatherData) {
+function OutfitDisplay({weatherData}: WeatherData) {
   //state to set imgURL's in display
   const [outfit, setOutfit] = useState<Outfit>({
     top: 'https://www.creativefabrica.com/wp-content/uploads/2020/04/21/Tshirt-icon-black-thin-stripe-2-Graphics-3920769-1-1-580x386.jpg',
@@ -32,7 +32,7 @@ function OutfitDisplay(weatherData: WeatherData) {
   //state to gather and send current weather info as params in request URLs
   const [weatherToday, setWeatherToday] = useState<WeatherToday>({
     tempToday: '',
-    rainToday: null,
+    rainToday: false,
   });
 
   //onclick gather weather info to send via request
@@ -42,8 +42,8 @@ function OutfitDisplay(weatherData: WeatherData) {
 
   //extract info from weatherdata and set it
   const gatherWeather = (): void => {
-    const weatherDataTemp = Number(weatherData.weatherData.temp);
-    const weatherDataDescription = weatherData.weatherData.description;
+    const weatherDataTemp = Number(weatherData.temp);
+    const weatherDataDescription = weatherData.description;
 
     setWeatherToday({
       rainToday: rainToWeather(weatherDataDescription),
