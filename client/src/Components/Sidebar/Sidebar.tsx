@@ -9,15 +9,20 @@ import {
 import { useState } from 'react';
 import UploadModal from '../UploadModal/UploadModal';
 
-function Sidebar({ onMenuClick }) {
+interface SidebarProps {
+  onMenuClick: Function,
+}
+
+function Sidebar({ onMenuClick }: SidebarProps) {
   //TODO: Add functionality to see (1) galleries by item type (2) liked outfits
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const handleAddItemClick = () => {
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = ()  => {
     setIsModalOpen(false);
   };
 
