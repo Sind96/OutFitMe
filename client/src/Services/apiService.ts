@@ -52,7 +52,6 @@ const getAllItemsFromCat = async (item) => {
     .catch((err) => {
       console.log(`${err.message} while all ${item}`);
     });
-  console.log('apiClient allItems', allItems);
   return allItems;
 };
 export { addImage, getWeatherData, getRandomItem, getAllItemsFromCat };

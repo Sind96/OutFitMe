@@ -3,15 +3,26 @@ import GalleryCard from '../GalleryCard/GalleryCard';
 import { useEffect, useState } from 'react';
 import { getAllItemsFromCat } from '../../Services/apiService';
 
-function Gallery({ itemType }) {
-  const [itemGallery, setItemGallery] = useState([]);
+interface ItemGallery {
+  _id: string,
+  imgURL: string,
+}
+
+interface GalleryProps {
+  itemType: string,
+}
+
+function Gallery( {itemType}: GalleryProps ) {
+
+  const [itemGallery, setItemGallery] = useState<ItemGallery []>([]);
 
   useEffect(() => {
     getAllItemsFromCat(itemType).then((res) => {
-      console.log(res);
-      setItemGallery(res.map((item) => item));
+      setItemGallery(res.map((item : string) => item));
     });
   }, [itemType]);
+
+  console.log("thisisitemgallery", itemGallery);
 
   return (
     <>
