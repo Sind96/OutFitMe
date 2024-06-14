@@ -1,6 +1,21 @@
 import './WeatherDisplay.css';
 
-function WeatherDisplay({ weatherData, emoji }) {
+interface WeatherDisplayProps {
+  weatherData: {
+    location: string;
+    temp: string;
+    temp_min: string;
+    temp_max: string;
+    humidity: string;
+    feels_like: string;
+    description: string;
+  };
+  emoji: string;
+
+}
+
+function WeatherDisplay({ weatherData, emoji }: WeatherDisplayProps) {
+
   return (
     <div className="weather-container">
       <div className="top-data">
