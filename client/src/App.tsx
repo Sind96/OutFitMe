@@ -7,12 +7,13 @@ import LoginPage from './Components/LoginPage/LoginPage';
 import Gallery from './Components/Gallery/Gallery';
 
 
+
 function App() {
   //TODO: Style the page where user accepts to give their location first, have that accept button get weather and random outfit
   // to avoid having to click two buttons
 
   //NAME
-  const [name, setName] = useState('');
+  const [name, setName] = useState<string>('');
 
   //WEATHER
   const [weatherData, setWeatherData] = useState({
@@ -30,7 +31,7 @@ function App() {
 
   //GALLERIES
   const [itemType, setItemType] = useState<string>('');
-  const [gallery, setGallery] = useState('');
+  const [gallery, setGallery] = useState<string>('');
 
   ////////////////////////////////////////////////////////////////////////////
 

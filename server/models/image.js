@@ -22,7 +22,7 @@ const imageSchema = new Schema({
     required: true,
   },
   rain: {
-    type: Boolean,
+    type: String,
     required: true,
   },
 });

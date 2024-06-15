@@ -2,20 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { addImage } from '../../Services/apiService';
 import './UploadModal.css';
 import Button from '../Button/Button';
+import { IFormData, IImage, ITempChecks } from './Types.Modal';
+
+
+
 
 const UploadModal = ({ onClose }) => {
   const cloudName = import.meta.env.VITE_CLOUD_NAME;
   const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
   const folder = import.meta.env.VITE_CLOUDINARY_FOLDER;
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<IFormData>({
     imgURL: '',
     item: '',
     tempRange: [],
-    rain: false,
+    rain: '',
   });
-  const [image, setImage] = useState('');
-  const [tempChecks, setTempChecks] = useState([]); //separate state so I can handle checking/unchecking of boxes
+  const [image, setImage] = useState<IImage>({ url: '' })
+  //TODO check the initial state of the tempchecks!
+  const [tempChecks, setTempChecks] = useState<ITempChecks>([]); //separate state so I can handle checking/unchecking of boxes
 
   useEffect(() => {
     if (formData.imgURL === '') {
@@ -46,6 +51,7 @@ const UploadModal = ({ onClose }) => {
     // Case 1 : The user checks the box
     if (checked) {
       setTempChecks((prevTempChecks) => [...prevTempChecks, value]);
+
     }
 
     // Case 2  : The user unchecks the box
@@ -197,7 +203,7 @@ const UploadModal = ({ onClose }) => {
                 type="radio"
                 id="yes"
                 name="rain"
-                value={true}
+                value='true'
                 checked={formData.rain === true}
                 onChange={handleChange}
               />
@@ -208,7 +214,7 @@ const UploadModal = ({ onClose }) => {
                 type="radio"
                 id="no"
                 name="rain"
-                value={false}
+                value='false'
                 checked={formData.rain === false}
                 onChange={handleChange}
               />

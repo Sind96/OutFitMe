@@ -1,7 +1,7 @@
 import './GalleryCard.css';
 
 interface GalleryCardProps {
-  key: number;
+  key: string;
   source: string;
 
 }

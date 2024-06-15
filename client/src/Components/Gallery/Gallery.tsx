@@ -2,19 +2,12 @@ import './Gallery.css';
 import GalleryCard from '../GalleryCard/GalleryCard';
 import { useEffect, useState } from 'react';
 import { getAllItemsFromCat } from '../../Services/apiService';
+import { IItemGallery, IGalleryProps } from './Gallery.Types';
 
-interface ItemGallery {
-  _id: string,
-  imgURL: string,
-}
 
-interface GalleryProps {
-  itemType: string,
-}
+function Gallery( {itemType}: IGalleryProps ) {
 
-function Gallery( {itemType}: GalleryProps ) {
-
-  const [itemGallery, setItemGallery] = useState<ItemGallery []>([]);
+  const [itemGallery, setItemGallery] = useState<IItemGallery []>([]);
 
   useEffect(() => {
     getAllItemsFromCat(itemType).then((res) => {
@@ -22,7 +15,6 @@ function Gallery( {itemType}: GalleryProps ) {
     });
   }, [itemType]);
 
-  console.log("thisisitemgallery", itemGallery);
 
   return (
     <>
