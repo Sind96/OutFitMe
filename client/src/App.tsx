@@ -5,7 +5,7 @@ import DisplayContainer from './Components/DisplayContainer/DisplayContainer';
 import { getWeatherData } from './Services/apiService';
 import LoginPage from './Components/LoginPage/LoginPage';
 import Gallery from './Components/Gallery/Gallery';
-
+import { IWeatherDisplayProps } from './Types/App.Types'
 
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
   const [name, setName] = useState<string>('');
 
   //WEATHER
-  const [weatherData, setWeatherData] = useState({
+  const [weatherData, setWeatherData] = useState<IWeatherDisplayProps>({
     location: '',
     temp: '',
     temp_max: '',
