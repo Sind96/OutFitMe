@@ -1,8 +1,19 @@
 const baseURL = 'http://localhost:3000';
 const weatherAPIkey = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
+interface FormDataProps {
+  imgURL : string,
+  item: string,
+  tempRange: string[],
+  rain: boolean
+}
+
+interface Error {
+  err: string,
+}
+
 //After cloudinary send imgURL, post image to database
-const addImage = async (formData) => {
+const addImage = async (formData: FormDataProps) => {
   const { imgURL, item, tempRange, rain } = formData;
   try {
     const image = await fetch(`${baseURL}/upload`, {
@@ -20,7 +31,7 @@ const addImage = async (formData) => {
 };
 
 //Get current location weather data form API
-const getWeatherData = (lat, lon) => {
+const getWeatherData = (lat: number, lon: number) => {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherAPIkey}&units=metric`;
 
   const weatherData = fetch(url)
@@ -33,7 +44,8 @@ const getWeatherData = (lat, lon) => {
 };
 
 //Get random item from database according to passed params
-const getRandomItem = async (item, tempToday, rainToday) => {
+const getRandomItem = async (item : string, tempToday, rainToday: boolean) => {
+  console.log("getRandomItem", tempToday)
   const randomItem = await fetch(
     `${baseURL}/getRandomItem/${item}/${tempToday}/${rainToday}`
   )
@@ -45,8 +57,7 @@ const getRandomItem = async (item, tempToday, rainToday) => {
   return randomItem.imgURL;
 };
 
-const getAllItemsFromCat = async (item) => {
-  console.log(item);
+const getAllItemsFromCat = async (item : string) => {
   const allItems = await fetch(`${baseURL}/getAllItems/${item}`)
     .then((res) => res.json())
     .catch((err) => {
