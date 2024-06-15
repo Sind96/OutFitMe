@@ -5,8 +5,6 @@ import Button from '../Button/Button';
 import { IFormData, IImage, ITempChecks } from './Types.Modal';
 
 
-
-
 const UploadModal = ({ onClose }) => {
   const cloudName = import.meta.env.VITE_CLOUD_NAME;
   const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
@@ -20,7 +18,9 @@ const UploadModal = ({ onClose }) => {
   });
   const [image, setImage] = useState<IImage>({ url: '' })
   //TODO check the initial state of the tempchecks!
-  const [tempChecks, setTempChecks] = useState<ITempChecks>([]); //separate state so I can handle checking/unchecking of boxes
+  const [tempChecks, setTempChecks] = useState<ITempChecks>({tempChecks : []}); //separate state so I can handle checking/unchecking of boxes
+  // const [tempChecks, setTempChecks] = useState<ITempChecks>([]); //separate state so I can handle checking/unchecking of boxes
+  console.log("thisistempChecks", tempChecks)
 
   useEffect(() => {
     if (formData.imgURL === '') {
@@ -28,10 +28,11 @@ const UploadModal = ({ onClose }) => {
       return;
     }
     addImage(formData); //post to database
+    console.log("formData",formData);
     onClose(); // Close the modal after uploading TODO: Close modal using a button and/or clicking background as well
   }, [formData.imgURL]);
 
-  const handleChange = (event) => {
+  const handleChange = (event : React.FocusEvent) => {
     let { name, value } = event.target;
 
     if (name === 'rain') {
@@ -45,13 +46,14 @@ const UploadModal = ({ onClose }) => {
     setImage(event.target.files[0]);
   };
 
-  const handleTempChange = (event) => {
+  const handleTempChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     let { value, checked } = event.target;
     value = value.toLowerCase();
     // Case 1 : The user checks the box
     if (checked) {
-      setTempChecks((prevTempChecks) => [...prevTempChecks, value]);
-
+      setTempChecks((prevTempChecks) => {
+        return {tempChecks : [...prevTempChecks.tempChecks, value]}
+      });
     }
 
     // Case 2  : The user unchecks the box
@@ -60,7 +62,7 @@ const UploadModal = ({ onClose }) => {
     }
   };
 
-  const handleUpload = async (event) => {
+  const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {

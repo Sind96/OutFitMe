@@ -26,7 +26,9 @@ const addImage = async (formData: FormDataProps) => {
 
     return image;
   } catch (err) {
-    console.log(`${err.message} while posting image`);
+    if (err instanceof Error) {
+      console.log(`${err.message} while posting image`);
+    }
   }
 };
 
@@ -44,8 +46,8 @@ const getWeatherData = (lat: number, lon: number) => {
 };
 
 //Get random item from database according to passed params
-const getRandomItem = async (item : string, tempToday, rainToday: boolean) => {
-  console.log("getRandomItem", tempToday)
+const getRandomItem = async (item : string, tempToday: string, rainToday: boolean) => {
+  console.log("item", item)
   const randomItem = await fetch(
     `${baseURL}/getRandomItem/${item}/${tempToday}/${rainToday}`
   )
