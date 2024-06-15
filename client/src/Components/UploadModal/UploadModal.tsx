@@ -17,10 +17,7 @@ const UploadModal = ({ onClose }) => {
     rain: '',
   });
   const [image, setImage] = useState<IImage>({ url: '' })
-  //TODO check the initial state of the tempchecks!
-  const [tempChecks, setTempChecks] = useState<ITempChecks>({tempChecks : []}); //separate state so I can handle checking/unchecking of boxes
-  // const [tempChecks, setTempChecks] = useState<ITempChecks>([]); //separate state so I can handle checking/unchecking of boxes
-  console.log("thisistempChecks", tempChecks)
+  const [tempChecks, setTempChecks] = useState<ITempChecks>({tempChecks : []}); 
 
   useEffect(() => {
     if (formData.imgURL === '') {
@@ -32,7 +29,7 @@ const UploadModal = ({ onClose }) => {
     onClose(); // Close the modal after uploading TODO: Close modal using a button and/or clicking background as well
   }, [formData.imgURL]);
 
-  const handleChange = (event : React.FocusEvent) => {
+  const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
 
     if (name === 'rain') {
@@ -206,7 +203,7 @@ const UploadModal = ({ onClose }) => {
                 id="yes"
                 name="rain"
                 value='true'
-                checked={formData.rain === true}
+                checked={formData.rain === "true"}
                 onChange={handleChange}
               />
               <label htmlFor="yes">Yes</label>
@@ -217,7 +214,7 @@ const UploadModal = ({ onClose }) => {
                 id="no"
                 name="rain"
                 value='false'
-                checked={formData.rain === false}
+                checked={formData.rain === "false"}
                 onChange={handleChange}
               />
               <label htmlFor="no">No</label>
