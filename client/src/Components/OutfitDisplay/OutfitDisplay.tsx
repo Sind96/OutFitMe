@@ -56,7 +56,6 @@ function OutfitDisplay({weatherData}: WeatherData) {
     if (weatherToday.tempToday === '' || weatherToday.rainToday === false) return;
 
     const { tempToday, rainToday } = weatherToday;
-    console.log(tempToday, rainToday)
 
     asyncCallHelper('top', tempToday, rainToday).then((res) => {
       setOutfit((prevOutfit) => ({ ...prevOutfit, top: res }));
