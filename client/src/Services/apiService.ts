@@ -1,15 +1,15 @@
 const baseURL = 'http://localhost:3000';
 const weatherAPIkey = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
-interface FormDataProps {
-  imgURL : string,
-  item: string,
-  tempRange: string[],
-  rain: boolean
+export interface FormDataProps {
+  imgURL : string;
+  item: string;
+  tempRange: string[];
+  rain: string;
 }
 
 interface Error {
-  err: string,
+  err: string;
 }
 
 //After cloudinary send imgURL, post image to database

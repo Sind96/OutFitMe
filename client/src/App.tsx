@@ -37,7 +37,7 @@ function App() {
 
   //NAME
   const handleName = (event : React.MouseEvent) => {
-    setName(event.target.value);
+    setName(event.currentTarget.value);
   };
 
   //WEATHER
@@ -83,7 +83,7 @@ function App() {
     }
   };
 
-  const getWeather = (lat, lon) => {
+  const getWeather = (lat: number, lon: number) => {
     //apiService method for weather gets lat and lon as arguments to add to the url
     getWeatherData(lat, lon).then((weatherData) => {
       const {

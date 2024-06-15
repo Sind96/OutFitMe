@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { addImage } from '../../Services/apiService';
 import './UploadModal.css';
 import Button from '../Button/Button';
-import { IFormData, IImage, ITempChecks } from './Types.Modal';
+import {  IImage, ITempChecks } from './Types.Modal';
+import {FormDataProps} from '../../Services/apiService';
 
 
 const UploadModal = ({ onClose }) => {
@@ -10,14 +11,16 @@ const UploadModal = ({ onClose }) => {
   const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
   const folder = import.meta.env.VITE_CLOUDINARY_FOLDER;
 
-  const [formData, setFormData] = useState<IFormData>({
+  const [formData, setFormData] = useState<FormDataProps>({
     imgURL: '',
     item: '',
     tempRange: [],
     rain: '',
   });
-  const [image, setImage] = useState<IImage>({ url: '' })
-  const [tempChecks, setTempChecks] = useState<ITempChecks>({tempChecks : []}); 
+
+  const [image, setImage] = useState<IImage>({url: {} as File})
+
+  const [tempChecks, setTempChecks] = useState<ITempChecks>({tempChecks : []});
 
   useEffect(() => {
     if (formData.imgURL === '') {
@@ -25,22 +28,25 @@ const UploadModal = ({ onClose }) => {
       return;
     }
     addImage(formData); //post to database
-    console.log("formData",formData);
     onClose(); // Close the modal after uploading TODO: Close modal using a button and/or clicking background as well
   }, [formData.imgURL]);
 
-  const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
 
     if (name === 'rain') {
-      value = value === 'true';
+      value = value === 'true'? 'true' : 'false';
     }
 
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleFileChange = (event) => {
-    setImage(event.target.files[0]);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files?.length) {
+      console.log("Event.target.file",event.target.files[0])
+      setImage({url: event.target.files[0]});
+
+    }
   };
 
   const handleTempChange = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -52,10 +58,11 @@ const UploadModal = ({ onClose }) => {
         return {tempChecks : [...prevTempChecks.tempChecks, value]}
       });
     }
-
     // Case 2  : The user unchecks the box
     else {
-      setTempChecks(tempChecks.filter((event) => event !== value));
+      setTempChecks({
+        tempChecks: tempChecks.tempChecks.filter((event) => event !== value)
+      });
     }
   };
 
@@ -64,7 +71,7 @@ const UploadModal = ({ onClose }) => {
 
     try {
       const fd = new FormData();
-      fd.append('file', image);
+      fd.append('file', image.url);
       fd.append('folder', folder);
       fd.append('upload_preset', uploadPreset);
       fd.append('resorce_type', 'image');
@@ -81,7 +88,7 @@ const UploadModal = ({ onClose }) => {
       setFormData((formData) => ({
         ...formData,
         imgURL: resURL,
-        tempRange: [...tempChecks],
+        tempRange: [...tempChecks.tempChecks],
       }));
     } catch (error) {
       console.error('Upload failed', error);
@@ -101,7 +108,7 @@ const UploadModal = ({ onClose }) => {
 
         <form className="form" onSubmit={handleUpload}>
           <fieldset className="fieldset picture">
-            <legend htmlFor="file">Choose a picture to upload</legend>
+            <legend >Choose a picture to upload</legend>
             <input
               type="file"
               id="file"
