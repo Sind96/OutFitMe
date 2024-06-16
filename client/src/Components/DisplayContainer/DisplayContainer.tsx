@@ -1,8 +1,16 @@
 import OutfitDisplay from '../OutfitDisplay/OutfitDisplay';
 import WeatherDisplay from '../WeatherDisplay/WeatherDisplay';
 import './DisplayContainer.css';
+import {IWeatherDisplayProps} from '../../Types/App.Types';
 
-function DisplayContainer({ weatherData, emoji, name }) {
+interface DisplayContainerProps {
+  weatherData: IWeatherDisplayProps;
+  emoji: string;
+  name: string;
+
+}
+
+function DisplayContainer({ weatherData, emoji, name }: DisplayContainerProps) {
   return (
     <>
       <div className="main">

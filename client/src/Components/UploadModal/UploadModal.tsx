@@ -6,7 +6,11 @@ import {  IImage, ITempChecks } from './Types.Modal';
 import {FormDataProps} from '../../Services/apiService';
 
 
-const UploadModal = ({ onClose }) => {
+interface onCloseProps {
+  onClose: Function;
+}
+
+const UploadModal = ({ onClose }: onCloseProps) => {
   const cloudName = import.meta.env.VITE_CLOUD_NAME;
   const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
   const folder = import.meta.env.VITE_CLOUDINARY_FOLDER;
@@ -114,6 +118,7 @@ const UploadModal = ({ onClose }) => {
               id="file"
               name="file"
               onChange={handleFileChange}
+
             />
           </fieldset>
 
