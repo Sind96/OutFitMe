@@ -162,7 +162,7 @@ const UploadModal = ({ onClose }) => {
                 id="cold"
                 name="tempRange"
                 value="Cold"
-                //checked={formData.tempRange === 'Cold'}
+                checked={formData.tempRange.includes('Cold')}
                 onChange={handleTempChange}
               />
               <label htmlFor="cold">Cold</label>
@@ -173,7 +173,7 @@ const UploadModal = ({ onClose }) => {
                 id="cool"
                 name="tempRange"
                 value="Cool"
-                //checked={formData.tempRange === 'Cool'}
+                checked={formData.tempRange.includes('Cool')}
                 onChange={handleTempChange}
               />
               <label htmlFor="cool">Cool</label>
@@ -184,7 +184,7 @@ const UploadModal = ({ onClose }) => {
                 id="warm"
                 name="tempRange"
                 value="Warm"
-                //checked={formData.tempRange === 'Warm'}
+                checked={formData.tempRange.includes('Warm')}
                 onChange={handleTempChange}
               />
               <label htmlFor="warm">Warm</label>
@@ -195,7 +195,7 @@ const UploadModal = ({ onClose }) => {
                 id="hot"
                 name="tempRange"
                 value="Hot"
-                //checked={formData.tempRange === 'Hot'}
+                checked={formData.tempRange.includes('Hot')}
                 onChange={handleTempChange}
               />
               <label htmlFor="hot">Hot</label>
