@@ -8,6 +8,11 @@ import {
 } from 'react-icons/pi';
 import { useState } from 'react';
 import UploadModal from '../UploadModal/UploadModal';
+import { IoHomeOutline } from "react-icons/io5";
+import { GiClothes } from "react-icons/gi";
+
+
+
 
 interface SidebarProps {
   onMenuClick: Function,
@@ -29,9 +34,9 @@ function Sidebar({ onMenuClick }: SidebarProps) {
   return (
     <>
       <div className="sidebar-nav">
-        <h1 className="sidebar-title" onClick={() => onMenuClick('')}>
-          OutFitMe
-        </h1>
+        <button className="sidebar-icon" onClick={() => onMenuClick('')}>
+        <IoHomeOutline />
+        </button>
         <button className="sidebar-icon" onClick={() => onMenuClick('top')}>
           <PiTShirt />
         </button>
@@ -41,10 +46,10 @@ function Sidebar({ onMenuClick }: SidebarProps) {
         <button className="sidebar-icon" onClick={() => onMenuClick('shoe')}>
           <PiSneaker />
         </button>
-
-        <button className="like sidebar-icon">
+        <button className="sidebar-icon">
           <PiHeartStraight />
         </button>
+
         <button className="add-item sidebar-icon" onClick={handleAddItemClick}>
           {/* onClick open modal/cloudinary widget */}
           <PiPlusCircle />

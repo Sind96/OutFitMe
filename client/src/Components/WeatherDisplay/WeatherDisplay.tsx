@@ -1,4 +1,5 @@
 import './WeatherDisplay.css';
+import { FaLocationDot } from "react-icons/fa6";
 
 interface WeatherDisplayProps {
   weatherData: {
@@ -18,30 +19,23 @@ function WeatherDisplay({ weatherData, emoji }: WeatherDisplayProps) {
 
   return (
     <div className="weather-container">
+
       <div className="top-data">
-        <h1 className="location apidata">{weatherData.location}</h1>
-        <h1 className="temperature apidata">
-          {Math.round(Number(weatherData.temp))}ºC
-        </h1>
-        <p className="apidata">
-          {Math.round(Number(weatherData.temp_min))}º/
-          {Math.round(Number(weatherData.temp_max))}º
-        </p>
+        <p className="locationapidata"><FaLocationDot className='locationicon'/>{weatherData.location}</p>
       </div>
 
-      <div className="center-data">
-        <h2 className="humidity center-data apidata">
-          Humidity: {weatherData.humidity}%
-        </h2>
-        <h2 className="feels-like center-data apidata">
-          Feels like: {Math.round(Number(weatherData.feels_like))}ºC
-        </h2>
-      </div>
 
-      <div className="emoji-display">
-        <p className="apidata">{weatherData.description}</p>
-        <div className="emoji apidata">{emoji}</div>
+      <div className='tempandemojicontainer'>
+        <div className='tempandemoji'>
+        <p className="temperatureapidata">{Math.round(Number(weatherData.temp))}ºC</p><div className="emojiapidata">{emoji}</div>
+        </div>
+        <div className='humidityFeelslikeDesc'>
+        <p className="apidata">{Math.round(Number(weatherData.temp_min))}º/{Math.round(Number(weatherData.temp_max))}º</p>
+        <p className="humidity">Humidity: {weatherData.humidity}% </p>
+        <p className="feelslike">Feels like: {Math.round(Number(weatherData.feels_like))}ºC</p>
+        <p className="weatherDescription">{weatherData.description}</p>
       </div>
+    </div>
     </div>
   );
 }

@@ -2,6 +2,10 @@ import { temperatureToWeather, rainToWeather, asyncCallHelper } from '../../Util
 import { useEffect, useState } from 'react';
 import Button from '../Button/Button';
 import './OutfitDisplay.css';
+import { IoShirtOutline } from "react-icons/io5";
+import { PiPants } from "react-icons/pi";
+import { LiaShoePrintsSolid } from "react-icons/lia";
+
 
 
 interface WeatherData {
@@ -70,14 +74,14 @@ function OutfitDisplay({weatherData}: WeatherData) {
 
   return (
     <>
-      <div className="container">
+      <div className="OutfitDisplayContainer">
         <div className="random-outfit">
-          <img className="tops clothing-item" src={outfit.top}></img>
-          <img className="bottoms clothing-item" src={outfit.bottom}></img>
-          <img className="shoes clothing-item" src={outfit.shoe}></img>
+          < IoShirtOutline className="tops clothing-item"/>
+          < PiPants className="bottoms clothing-item"/>
+          < LiaShoePrintsSolid className="shoes clothing-item"/>
         </div>
         <div className="buttons">
-          <Button text="Get outfit" onClick={generateOutfit} />
+          <Button text="OutFitMe!" onClick={generateOutfit} />
         </div>
       </div>
     </>
