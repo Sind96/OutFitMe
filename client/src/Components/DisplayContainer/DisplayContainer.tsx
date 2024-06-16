@@ -1,6 +1,8 @@
 import OutfitDisplay from '../OutfitDisplay/OutfitDisplay';
 import WeatherDisplay from '../WeatherDisplay/WeatherDisplay';
 import './DisplayContainer.css';
+import { PiPlusCircle } from "react-icons/pi";
+
 
 function DisplayContainer({ weatherData, emoji, name }) {
   return (

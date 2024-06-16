@@ -5,8 +5,8 @@ import './OutfitDisplay.css';
 import { IoShirtOutline } from "react-icons/io5";
 import { PiPants } from "react-icons/pi";
 import { LiaShoePrintsSolid } from "react-icons/lia";
-
-
+import UploadModal from '../UploadModal/UploadModal';
+import { PiPlusCircle } from "react-icons/pi";
 
 interface WeatherData {
   weatherData: {
@@ -25,6 +25,17 @@ interface WeatherToday {
 }
 
 function OutfitDisplay({weatherData}: WeatherData) {
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+const handleAddItemClick = () => {
+  setIsModalOpen(true);
+};
+
+const handleCloseModal = ()  => {
+  setIsModalOpen(false);
+};
+
   //state to set imgURL's in display
   const [outfit, setOutfit] = useState<Outfit>({
     top: 'https://www.creativefabrica.com/wp-content/uploads/2020/04/21/Tshirt-icon-black-thin-stripe-2-Graphics-3920769-1-1-580x386.jpg',
@@ -83,6 +94,13 @@ function OutfitDisplay({weatherData}: WeatherData) {
         <div className="buttons">
           <Button text="OutFitMe!" onClick={generateOutfit} />
         </div>
+
+        <button className="add-item sidebar-icon" onClick={handleAddItemClick}>
+          {/* onClick open modal/cloudinary widget */}
+          <PiPlusCircle />
+        </button>
+        {isModalOpen && <UploadModal onClose={handleCloseModal} />}
+
       </div>
     </>
   );

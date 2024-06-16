@@ -6,8 +6,7 @@ import {
   PiHeartStraight,
   PiPlusCircle,
 } from 'react-icons/pi';
-import { useState } from 'react';
-import UploadModal from '../UploadModal/UploadModal';
+
 import { IoHomeOutline } from "react-icons/io5";
 import { GiClothes } from "react-icons/gi";
 
@@ -21,15 +20,7 @@ interface SidebarProps {
 function Sidebar({ onMenuClick }: SidebarProps) {
   //TODO: Add functionality to see (1) galleries by item type (2) liked outfits
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const handleAddItemClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = ()  => {
-    setIsModalOpen(false);
-  };
 
   return (
     <>
@@ -50,11 +41,7 @@ function Sidebar({ onMenuClick }: SidebarProps) {
           <PiHeartStraight />
         </button>
 
-        <button className="add-item sidebar-icon" onClick={handleAddItemClick}>
-          {/* onClick open modal/cloudinary widget */}
-          <PiPlusCircle />
-        </button>
-        {isModalOpen && <UploadModal onClose={handleCloseModal} />}
+        
       </div>
     </>
   );

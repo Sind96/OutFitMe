@@ -127,12 +127,12 @@ function App() {
                 name={name}
               />
             ) : (
+              <div className="app-container gallery"> 
               <Gallery itemType={itemType} />
+              </div>
             )}
-        <div className="app-container"> 
-          <div className="sidebar">
+          <div className="app-container">
             <Sidebar onMenuClick={onMenuClick} />
-          </div>
           </div>
          </div>
       )}
