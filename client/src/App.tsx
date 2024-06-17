@@ -26,8 +26,8 @@ function App() {
     description: '',
   });
 
-  const [emoji, setEmoji] = useState('');
-  const [clicked, setClicked] = useState(false);
+  const [emoji, setEmoji] = useState<string>('');
+  const [clicked, setClicked] = useState<boolean>(false);
 
   //GALLERIES
   const [itemType, setItemType] = useState<string>('');
