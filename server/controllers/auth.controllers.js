@@ -58,8 +58,22 @@ exports.login = async (ctx) => {
 }
 
 exports.profile = async (ctx) => {  
+  try {
+    console.log(ctx.state.user)
+    const { _id } = ctx.state.user;
+    const user = await User.findById(_id);
+    if (!user) {
+      return ctx.throw(404, 'User not found');
+    }
 
-} 
+    const { password: hashPassword, ...userData } = user._doc;
+    ctx.status = 200;
+    ctx.body = { user: userData };
+} catch (err) {
+    ctx.status = 500;
+    ctx.body = { message: 'Profile not found' };
+  }
+}
 
 exports.deleteProfile = async (ctx) => {  
 
