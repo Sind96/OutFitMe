@@ -6,11 +6,17 @@ const bodyParser = require('koa-bodyparser');
 const cors = require('@koa/cors');
 const { PORT } = require('./utils/config');
 const router = require('./routes/images.route');
+const authRouter = require('./routes/auth.route');
 
 app.use(cors());
 app.use(bodyParser());
+
+app.use(authRouter.routes());
+// app.use(authRouter.allowedMethods());
 app.use(router.routes());
 app.use(router.allowedMethods());
+
+
 
 app.use(async (ctx, next) => {
   await next();
