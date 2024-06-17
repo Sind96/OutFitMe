@@ -56,8 +56,7 @@ const UploadModal = ({ onClose }: onCloseProps) => {
   const handleTempChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     let { value, checked } = event.target;
     value = value.toLowerCase();
-    console.log("thisisvalue", value);
-    console.log("thisischecked", checked);
+  
     // Case 1 : The user checks the box
     if (checked) {
       setTempChecks((prevTempChecks) => {
