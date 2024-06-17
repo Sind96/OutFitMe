@@ -51,7 +51,7 @@
   font-size: 2em;
   margin: 0;  
   font-family: 'Segoe UI Emoji'; /*This font makes all emojis appear colored*/
-
+  /* padding-top: ; */
 }
 
 .humidityFeelslikeDesc {
