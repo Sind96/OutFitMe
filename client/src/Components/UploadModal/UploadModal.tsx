@@ -56,6 +56,8 @@ const UploadModal = ({ onClose }: onCloseProps) => {
   const handleTempChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     let { value, checked } = event.target;
     value = value.toLowerCase();
+    console.log("thisisvalue", value);
+    console.log("thisischecked", checked);
     // Case 1 : The user checks the box
     if (checked) {
       setTempChecks((prevTempChecks) => {
@@ -167,7 +169,7 @@ const UploadModal = ({ onClose }: onCloseProps) => {
                 id="cold"
                 name="tempRange"
                 value="Cold"
-                checked={formData.tempRange.includes('Cold')}
+                // checked={formData.tempRange.includes('Cold')}
                 onChange={handleTempChange}
               />
               <label htmlFor="cold">Cold</label>
@@ -178,7 +180,7 @@ const UploadModal = ({ onClose }: onCloseProps) => {
                 id="cool"
                 name="tempRange"
                 value="Cool"
-                checked={formData.tempRange.includes('Cool')}
+                // checked={formData.tempRange.includes('Cool')}
                 onChange={handleTempChange}
               />
               <label htmlFor="cool">Cool</label>
@@ -189,7 +191,7 @@ const UploadModal = ({ onClose }: onCloseProps) => {
                 id="warm"
                 name="tempRange"
                 value="Warm"
-                checked={formData.tempRange.includes('Warm')}
+                // checked={formData.tempRange.includes('Warm')}
                 onChange={handleTempChange}
               />
               <label htmlFor="warm">Warm</label>
@@ -200,7 +202,7 @@ const UploadModal = ({ onClose }: onCloseProps) => {
                 id="hot"
                 name="tempRange"
                 value="Hot"
-                checked={formData.tempRange.includes('Hot')}
+                // checked={formData.tempRange.includes('Hot')}
                 onChange={handleTempChange}
               />
               <label htmlFor="hot">Hot</label>
