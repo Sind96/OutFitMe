@@ -1,6 +1,6 @@
 'use strict';
 
-const Image = require('../models/image');
+const Image = require('../models/image.models');
 
 //This method waits in client for cloudinary to send the imURL, then saves the image to the database
 exports.postImage = async (ctx) => {

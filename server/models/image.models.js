@@ -1,6 +1,6 @@
 'use strict';
 
-const mongoose = require('./');
+const mongoose = require('../dbconnect');
 
 const Schema = mongoose.Schema;
 

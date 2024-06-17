@@ -2,7 +2,7 @@
 
 const Router = require('@koa/router');
 const router = new Router();
-const image = require('./controllers/image');
+const image = require('../controllers/image.controllers');
 
 //MVP routes
 router.post('/upload', image.postImage);
