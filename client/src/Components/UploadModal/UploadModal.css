@@ -1,5 +1,6 @@
-/* .modal {
+.modal {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -7,13 +8,13 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
-  overflow: auto;
+  /* height: 100 vh; */
+  /* overflow: auto; */
 }
 
 .modal-background {
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
+  /* background-color:  rgb(0,1,53); */
+  backdrop-filter: blur(15px);
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -23,11 +24,11 @@
 }
 
 .modal-content {
-  background-color: rgba(0, 0, 0, 0.781);
-  color: white;
+  background-color:  rgba(226, 232, 232, 0.127);;
+  color: rgb(0, 0, 0);
   margin: 5% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: none;
   width: 50rem;
   height: 50rem;
   text-align: center;
@@ -61,25 +62,40 @@
 }
 
 .top > h2 {
-  font-size: 2rem;
-  text-decoration: underline;
+  font-size: 2em;
+font-weight: bolder;
+width: 100%;
 }
 
 .form {
-  height: 40rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 40rem;
 }
 
 label {
   font-size: 1.115rem;
+  /* align-items: baseline; */
 }
 
 .fieldset {
   width: 80%;
-  margin-left: 5rem;
+  /* margin-left: 5rem; */
   padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fieldset div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .fieldset > legend {
@@ -127,4 +143,19 @@ label {
   transition: background-color 200ms;
   content: unset;
   font-size: medium;
-} */
+}
+
+.form button {
+  margin: 0.5rem;
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 40px;
+  cursor: pointer;
+  background-color: #f3f4f6;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  margin-right: 16px;
+  transition: background-color 200ms;
+  content: unset;
+  font-size: medium;
+}
