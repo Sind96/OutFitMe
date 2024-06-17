@@ -86,14 +86,11 @@ const handleCloseModal = ()  => {
     <>
       <div className="OutfitDisplayContainer">
         <div className="random-outfit">
-          <div className='iconAndImage'>
           { outfit.top ? 
               <img src={outfit.top} alt="top" className="tops clothing-item" />
             : < IoShirtOutline className="tops clothing-item"/>
           }
          
-        </div>
-
         { outfit.bottom ?
           <img src={outfit.bottom} alt="bottom" className="bottom clothing-item" />
           : < PiPants className="bottoms clothing-item"/> }
@@ -105,10 +102,10 @@ const handleCloseModal = ()  => {
 
         </div>
         <div className="OutFitMeButton">
-        
-        {/* <button className="plusIcon" onClick={handleAddItemClick}><PiPlusCircle /></button> */}
-          <Button className="plusIcon" text="Add Item" onClick={handleAddItemClick} />
+          <div className='buttonsTogether'>
+          <Button className="plusIcon" text="+" onClick={handleAddItemClick} />
           <Button className="outfitMeButton" text="OutFitMe!" onClick={generateOutfit} />
+          </div>
         </div>
       </div>
         {isModalOpen && <UploadModal onClose={handleCloseModal} />}

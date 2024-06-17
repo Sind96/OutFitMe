@@ -9,11 +9,9 @@ interface ButtonProps {
 
 function Button({ className, text, onClick }: ButtonProps) {
   return (
-    <>
       <button className={className} onClick={onClick}>
         {text}
       </button>
-    </>
   );
 }
 
