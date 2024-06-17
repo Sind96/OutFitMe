@@ -3,13 +3,14 @@ import './Button.css';
 interface ButtonProps {
   text: string;
   onClick?: () => void;
+  className: string;
 }
 
 
-function Button({ text, onClick }: ButtonProps) {
+function Button({ className, text, onClick }: ButtonProps) {
   return (
     <>
-      <button className="button" onClick={onClick}>
+      <button className={className} onClick={onClick}>
         {text}
       </button>
     </>
