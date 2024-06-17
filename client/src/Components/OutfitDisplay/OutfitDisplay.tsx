@@ -38,9 +38,9 @@ const handleCloseModal = ()  => {
 
   //state to set imgURL's in display
   const [outfit, setOutfit] = useState<Outfit>({
-    top: 'https://www.creativefabrica.com/wp-content/uploads/2020/04/21/Tshirt-icon-black-thin-stripe-2-Graphics-3920769-1-1-580x386.jpg',
-    bottom:'https://static.vecteezy.com/system/resources/previews/010/347/283/non_2x/pants-boy-garment-line-icon-illustration-vector.jpg',
-    shoe: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Running_shoe_icon.png/640px-Running_shoe_icon.png',
+    top: '',
+    bottom:'',
+    shoe: '',
   });
 
   //state to gather and send current weather info as params in request URLs
@@ -50,7 +50,7 @@ const handleCloseModal = ()  => {
   });
 
   //onclick gather weather info to send via request
-  const generateOutfit = async (event: React.MouseEvent) => {
+  const generateOutfit = async () => {
     gatherWeather();
   };
 
@@ -86,14 +86,26 @@ const handleCloseModal = ()  => {
     <>
       <div className="OutfitDisplayContainer">
         <div className="random-outfit">
-          <div className='iconAndImage'>
-          < IoShirtOutline className="tops clothing-item"/><button className="plusIcon" onClick={handleAddItemClick}><PiPlusCircle /></button>
-        </div>
-          < PiPants className="bottoms clothing-item"/>
-          < LiaShoePrintsSolid className="shoes clothing-item"/>
+          { outfit.top ? 
+              <img src={outfit.top} alt="top" className="tops clothing-item" />
+            : < IoShirtOutline className="tops clothing-item"/>
+          }
+         
+        { outfit.bottom ?
+          <img src={outfit.bottom} alt="bottom" className="bottom clothing-item" />
+          : < PiPants className="bottoms clothing-item"/> }
+          
+        { outfit.shoe ?
+          <img src={outfit.shoe} alt="shoe" className="shoes clothing-item" />
+          :  < LiaShoePrintsSolid className="shoes clothing-item"/>
+        }
+
         </div>
         <div className="OutFitMeButton">
+          <div className='buttonsTogether'>
+          <Button className="plusIcon" text="+" onClick={handleAddItemClick} />
           <Button className="outfitMeButton" text="OutFitMe!" onClick={generateOutfit} />
+          </div>
         </div>
       </div>
         {isModalOpen && <UploadModal onClose={handleCloseModal} />}
