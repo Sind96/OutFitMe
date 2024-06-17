@@ -1,32 +1,68 @@
 .weather-container {
-  background-color: rgb(226, 232, 232);
-  border: solid black;
-  border-radius: 10px;
-  width: 350px;
-  height: 500px;
   display: flex;
+  justify-content: space-evenly;
   flex-direction: column;
   align-content: center;
-  justify-content: space-evenly;
-  padding: 1rem;
-}
-
-.apidata {
-  display: flex;
-  justify-content: center;
-}
-
-.emoji {
-  font-size: 12rem;
-  font-family: 'Segoe UI Emoji'; /*This font makes all emojis appear colored*/
+  background-color: rgb(226, 232, 232);
+  border: solid rgb(0,1,53);
+  border-radius: 20px;
+  width: 100 vw;
+  max-width: 70%;
+  /* height: 100 vh; */
+  padding: 1em 1.5rem;
+  margin-top: 2vh;
 }
 
 .top-data {
-  display: contents;
-
-  justify-content: space-around;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.center-data {
-  font-size: 1.5rem;
+.locationapidata {
+  font-size: 2.5em;
+  font-weight: bolder;
+}
+
+.locationicon {
+  display: inline;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0,1,53); 
+  font-size: 30px;
+}
+
+.tempandemojicontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tempandemoji {
+  font-size: 2em;
+  font-weight: bold;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.emojiapidata {
+  font-size: 2em;
+  margin: 0;  
+  font-family: 'Segoe UI Emoji'; /*This font makes all emojis appear colored*/
+  /* padding-top: ; */
+}
+
+.humidityFeelslikeDesc {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items:end;
+  margin-top: 10vh;
+}
+
+.apidata, .humidity, .feelslike, .weatherDescription {
+  font-size: 1em;
+  font-weight: bolder;
 }

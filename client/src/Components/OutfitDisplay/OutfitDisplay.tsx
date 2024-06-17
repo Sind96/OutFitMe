@@ -2,7 +2,11 @@ import { temperatureToWeather, rainToWeather, asyncCallHelper } from '../../Util
 import { useEffect, useState } from 'react';
 import Button from '../Button/Button';
 import './OutfitDisplay.css';
-
+import { IoShirtOutline } from "react-icons/io5";
+import { PiPants } from "react-icons/pi";
+import { LiaShoePrintsSolid } from "react-icons/lia";
+import UploadModal from '../UploadModal/UploadModal';
+import { PiPlusCircle } from "react-icons/pi";
 
 interface WeatherData {
   weatherData: {
@@ -21,11 +25,21 @@ interface WeatherToday {
 }
 
 function OutfitDisplay({weatherData}: WeatherData) {
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+const handleAddItemClick = () => {
+  setIsModalOpen(true);
+};
+
+const handleCloseModal = ()  => {
+  setIsModalOpen(false);
+};
+
   //state to set imgURL's in display
   const [outfit, setOutfit] = useState<Outfit>({
     top: 'https://www.creativefabrica.com/wp-content/uploads/2020/04/21/Tshirt-icon-black-thin-stripe-2-Graphics-3920769-1-1-580x386.jpg',
-    bottom:
-      'https://static.vecteezy.com/system/resources/previews/010/347/283/non_2x/pants-boy-garment-line-icon-illustration-vector.jpg',
+    bottom:'https://static.vecteezy.com/system/resources/previews/010/347/283/non_2x/pants-boy-garment-line-icon-illustration-vector.jpg',
     shoe: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Running_shoe_icon.png/640px-Running_shoe_icon.png',
   });
 
@@ -70,16 +84,19 @@ function OutfitDisplay({weatherData}: WeatherData) {
 
   return (
     <>
-      <div className="container">
+      <div className="OutfitDisplayContainer">
         <div className="random-outfit">
-          <img className="tops clothing-item" src={outfit.top}></img>
-          <img className="bottoms clothing-item" src={outfit.bottom}></img>
-          <img className="shoes clothing-item" src={outfit.shoe}></img>
+          <div className='iconAndImage'>
+          < IoShirtOutline className="tops clothing-item"/><button className="plusIcon" onClick={handleAddItemClick}><PiPlusCircle /></button>
         </div>
-        <div className="buttons">
-          <Button text="Get outfit" onClick={generateOutfit} />
+          < PiPants className="bottoms clothing-item"/>
+          < LiaShoePrintsSolid className="shoes clothing-item"/>
+        </div>
+        <div className="OutFitMeButton">
+          <Button className="outfitMeButton" text="OutFitMe!" onClick={generateOutfit} />
         </div>
       </div>
+        {isModalOpen && <UploadModal onClose={handleCloseModal} />}
     </>
   );
 }

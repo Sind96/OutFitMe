@@ -111,17 +111,13 @@ function App() {
 
   return (
     <>
-      {!clicked ? (
+       {!clicked ? (
         <LoginPage
           getLocation={getLocation}
           name={name}
           handleName={handleName}
         />
       ) : (
-        <div className="app-container">
-          <div className="sidebar">
-            <Sidebar onMenuClick={onMenuClick} />
-          </div>
 
           <div className="display-container">
             {!gallery ? (
@@ -131,12 +127,16 @@ function App() {
                 name={name}
               />
             ) : (
+              <div className="app-container gallery"> 
               <Gallery itemType={itemType} />
+              </div>
             )}
+          <div className="app-container">
+            <Sidebar onMenuClick={onMenuClick} />
           </div>
-        </div>
+         </div>
       )}
-    </>
+     </>
   );
 }
 export default App;

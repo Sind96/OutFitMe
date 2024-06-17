@@ -107,7 +107,7 @@ const UploadModal = ({ onClose }: onCloseProps) => {
           <span className="close" onClick={onClose}>
             X
           </span>
-          <h2>Upload a new clothing item</h2>
+          <h2>Ready to upload your clothing item?</h2>
         </div>
 
         <form className="form" onSubmit={handleUpload}>
