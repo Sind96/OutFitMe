@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 // import Gallery from './Components/Gallery/Gallery';
 import SignIn from './Pages/Login/signIn';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SignUp from './Pages/Login/signUp';
 
 
 
@@ -31,6 +32,7 @@ function App() {
     <BrowserRouter>
     <Routes>
     <Route path="/" element={<SignIn />}  />
+    <Route path="/signup" element={<SignUp />}  />
     </Routes>
     </BrowserRouter>
        {/* {!clicked ? (
