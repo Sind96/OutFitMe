@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 import { getWeatherData } from './Services/apiService';
 import { IWeatherDisplayProps } from './Types/App.Types';
 // import LoginPage from './Components/LoginPage/LoginPage';
-import SignIn from './pages/Login/SignIn';
-import SignUp from './pages/Login/SignUp';
+import SignIn from './pages/login/SignIn';
+import SignUp from './pages/login/SignUp';
 import Home from './pages/Home/Home';
 
 
