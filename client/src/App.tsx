@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 // import DisplayContainer from './Components/DisplayContainer/DisplayContainer';
 // import LoginPage from './Components/LoginPage/LoginPage';
 // import Gallery from './Components/Gallery/Gallery';
-import SignIn from './Pages/Login/signIn';
+import SignIn from './pages/Login/signIn';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import SignUp from './Pages/Login/signUp';
+import SignUp from './pages/Login/signUp';
 
 
 
@@ -30,10 +30,10 @@ function App() {
   return (
     <>
     <BrowserRouter>
-    <Routes>
-    <Route path="/" element={<SignIn />}  />
-    <Route path="/signup" element={<SignUp />}  />
-    </Routes>
+      <Routes>
+        <Route path="/" element={<SignIn />}  />
+        <Route path="/signup" element={<SignUp />}  />
+      </Routes>
     </BrowserRouter>
        {/* {!clicked ? (
         <LoginPage

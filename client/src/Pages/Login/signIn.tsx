@@ -11,17 +11,41 @@ export default function SignIn () {
     password: ''
   });
 
-  const handleChange = e => {
-    setSignInForm({
-      ...signInForm,
-      [e.target.name]: e.target.value
-    })
-  }
-  
-    //WEATHER
-
+  const [ isLoading, setIsLoading] = useState(false);
+  const [ error, setError] = useState(false);
   const [clicked, setClicked] = useState<boolean>(false);
+  const [emoji, setEmoji] = useState<string>('');
+  const [weatherData, setWeatherData] = useState<IWeatherDisplayProps>({
+    location: '',
+    temp: '',
+    temp_max: '',
+    temp_min: '',
+    humidity: '',
+    feels_like: '',
+    description: '',
+  });  
+  
 
+  const getWeather = (lat: number, lon: number) => {
+    //apiService method for weather gets lat and lon as arguments to add to the url
+    getWeatherData(lat, lon).then((weatherData) => {
+      const {
+        name: location,
+        main: { temp, humidity, feels_like, temp_max, temp_min },
+        weather: [{ main }],
+      } = weatherData;  
+      setWeatherData({
+        location: location,
+        temp: temp,
+        temp_max: temp_max,
+        temp_min: temp_min,
+        humidity: humidity,
+        feels_like: feels_like,
+        description: main,
+      });  
+    });  
+  };    
+  
   const getLocation = (event : React.MouseEvent) => {
     event.preventDefault();
 
@@ -32,78 +56,24 @@ export default function SignIn () {
 
         getWeather(lat, lon);
         setClicked(true);
-      });
+      });  
     } else {
       alert('Please enable geolocation to use this app.'); //TODO: maybe try sweetalert2?  https://sweetalert2.github.io/
-    }
-  };
-
-
-  const getWeather = (lat: number, lon: number) => {
-    //apiService method for weather gets lat and lon as arguments to add to the url
-    getWeatherData(lat, lon).then((weatherData) => {
-      const {
-        name: location,
-        main: { temp, humidity, feels_like, temp_max, temp_min },
-        weather: [{ main }],
-      } = weatherData;
-      setWeatherData({
-        location: location,
-        temp: temp,
-        temp_max: temp_max,
-        temp_min: temp_min,
-        humidity: humidity,
-        feels_like: feels_like,
-        description: main,
-      });
-    });
-  };
-
-  const [weatherData, setWeatherData] = useState<IWeatherDisplayProps>({
-    location: '',
-    temp: '',
-    temp_max: '',
-    temp_min: '',
-    humidity: '',
-    feels_like: '',
-    description: '',
-  });
-
-  const [emoji, setEmoji] = useState<string>('');
-
-    //WEATHER
-    useEffect(() => {
-      if (weatherData.description === '') return;
+    }  
+  };  
   
-      const descriptionToday = weatherData.description;
   
-      switch (descriptionToday) {
-        case 'Thunderstorm':
-          setEmoji('⛈');
-          break;
-        case 'Drizzle':
-          setEmoji('🌧');
-          break;
-        case 'Rain':
-          setEmoji('🌧');
-          break;
-        case 'Snow':
-          setEmoji('🌨');
-          break;
-        case 'Clouds':
-          setEmoji('⛅');
-          break;
-        default: //'Clear'
-          setEmoji('☀');
-      }
-    }, [weatherData.description]);
-  
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-    }
 
-    const [ isLoading, setIsLoading] = useState(false);
-    const [ error, setError] = useState(false);
+  const handleChange = e => {
+    setSignInForm({
+      ...signInForm,
+      [e.target.name]: e.target.value
+    })  
+  }  
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  }  
 
 
   return (
