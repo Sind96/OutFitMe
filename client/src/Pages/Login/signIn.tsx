@@ -1,78 +1,48 @@
 import styles from "./login.module.css"
 import { useState, useEffect } from 'react';
-import { getWeatherData } from '../../Services/apiService';
-import { IWeatherDisplayProps } from '../../Types/App.Types'
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate} from 'react-router-dom';
+import { logIn } from "../../Services/authApiServices";
+import { signInFailed, signInStart, signInSuccess } from "../../store/slices/userSlice";
 
-export default function SignIn () {
-  
+export default function SignIn ({ getLocation }) {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state: any) => state.user);
+
   const [signInForm, setSignInForm] = useState({
     username: '',
     password: ''
   });
 
-  const [ isLoading, setIsLoading] = useState(false);
-  const [ error, setError] = useState(false);
-  const [clicked, setClicked] = useState<boolean>(false);
-  const [emoji, setEmoji] = useState<string>('');
-  const [weatherData, setWeatherData] = useState<IWeatherDisplayProps>({
-    location: '',
-    temp: '',
-    temp_max: '',
-    temp_min: '',
-    humidity: '',
-    feels_like: '',
-    description: '',
-  });  
-  
-
-  const getWeather = (lat: number, lon: number) => {
-    //apiService method for weather gets lat and lon as arguments to add to the url
-    getWeatherData(lat, lon).then((weatherData) => {
-      const {
-        name: location,
-        main: { temp, humidity, feels_like, temp_max, temp_min },
-        weather: [{ main }],
-      } = weatherData;  
-      setWeatherData({
-        location: location,
-        temp: temp,
-        temp_max: temp_max,
-        temp_min: temp_min,
-        humidity: humidity,
-        feels_like: feels_like,
-        description: main,
-      });  
-    });  
-  };    
-  
-  const getLocation = (event : React.MouseEvent) => {
-    event.preventDefault();
-
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-
-        getWeather(lat, lon);
-        setClicked(true);
-      });  
-    } else {
-      alert('Please enable geolocation to use this app.'); //TODO: maybe try sweetalert2?  https://sweetalert2.github.io/
-    }  
-  };  
-  
-  
-
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSignInForm({
       ...signInForm,
       [e.target.name]: e.target.value
     })  
   }  
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    getLocation()
+    dispatch(signInStart())
+    try {
+      const userData = await logIn(signInForm);
+      dispatch(signInSuccess(userData));
+      navigate('/home');
+    } catch (error) {
+      console.log("this is the error",error)
+      const errorMessage = error || "An error occurred. Please try again."
+      dispatch(signInFailed(errorMessage));
+
+    }
+    setSignInForm({
+      username: '',
+      password: ''
+  })
+
   }  
 
 
@@ -103,18 +73,18 @@ export default function SignIn () {
           required
           />
         <button
-          disabled={isLoading}
+          disabled={user.isLoading}
           className="bg-blue-600 text-white p-3 rounded-lg hover:opacity-95 disabled:opacity-60">
-            {isLoading ? 'Creating' : 'SIGN IN'}
+            {user.isLoading ? 'Creating' : 'SIGN IN'}
         </button>
       </form>
       <div className="flex gap-2 mt-5">
         <p>{`Don't have an account?`}</p>
-        <Link to={'/sign-up'}>
+        <Link to={'/signup'}>
           <span className="text-blue-500">Sign up</span>
         </Link>
       </div>
-      <p className="text-red-700 mt-5"> {error ? error  || 'something went wrong' : ''} </p>
+      <p className="text-red-700 mt-5"> {user.error ? user.error  || 'something went wrong' : ''} </p>
     </div>
   </main>
   );

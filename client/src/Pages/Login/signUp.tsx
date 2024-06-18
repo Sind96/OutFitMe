@@ -2,6 +2,9 @@ import styles from "./login.module.css"
 
 export default function SignUp () {
 
+  
+
+
   return (
   <div className={styles.SignUpContainer}>
 

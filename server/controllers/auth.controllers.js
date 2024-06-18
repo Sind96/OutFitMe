@@ -46,6 +46,7 @@ exports.login = async (ctx) => {
     const { password: hashPassword, ...userData } = user._doc;
 
     ctx.cookies.set('accessToken', accessToken, { httpOnly: true });
+    
     ctx.status = 200;
     ctx.body = { 
       message: 'Login successful',
