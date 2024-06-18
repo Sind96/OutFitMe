@@ -1,3 +1,19 @@
+.grid-container {
+  display: grid;
+  /* gap: 50px; */
+  grid-template-rows: auto auto auto;
+  padding: 10px;
+}
+
+.gallery-item {
+  /* border: 1px solid rgba(255, 0, 0, 0.8); */
+  font-size: 30px;
+  text-align: center;
+   height: 120px;
+ width: 300px;
+}
+
+
 /* .gallery-item {
   max-height: 13rem;
   max-width: 13rem;
@@ -9,4 +25,4 @@
   max-height: 18rem;
   max-width: 26rem;
   object-fit: scale-down; */
-} */
+/* } */

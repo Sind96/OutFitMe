@@ -8,9 +8,9 @@ interface GalleryCardProps {
 
 function GalleryCard({ key, source }: GalleryCardProps) {
   return (
-    <>
+    <div className='grid-container'>
       <img className="gallery-item" src={source} key={key}></img>
-    </>
+    </div>
   );
 }
 

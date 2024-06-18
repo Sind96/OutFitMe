@@ -1,0 +1,17 @@
+.flexForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.25em;
+  align-items:center;
+}
+
+.SignInExtra {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-top: 5.5rem;
+}
+
+.SignInExtra p {
+  text-align: center;
+}
