@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { DB_NAME, DB_PORT } = require('./utils/config');
+const { DB_NAME, DB_PORT } = process.env;
 
 mongoose
   .connect(`mongodb://127.0.0.1:${DB_PORT}/${DB_NAME}`, {

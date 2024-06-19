@@ -1,19 +1,21 @@
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Sidebar from './Components/Sidebar/Sidebar';
-import DisplayContainer from './Components/DisplayContainer/DisplayContainer';
+
 import { getWeatherData } from './Services/apiService';
-import LoginPage from './Components/LoginPage/LoginPage';
-import Gallery from './Components/Gallery/Gallery';
-import { IWeatherDisplayProps } from './Types/App.Types'
+import { IWeatherDisplayProps } from './Types/App.Types';
+// import LoginPage from './Components/LoginPage/LoginPage';
+import SignIn from './pages/login/SignIn';
+import SignUp from './pages/login/SignUp';
+import Home from './pages/Home/Home';
+import Profile from './pages/profile/Profile';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+
 
 
 function App() {
   //TODO: Style the page where user accepts to give their location first, have that accept button get weather and random outfit
   // to avoid having to click two buttons
-
-  //NAME
-  const [name, setName] = useState<string>('');
 
   //WEATHER
   const [weatherData, setWeatherData] = useState<IWeatherDisplayProps>({
@@ -27,19 +29,13 @@ function App() {
   });
 
   const [emoji, setEmoji] = useState<string>('');
-  const [clicked, setClicked] = useState<boolean>(false);
 
   //GALLERIES
   const [itemType, setItemType] = useState<string>('');
   const [gallery, setGallery] = useState<string>('');
 
   ////////////////////////////////////////////////////////////////////////////
-
-  //NAME
-  const handleName = (event : React.MouseEvent) => {
-    setName(event.currentTarget.value);
-  };
-
+  
   //WEATHER
   useEffect(() => {
     if (weatherData.description === '') return;
@@ -68,20 +64,19 @@ function App() {
   }, [weatherData.description]);
 
   const getLocation = (event : React.MouseEvent) => {
-    event.preventDefault();
-
+    // event.preventDefault();
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
 
         getWeather(lat, lon);
-        setClicked(true);
       });
     } else {
       alert('Please enable geolocation to use this app.'); //TODO: maybe try sweetalert2?  https://sweetalert2.github.io/
     }
   };
+  
 
   const getWeather = (lat: number, lon: number) => {
     //apiService method for weather gets lat and lon as arguments to add to the url
@@ -109,33 +104,20 @@ function App() {
     setGallery(itemType);
   };
 
+
   return (
     <>
-       {!clicked ? (
-        <LoginPage
-          getLocation={getLocation}
-          name={name}
-          handleName={handleName}
-        />
-      ) : (
-
-          <div className="display-container">
-            {!gallery ? (
-              <DisplayContainer
-                weatherData={weatherData}
-                emoji={emoji}
-                name={name}
-              />
-            ) : (
-              <div className="app-container gallery"> 
-              <Gallery itemType={itemType} />
-              </div>
-            )}
-          <div className="app-container">
-            <Sidebar onMenuClick={onMenuClick} />
-          </div>
-         </div>
-      )}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignIn getLocation={getLocation} />}  />
+        <Route path="/signup" element={<SignUp />}  />
+        <Route element={<PrivateRoute />} >
+          <Route path='/home' element={<Home gallery={gallery} weatherData={weatherData} emoji={emoji} onMenuClick={onMenuClick} itemType={itemType}/>} />
+          <Route path='/profile' element={<Profile />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+       { }
      </>
   );
 }

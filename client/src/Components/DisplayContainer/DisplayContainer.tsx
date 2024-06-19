@@ -12,6 +12,9 @@ interface DisplayContainerProps {
 
 }
 
+
+
+
 function DisplayContainer({ weatherData, emoji, name }: DisplayContainerProps) {
   return (
     <>

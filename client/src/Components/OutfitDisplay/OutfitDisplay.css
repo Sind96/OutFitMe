@@ -1,22 +1,21 @@
-.OutfitDisplayContainer {
+.main {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  align-items: center;
-  border-radius: 20px;
-  background-color: rgb(226, 232, 232);
-  border: solid rgb(0,1,53);
-  margin: 0;
-  margin-top: 3vh;
-  width: 100 vw;
-  max-width: 70%;
-  padding: 0 95px 10px 95px;
+  align-content: center;
+  margin-top: 10px;
 }
 
-.clothing-item {
-  height: 8vh;
-  width: 24vw;
-  padding: 1em 0;
+.OutfitDisplayContainer {
+  margin: 10px 0 100px 0;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-content: center;
+  background-color: rgb(226, 232, 232);
+  border: solid rgb(0,1,53);
+  border-radius: 20px;
+  width: 80%;
 }
 
 .random-outfit {
@@ -24,11 +23,43 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0;
-  padding: 0;
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+  overflow: scroll;
 }
 
-.OutFitMeButton button{
+.clothing-item {
+  width: 30%;
+  height: 50%;
+  padding: 0.1em 0;
+  max-height: 100%;
+  max-width: 100%;
+  margin: 2px;
+}
+
+.buttonsTogether {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button.plusIcon {
+  color: rgb(226, 232, 232);
+  background-color: rgb(5, 157, 0);
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  border: none;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-left: 50px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+button.outfitMeButton {
   color: rgb(226, 232, 232);
   background-color: rgb(5, 157, 0);
   padding: 1em 3em;
@@ -36,44 +67,31 @@
   border-radius: 15px;
   font-size: 0.8em;
   font-weight: bold;
+  margin-right: 50px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
-.iconAndImage {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
-}
 
-.tops {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-left: 22px;
-}
 
-.plusIcon {
-  position: relative;
-  right: -80px;
-  top: -30px;
-  margin: 0;
-  padding: 0;
-  background-color: rgb(226,232,232);
-}
 
-.plusIcon svg {
-background-color: none;
-font-size: 20px;
-color: green;
-background-color: rgb(226,232,232);
-}
 
-.plusIcon {
-font-size: 10px;
-padding: 0;
-border: 0;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* .container {
   background-color: rgb(226, 232, 232);

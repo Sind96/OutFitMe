@@ -6,10 +6,10 @@
   background-color: rgb(226, 232, 232);
   border: solid rgb(0,1,53);
   border-radius: 20px;
-  width: 100 vw;
+  width: 100%;
   max-width: 70%;
   /* height: 100 vh; */
-  padding: 1em 1.5rem;
+  padding: 0.5em 1.5em 0 1.5em;
   margin-top: 2vh;
 }
 
@@ -44,7 +44,7 @@
   font-size: 2em;
   font-weight: bold;
   margin-right: 20px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .emojiapidata {
@@ -59,7 +59,7 @@
   flex-direction: column;
   justify-content: right;
   align-items:end;
-  margin-top: 10vh;
+  /* margin-top: 10vh; */
 }
 
 .apidata, .humidity, .feelslike, .weatherDescription {
