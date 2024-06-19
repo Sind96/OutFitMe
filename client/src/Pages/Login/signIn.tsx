@@ -49,44 +49,44 @@ export default function SignIn ({ getLocation }) {
 
 
   return (
-  <main className="bg-blue-50 h-screen">
-    <div className="p-3 max-w-lg mx-auto ">
-      <h1 className="text-3xl text-center font-semibold my-7"> Sign In </h1>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4 "
-        >
+  <main className={styles.SignIn}>
+    <div>
+     
+    <div className={styles.TopHeader}>
+        <p id={styles.LargeText1}>OutFit<span className={styles.redFont}>Me</span></p>
+        <p>Sign In</p>
+      </div>
+
+
+      <form onSubmit={handleSubmit} className={styles.flexForm} >
         <input
           type="text"
           placeholder="Username"
           name="username"
           value={signInForm.username}
-          className="bg-white p-3 rounded-lg"
           onChange={handleChange}
           required
           />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Password"
           name="password"
           value={signInForm.password}
-          className="bg-white p-3 rounded-lg"
           onChange={handleChange}
           required
           />
-        <button
-          disabled={user.isLoading}
-          className="bg-blue-600 text-white p-3 rounded-lg hover:opacity-95 disabled:opacity-60">
-            {user.isLoading ? 'Creating' : 'SIGN IN'}
+        <button disabled={user.isLoading}>
+            {user.isLoading ? 'Creating' : 'Sign In'} 
         </button>
       </form>
-      <div className="flex gap-2 mt-5">
+
+      <div className={styles.SignInExtra}>
         <p>{`Don't have an account?`}</p>
         <Link to={'/signup'}>
-          <span className="text-blue-500">Sign up</span>
+          <span className={styles.redFont}>Sign up</span>
         </Link>
       </div>
-      <p className="text-red-700 mt-5"> {user.error ? user.error  || 'something went wrong' : ''} </p>
+      <p> {user.error ? user.error  || 'something went wrong' : ''} </p>
     </div>
   </main>
   );

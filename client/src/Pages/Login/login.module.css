@@ -1,8 +1,62 @@
-.flexForm {
+.SignIn {
   display: flex;
   flex-direction: column;
-  row-gap: 1.25em;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 60px;
+  padding-top: 40px;
+}
+
+.TopHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.TopHeader p {
+  margin-top: 20px;
+  padding: 0;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#LargeText1 {
+  font-size: 3em;
+}
+
+.SignIn form input {
+  width: 350px;
+  height: 30px;
+  text-align: left;
+  border: solid 1px #e0e0e0;
+  border-radius: 10px;
+  padding: 0.5em 0.625em;
+}
+
+.flexForm input, select, textarea{
+  color: #ff0000;
+}
+
+.flexForm ::placeholder {
+  color: #ff4c4c;
+}
+
+.SignIn form button {
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  background-color: hsl(0, 100%, 55%);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0.5em 0;
+  margin-top: 1em;
+}
+
+.SignIn form button:hover {
+  cursor: pointer;
+  background-color: hsl(0, 100%, 75%);
 }
 
 .SignInExtra {
@@ -14,4 +68,18 @@
 
 .SignInExtra p {
   text-align: center;
+}
+
+.redFont {
+  color: red;
+  cursor: pointer;
+  height: 100%;
+  padding-block: 1rem;
+}
+
+.flexForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.25em;
+  align-items:center;
 }
