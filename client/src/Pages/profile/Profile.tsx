@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
+import styles from "./index.module.css";
 
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 import { logOut } from '../../Services/authApiServices';
 import { signOut } from '../../store/slices/userSlice';
+import Sidebar from '../../Components/Sidebar/Sidebar';
 
 const baseUrl = 'http://localhost:3000';
 
-export default function Profile() {
+
+export default function Profile({ onMenuClick }) {
   const { currentUser } = useSelector(state => state.user);
   const { token } = useSelector(state => state.user);
   
@@ -18,7 +21,6 @@ export default function Profile() {
   const [username, setUsername] = useState(currentUser.username);
   const [email, setEmail] = useState(currentUser.email);
   // const [password, setPassword] = useState('');
-
 
   const handleSignOut = async () => {
     try {
@@ -64,44 +66,45 @@ export default function Profile() {
   };
 
   return (
-    <div className=' bg-blue-50 h-screen' >
-      <div className='p-3 max-w-lg mx-auto '>
-        <h1 className='text-3xl font-semibold text-center my-7'>
-          Profile
-        </h1>
-        <form className='flex flex-col gap-4' >
+    <div className={styles.ProfileContainer} >
+
+        <h1 className={styles.ProfileHeader}>Profile</h1>
+
+        <form className={styles.form}>
           <img
             src={currentUser.profilePicture}
-            alt='Profile image'
-            className='h-24 w-24 self-center cursor-pointer rounded-full object-cover mt-2'
+            alt='Profile Image'
           />
           <input
             defaultValue={username}
             type='text'
             id='username'
             placeholder='Username'
-            className='bg-white rounded-lg p-3'
             onChange={(e) => setUsername(e.target.value)} // Update username state on change
           />
+          {/* <input
+            defaultValue={password}
+            type='password'
+            id='password'
+            placeholder='Password'
+            onChange={(e) => setEmail(e.target.value)} // Update password state on change
+          /> */}
           <input
             defaultValue={email}
             type='email'
             id='email'
             placeholder='Email'
-            className='bg-white rounded-lg p-3'
             onChange={(e) => setEmail(e.target.value)} // Update email state on change
           />
         </form>
         
-        <div className='flex justify-between mt-5'>
-          <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete Account</span>
-          <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
-            Sign out
-          </span>
+        <div className={styles.buttonContainers}>
+          <button className={styles.UpdateAccount}> Update Account</button>
+          <button className={styles.DeleteAccount} onClick={handleDeleteUser}>Delete Account</button>
         </div>
         {/* Import ToastContainer at the end */}
+        <Sidebar onMenuClick={onMenuClick} />
         <ToastContainer />
-      </div>
     </div>
   );
 }
