@@ -60,19 +60,21 @@ export default function SignUp() {
   }
 
   return (
-    <main className="bg-blue-50 h-screen">
-      <div className="p-3 max-w-lg mx-auto">
-        <h1 className="text-3xl text-center font-semibold my-7"> Register </h1>
-        <form 
+    <main className={styles.SignIn}>
+        
+        <div className={styles.TopHeader}>
+        <p id={styles.LargeText1}>OutFitMe</p>
+        <p>Sign Up</p>
+      </div>
+
+        <form className={styles.flexForm}
           onSubmit={handleSubmit} 
-          className="flex flex-col gap-4 "
           >
           <input 
             type="text" 
             placeholder="Username" 
             name="username" 
             value={signUpForm.username}
-            className="bg-white p-3 rounded-lg"
             onChange={handleChange}
             required
             />
@@ -81,7 +83,6 @@ export default function SignUp() {
             placeholder="email" 
             name="email" 
             value={signUpForm.email}
-            className="bg-white p-3 rounded-lg"
             onChange={handleChange}
             required
             />
@@ -90,27 +91,24 @@ export default function SignUp() {
             placeholder="password" 
             name="password" 
             value={signUpForm.password}
-            className="bg-white p-3 rounded-lg"
             onChange={handleChange}
             required
           />
         
           <button 
-            disabled={isLoading} 
-            className="bg-blue-600 text-white p-3 rounded-lg hover:opacity-95 disabled:opacity-80">
+            disabled={isLoading} >
               {isLoading ? 'Creating... ' : 'SIGN UP'}
           </button>
         </form>
 
-        <div className="flex gap-2 mt-5">
+        <div className={styles.SignInExtra2}>
           <p>Have an account?</p>
           <Link to={'/'}>
-            <span className="text-blue-500">Sign in</span>
+            <span>Sign in</span>
           </Link>
         </div>
-        <p className="text-red-700 mt-5"> {error && 'something went wrong'} </p>
+        <p> {error && 'something went wrong'} </p>
         <ToastContainer />  
-      </div>
     </main>
   )
 }

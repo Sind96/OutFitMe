@@ -88,3 +88,14 @@
   row-gap: 1.25em;
   align-items:center;
 }
+
+.SignInExtra2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5.5rem;
+  font-size: 1.1em;
+  padding-bottom: 205px;
+  font-weight: bold;
+}

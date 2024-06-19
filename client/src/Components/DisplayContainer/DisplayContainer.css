@@ -4,13 +4,13 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 100vw;
 }
 
 .welcome-message {
   font-size: 2em;
   text-align: center;
-  margin-top: 1.4em;
+  /* margin-top: 1.4em; */
+  margin: 1em 0.8em 0 0.8em;
 }
 
 .subtext {
@@ -19,6 +19,7 @@
   margin: 0 5px;
 }
 
-.Addicon {
-  font-size: 50px;
+.welcome-message span {
+  font-size: 0.5em;
+  text-align: center;
 }
