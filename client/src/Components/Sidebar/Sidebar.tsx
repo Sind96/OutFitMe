@@ -9,7 +9,12 @@ import {
 
 import { IoHomeOutline } from "react-icons/io5";
 import { GiClothes } from "react-icons/gi";
-
+import { CiLogout } from "react-icons/ci";
+import { CgProfile } from "react-icons/cg";
+import { logOut } from '../../Services/authApiServices';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { signOut } from '../../store/slices/userSlice';
 
 
 
@@ -19,7 +24,26 @@ interface SidebarProps {
 
 function Sidebar({ onMenuClick }: SidebarProps) {
   //TODO: Add functionality to see (1) galleries by item type (2) liked outfits
+  const dispatch = useDispatch();
 
+
+  
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+      dispatch(signOut());
+
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        console.error('Unauthorized: Invalid session or token.');
+      } else { 
+        console.error('Error signing out:', error);
+      }
+    } finally {
+      localStorage.removeItem('accessToken');
+      window.location.href = '/';
+    }
+  };
 
 
   return (
@@ -39,6 +63,12 @@ function Sidebar({ onMenuClick }: SidebarProps) {
         </button>
         <button className="sidebar-icon">
           <PiHeartStraight />
+        </button>
+        {/* <Link to={'/profile'} className="sidebar-icon">
+          <CgProfile />
+        </Link> */}
+        <button onClick={handleSignOut} className="sidebar-icon">
+          <CiLogout />
         </button>
 
         
