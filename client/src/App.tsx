@@ -8,6 +8,8 @@ import { IWeatherDisplayProps } from './Types/App.Types';
 import SignIn from './pages/login/SignIn';
 import SignUp from './pages/login/SignUp';
 import Home from './pages/Home/Home';
+import Profile from './pages/profile/Profile';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 
 
@@ -103,14 +105,16 @@ function App() {
   };
 
 
-
   return (
     <>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SignIn getLocation={getLocation} />}  />
         <Route path="/signup" element={<SignUp />}  />
-        <Route path='/home' element={<Home gallery={gallery} weatherData={weatherData} emoji={emoji} onMenuClick={onMenuClick} itemType={itemType}/>} />
+        <Route element={<PrivateRoute />} >
+          <Route path='/home' element={<Home gallery={gallery} weatherData={weatherData} emoji={emoji} onMenuClick={onMenuClick} itemType={itemType}/>} />
+          <Route path='/profile' element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
        { }
