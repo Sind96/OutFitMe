@@ -6,7 +6,6 @@ const cors = require('@koa/cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const  PORT  = process.env.PORT || 3000;
 const app = new Koa();
 
 const authRouter = require('./routes/auth.route');
@@ -34,7 +33,5 @@ app.use(async (ctx, next) => {
 app.use(async (ctx) => {
   ctx.body = 'This will eventually be an app.';
 });
-
-app.listen(PORT, () => console.log(`🚀 Server running on ${PORT}`));
 
 module.exports = app;

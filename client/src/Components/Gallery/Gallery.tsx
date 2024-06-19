@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { getAllItemsFromCat } from '../../Services/apiService';
 import { IItemGallery, IGalleryProps } from './Gallery.Types';
 import { useSelector } from 'react-redux';
+import React from 'react'
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 function Gallery( {itemType}: IGalleryProps ) {
 const {currentUser } = useSelector((state: any) => state.user);
@@ -25,7 +28,7 @@ const {currentUser } = useSelector((state: any) => state.user);
         <div className="gallery-items">
           {itemGallery.map((item) => (
             <li key={item._id}>
-            <GalleryCard  source={item.imgURL} />
+            <Zoom><GalleryCard  source={item.imgURL} /></Zoom>
             </li>
           ))}
         </div>

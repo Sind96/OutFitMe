@@ -1,0 +1,76 @@
+.ProfileContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ProfileHeader {
+  text-align: center;
+  margin-top: 1.2em;
+  color: #0D0061;
+  font-weight: bolder;
+  font-size: 35px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form img {
+  width: 200px;
+  margin: 30px 0 25px 0;
+  border: 2px solid#000135;
+}
+
+.form  input {
+  width: 300px;
+  height: 30px;
+  text-align: left;
+  border: solid 2px #000135;
+  border-radius: 10px;
+  padding: 0.5em 0.625em;
+  margin: 5px 0 30px 0;
+}
+
+.form input, select, textarea{
+  color: #000135;
+}
+
+.buttonContainers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+
+.UpdateAccount {
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  background-color: hsl(113, 100%, 29%);
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.5em 0;
+  margin-top: 1em;
+  margin-right: 10px;
+}
+
+.DeleteAccount {
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  background-color: hsl(0, 100%, 33%);
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.5em 0;
+  margin-top: 1em;
+  margin-left: 10px;
+}

@@ -64,7 +64,7 @@ function Sidebar({ onMenuClick }: SidebarProps) {
     <>
       <div className="sidebar-nav">
         <button className="sidebar-icon" onClick={() => onMenuClick('')}>
-        <IoHomeOutline />
+        <Link to={'/home'} className="sidebar-icon" > <IoHomeOutline /> </Link>
         </button>
         
         <button className="sidebar-icon">

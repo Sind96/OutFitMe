@@ -6,7 +6,9 @@ import { IoShirtOutline } from "react-icons/io5";
 import { PiPants } from "react-icons/pi";
 import { LiaShoePrintsSolid } from "react-icons/lia";
 import UploadModal from '../UploadModal/UploadModal';
-import { PiPlusCircle } from "react-icons/pi";
+import React from 'react'
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 interface WeatherData {
   weatherData: {
@@ -87,16 +89,16 @@ const handleCloseModal = ()  => {
       <div className="OutfitDisplayContainer">
         <div className="random-outfit">
           { outfit.top ? 
-              <img src={outfit.top} alt="top" className="tops clothing-item" />
+              <Zoom><img src={outfit.top} alt="top" className="tops clothing-item" /></Zoom>
             : < IoShirtOutline className="tops clothing-item"/>
           }
          
         { outfit.bottom ?
-          <img src={outfit.bottom} alt="bottom" className="bottom clothing-item" />
+          <Zoom><img src={outfit.bottom} alt="bottom" className="bottom clothing-item" /></Zoom>
           : < PiPants className="bottoms clothing-item"/> }
           
         { outfit.shoe ?
-          <img src={outfit.shoe} alt="shoe" className="shoes clothing-item" />
+          <Zoom><img src={outfit.shoe} alt="shoe" className="shoes clothing-item" /></Zoom>
           :  < LiaShoePrintsSolid className="shoes clothing-item"/>
         }
 

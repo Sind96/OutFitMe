@@ -162,7 +162,7 @@ const UploadModal = ({ onClose }: onCloseProps) => {
 
           <fieldset className=" fieldset temperature">
             <legend>For which temperature is it comfortable?</legend>
-            <div>
+            <div className='check'>
               <input
                 type="checkbox"
                 id="cold"
