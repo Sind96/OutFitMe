@@ -49,11 +49,10 @@ export default function SignIn ({ getLocation }) {
 
 
   return (
-  <main className={styles.SignIn}>
-    <div>
+  <main className={styles.SignIn} >
      
     <div className={styles.TopHeader}>
-        <p id={styles.LargeText1}>OutFit<span className={styles.redFont}>Me</span></p>
+        <p id={styles.LargeText1}>OutFitMe</p>
         <p>Sign In</p>
       </div>
 
@@ -83,11 +82,10 @@ export default function SignIn ({ getLocation }) {
       <div className={styles.SignInExtra}>
         <p>{`Don't have an account?`}</p>
         <Link to={'/signup'}>
-          <span className={styles.redFont}>Sign up</span>
+          <span className={styles.blueFont}>Sign up</span>
         </Link>
       </div>
-      <p> {user.error ? user.error  || 'something went wrong' : ''} </p>
-    </div>
+      <p> {user.error ? user.error  || 'Something went wrong logging in...' : ''} </p>
   </main>
   );
 }
