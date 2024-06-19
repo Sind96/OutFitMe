@@ -5,12 +5,12 @@ import { Link, useNavigate} from 'react-router-dom';
 import { logIn } from "../../Services/authApiServices";
 import { signInFailed, signInStart, signInSuccess } from "../../store/slices/userSlice";
 
-export default function SignIn ({ getLocation }) {
+export default function SignIn ({ getLocation }:any) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((state: any) => state.user);
+  const { isLoading , error} = useSelector((state: any) => state.user);
 
   const [signInForm, setSignInForm] = useState({
     username: '',
@@ -74,8 +74,8 @@ export default function SignIn ({ getLocation }) {
           onChange={handleChange}
           required
           />
-        <button disabled={user.isLoading}>
-            {user.isLoading ? 'Creating' : 'Sign In'} 
+        <button disabled={isLoading}>
+            {isLoading ? 'Creating' : 'Sign In'} 
         </button>
       </form>
 
@@ -85,7 +85,7 @@ export default function SignIn ({ getLocation }) {
           <span className={styles.blueFont}>Sign up</span>
         </Link>
       </div>
-      <p> {user.error ? user.error  || 'Something went wrong logging in...' : ''} </p>
+      <p> {error ? error  || 'Something went wrong logging in...' : ''} </p>
   </main>
   );
 }
