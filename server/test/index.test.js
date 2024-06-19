@@ -18,9 +18,5 @@ describe('Index Routes', () => {
         expect(response.status).toEqual(200);
     })
 
-    // it('POST /upload', async () => {
-    //     const response = await request.post('/upload');
-    //     expect(response.status).toEqual(200);
-    // })
 })
 
