@@ -34,11 +34,9 @@ function Sidebar({ onMenuClick }: SidebarProps) {
       dispatch(signOut());
 
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        console.error('Unauthorized: Invalid session or token.');
-      } else { 
-        console.error('Error signing out:', error);
-      }
+      
+      console.error('Unauthorized: Invalid session or token.');
+
     } finally {
       localStorage.removeItem('accessToken');
       window.location.href = '/';
