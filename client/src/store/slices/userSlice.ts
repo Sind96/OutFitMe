@@ -22,7 +22,7 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.error = false;
     },
-    signInFailed: (state, action) => {
+    signInFailed: (state) => {
       state.isLoading = false;
       state.error = false;
     },
