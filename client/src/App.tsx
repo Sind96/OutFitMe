@@ -107,18 +107,17 @@ function App() {
 
   return (
     <>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<SignIn getLocation={getLocation} />}  />
-        <Route path="/signup" element={<SignUp />}  />
-        <Route element={<PrivateRoute />} >
-          <Route path='/home' element={<Home gallery={gallery} weatherData={weatherData} emoji={emoji} onMenuClick={onMenuClick} itemType={itemType}/>} />
-          <Route path='/profile' element={<Profile />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-       { }
-     </>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SignIn getLocation={getLocation} />}  />
+          <Route path="/signup" element={<SignUp />}  />
+          <Route element={<PrivateRoute />} >
+            <Route path='/home' element={<Home gallery={gallery} weatherData={weatherData} emoji={emoji} onMenuClick={onMenuClick} itemType={itemType}/>} />
+            <Route path='/profile' element={<Profile />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 export default App;
