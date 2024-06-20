@@ -46,7 +46,8 @@ const userSlice = createSlice({
       state.error = false;
     },
     updateUserInfo: (state, action) => {
-      state.currentUser = action.payload;
+      state.currentUser.username = action.payload.username;
+      state.currentUser.email = action.payload.email;
     },
     
   },

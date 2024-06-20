@@ -33,6 +33,7 @@ export default function Profile({ onMenuClick }) {
       };
       await updateUser( currentUser._id, token, updates);
       dispatch(updateUserInfo(updates));
+      toast.success("Your profile has been successfully updated.")
     } catch (e) {
       console.log(`There has been an error with handleUpdateUser`, e)
     }
