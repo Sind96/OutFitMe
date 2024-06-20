@@ -2,7 +2,7 @@ import { render as rtlRender, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from 'react-router-dom';
 
-import SignIn from "../Pages/Login/signIn2";
+import SignIn from "../Pages/Login/SignIn";
 import { store } from "../store/store";
 import { ReactNode } from "react";
 import { JSX } from "react/jsx-runtime";
