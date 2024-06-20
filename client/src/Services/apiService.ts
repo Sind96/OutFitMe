@@ -47,7 +47,6 @@ const getWeatherData = (lat: number, lon: number) => {
 
 //Get random item from database according to passed params
 const getRandomItem = async (item : string, tempToday: string, rainToday: boolean) => {
-  console.log("item", item)
   const randomItem = await fetch(
     `${baseURL}/getRandomItem/${item}/${tempToday}/${rainToday}`
   )

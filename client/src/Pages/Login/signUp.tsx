@@ -80,7 +80,7 @@ export default function SignUp() {
             />
           <input 
             type="text" 
-            placeholder="email" 
+            placeholder="Email" 
             name="email" 
             value={signUpForm.email}
             onChange={handleChange}
@@ -88,7 +88,7 @@ export default function SignUp() {
             />
           <input 
             type="password" 
-            placeholder="password" 
+            placeholder="Password" 
             name="password" 
             value={signUpForm.password}
             onChange={handleChange}
