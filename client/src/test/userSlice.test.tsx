@@ -1,5 +1,7 @@
 import { current } from '@reduxjs/toolkit';
 import reducer, { signInStart, signInFailed, signInSuccess } from '../store/slices/userSlice';
+import exp from 'constants';
+import { error } from 'console';
 
 
 const initialState = {
@@ -24,9 +26,7 @@ test('should return the initial state', () => {
 })
 
 test('should set the isLoading to true in case of signInStart', () => {
-  const previousState = initialState;
-
-  expect(reducer(previousState, signInStart())).toEqual(
+  expect(reducer(initialState, signInStart())).toEqual(
     { 
       currentUser: null,
       token: null,
@@ -36,3 +36,24 @@ test('should set the isLoading to true in case of signInStart', () => {
     }
   )
 })
+
+test('should set isLoading to false and error to false in case of signInFailed', () => {
+  const previousState = {
+    currentUser: null,
+    token: null,
+    favoriteOutfits: [],
+    isLoading: true,
+    error: false,
+  };
+
+  expect(reducer(previousState, signInFailed())).toEqual(
+    { 
+      currentUser: null,
+      token: null,
+      favoriteOutfits: [],
+      isLoading: false,
+      error: false,
+    }
+  )
+})
+
