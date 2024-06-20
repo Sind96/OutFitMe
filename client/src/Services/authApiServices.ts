@@ -61,3 +61,16 @@ export const deleteUser = async (id, token) => {
     }, 
   })
 } 
+
+export const updateUser = async (id, token, updates) => {
+  const user = await fetch(`${baseUrl}/profile/update/${id}` , {
+    method: "PUT",
+    headers: {
+     "Content-Type": "application/json", 
+      "Authorization": `${token}`,
+    },
+    body: JSON.stringify( updates )
+  })
+  const updatedUserInfo = await user.json()
+  return updatedUserInfo
+}

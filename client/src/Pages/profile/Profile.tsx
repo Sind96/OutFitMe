@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import styles from "./index.module.css";
-import { deleteUser } from '../../Services/authApiServices';
+import { deleteUser, updateUser } from '../../Services/authApiServices';
+import { updateUserInfo } from '../../store/slices/userSlice';
 
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 
@@ -23,6 +24,20 @@ export default function Profile({ onMenuClick }) {
   // const [password, setPassword] = useState('');
 
  
+  const handleUpdateUser = async (event) => {
+    try {
+      event.preventDefault();
+      const updates = { 
+        username,
+        email
+      };
+      await updateUser( currentUser._id, token, updates);
+      dispatch(updateUserInfo(updates));
+    } catch (e) {
+      console.log(`There has been an error with handleUpdateUser`, e)
+    }
+  }
+
   const handleDeleteUser = async (event) => {
     try {
       event.preventDefault();
@@ -60,7 +75,7 @@ export default function Profile({ onMenuClick }) {
         </form>
         
         <div className={styles.buttonContainers}>
-          <button className={styles.UpdateAccount}> Update Account</button>
+          <button className={styles.UpdateAccount} onClick={handleUpdateUser}> Update Account</button>
           <button className={styles.DeleteAccount} onClick={handleDeleteUser}>Delete Account</button>
         </div>
         <Sidebar onMenuClick={onMenuClick} />

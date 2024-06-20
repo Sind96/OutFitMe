@@ -79,11 +79,11 @@ exports.profile = async (ctx) => {
 exports.deleteProfile = async (ctx) => {  
   try {
     const { id } = ctx.params;
-    const result = await User.findByIdAndDelete(id);
-    if (!result) {
+    if (!id) {
       ctx.status = 404;
       ctx.body = { message: `User not found by ${id}` }
     } else {
+      const result = await User.deleteOne({ _id : id });
       ctx.status = 200;
       ctx.body = { message: `User has been successfully deleted` }
     }
@@ -94,7 +94,22 @@ exports.deleteProfile = async (ctx) => {
 }
 
 exports.updateProfile = async (ctx) => {    
-
+  try {
+    const { id } = ctx.params;
+    const updates = ctx.request.body;
+    console.log("thisisupdates" , updates);
+    if (!id) {
+      ctx.status = 404;
+      ctx.body = { message: `User not found by ${id}` }
+    } else {
+      const result = await User.findByIdAndUpdate( id, updates, {new : true});
+      ctx.status = 200;
+      ctx.body = result;
+    }
+  } catch (e) {
+    ctx.status = 500;
+    console.log('Error updating profile',e)
+  }
 } 
 
 exports.getFavorites = async (ctx) => { 
