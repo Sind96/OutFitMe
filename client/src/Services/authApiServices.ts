@@ -49,3 +49,15 @@ export const logIn = async ({ username, password}) => {
 export const logOut = async () => {
   await fetch(`${baseUrl}/auth/signout`) 
 }  
+
+
+
+export const deleteUser = async (id, token) => {
+  const user = await fetch(`${baseUrl}/profile/delete/${id}` , {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json", 
+      "Authorization": `${token}`
+    }, 
+  })
+} 

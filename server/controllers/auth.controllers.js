@@ -77,8 +77,21 @@ exports.profile = async (ctx) => {
 }
 
 exports.deleteProfile = async (ctx) => {  
-
-} 
+  try {
+    const { id } = ctx.params;
+    const result = await User.findByIdAndDelete(id);
+    if (!result) {
+      ctx.status = 404;
+      ctx.body = { message: `User not found by ${id}` }
+    } else {
+      ctx.status = 200;
+      ctx.body = { message: `User has been successfully deleted` }
+    }
+  } catch (e) {
+    ctx.status = 500;
+    console.log('Error deleting profile',e)
+  }
+}
 
 exports.updateProfile = async (ctx) => {    
 

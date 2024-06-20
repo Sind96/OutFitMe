@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import styles from "./index.module.css";
+import { deleteUser } from '../../Services/authApiServices';
 
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 
@@ -22,8 +23,13 @@ export default function Profile({ onMenuClick }) {
   // const [password, setPassword] = useState('');
 
  
-  const handleDeleteUser = async () => {
-    
+  const handleDeleteUser = async (event) => {
+    try {
+      event.preventDefault();
+      await deleteUser(currentUser._id, token)
+    } catch (e) {
+      console.log(`There has been an error with handleDeleteUser`, e)
+    }
   };
 
   return (
