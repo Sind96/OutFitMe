@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react';
 import { getWeatherData } from './Services/apiService';
 import { IWeatherDisplayProps } from './Types/App.Types';
 // import LoginPage from './Components/LoginPage/LoginPage';
-import SignIn from './pages/login/SignIn';
-import SignUp from './pages/login/SignUp';
-import Home from './pages/Home/Home';
-import Profile from './pages/profile/Profile';
+import SignIn from './Pages/Login/SignIn';
+import SignUp from './Pages/Login/SignUp';
+import Home from './Pages/Home/Home';
+import Profile from './Pages/profile/Profile';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 
