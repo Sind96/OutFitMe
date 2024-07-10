@@ -70,7 +70,6 @@ The outfit randomizer display includes a live weather update for the user's loca
 [![Prettier][Prettier]][Prettier-url]
 [![Jest][Jest]][Jest-url]
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
@@ -104,6 +103,10 @@ In order to get OutFitMe to work, there are two external services that need to b
     - In "Settings", another sidebar will become visible. Click on "API Keys" and save your **Cloud name** to add it to the .env file.
     - Make sure you have an **Active** key, and save its **API Key** and **API Secret** to add them to the .env file.
     - In "Settings", click on "Upload Presets" and add a new preset with Signing mode **Unsigned**. Leave all other options as is and save it, then save its **Name** to add it to the .env file.
+
+- Create a Database:
+  - [MongoDB Database](https://cloud.mongodb.com/v2/667ad5e61adbb32502264a5b#/overview/)
+    Set up your database account.
 
 Once you have collected all necessary information from both services, create a .env file in the client folder, and add the information like this:
 
@@ -195,18 +198,11 @@ Sulo Siguur- [Github](https://github.com/Runicsaber) - [LinkedIn](https://www.li
 [Prisma-url]: https://www.prisma.io/docs
 [Vite]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
 [Vite-url]: https://vitejs.dev/
-
 [Jest]: https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
 [Jest-url]: https://jestjs.io/docs/getting-started
-
 [Koa]: https://img.shields.io/badge/Koa-33333D?logo=koa&logoColor=fff&style=for-the-badge
 [Koa-url]: https://koajs.com/#introduction
-
-
 [JWT]: https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens
 [JWT-url]: https://jwt.io/introduction
-
 [Cloudinary-Badge]: https://img.shields.io/badge/Cloudinary-3448C5?logo=cloudinary&logoColor=fff&style=for-the-badge
 [Cloudinary-Badge-url]: https://cloudinary.com/documentation
-
-
