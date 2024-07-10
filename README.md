@@ -59,12 +59,17 @@ The outfit randomizer display includes a live weather update for the user's loca
 [![React.js][React.js]][React-url]
 [![Vite][Vite]][Vite-url]
 [![TypeScript][TypeScript]][TypeScript-url]
-[![Redux][Redux]][Redux-url]
+[![Koa][Koa]][Koa-url]
 [![MongoDB][Mongo-Db]][Mongo-Db-url]
+[![Cloudinary-Badge][Cloudinary-Badge]][Cloudinary-Badge-url]
+[![Redux][Redux]][Redux-url]
+[![JWT][JWT]][JWT]
 [![Git][Git]][Git-url]
 [![GitHub][GitHub]][GitHub-url]
 [![ESLint][ESLint]][ESLint-url]
 [![Prettier][Prettier]][Prettier-url]
+[![Jest][Jest]][Jest-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -190,3 +195,18 @@ Sulo Siguur- [Github](https://github.com/Runicsaber) - [LinkedIn](https://www.li
 [Prisma-url]: https://www.prisma.io/docs
 [Vite]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
 [Vite-url]: https://vitejs.dev/
+
+[Jest]: https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
+[Jest-url]: https://jestjs.io/docs/getting-started
+
+[Koa]: https://img.shields.io/badge/Koa-33333D?logo=koa&logoColor=fff&style=for-the-badge
+[Koa-url]: https://koajs.com/#introduction
+
+
+[JWT]: https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens
+[JWT-url]: https://jwt.io/introduction
+
+[Cloudinary-Badge]: https://img.shields.io/badge/Cloudinary-3448C5?logo=cloudinary&logoColor=fff&style=for-the-badge
+[Cloudinary-Badge-url]: https://cloudinary.com/documentation
+
+
