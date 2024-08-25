@@ -46,12 +46,6 @@ OutFitMe is a user-friendly application that enables users to upload pictures of
 
 The outfit randomizer display includes a live weather update for the user's location. Additionally, the sidebar features icons that lead to galleries of all uploaded items categorized by type.
 
-<div align='center'>
-<img src="client/public/LoginSignUp.png" alt="Login and Sign Up" height=""> <br>
-<img src="client/public/HomeAndSettings.png" alt="Home and Settings" height=""> <br>
-<img src="client/public/Clothings.png" alt="Clothings" height="">
-</div>
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
