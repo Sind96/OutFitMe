@@ -189,3 +189,35 @@ client/
 * Easier onboarding for other developers.
 * Better separation of concerns.
 * More aligned with industry-standard Express applications.
+
+---
+
+## Test Audit
+
+### Current Testing Setup
+Backend currently uses:
+- Jest
+- Supertest
+
+Frontend currently uses:
+- Vitest
+- React Testing Library
+
+### Backend Test Issues
+- Tests are currently written for the Koa app.
+- Supertest uses `app.listen()`, which is Koa-specific in this project.
+- Some route tests call incomplete URLs.
+- `GET /getAllItems` is tested without the required `:item` param.
+- `GET /getRandomItem` is tested without the required `:item`, `:tempToday`, and `:rainToday` params.
+- Tests mostly check status codes rather than response bodies or database behaviour.
+- Profile route test is commented out.
+- Auth tests depend on database state.
+
+### Planned Testing Improvements
+- Update tests to work with Express using `request(app)`.
+- Add proper auth tests for register, login, logout, and profile.
+- Add protected route tests.
+- Add clothing item route tests.
+- Add validation error tests.
+- Add ownership/authorisation tests.
+- Use test database setup and teardown more deliberately.
