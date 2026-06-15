@@ -71,3 +71,42 @@ Frontend clean-up notes:
 - Review duplicated Cloudinary packages
 - Review API services
 - Improve TypeScript coverage
+
+## Backend Route Audit
+
+### Auth routes
+Current routes:
+- POST /register
+- POST /login
+- GET /profile
+- DELETE /profile/delete/:id
+- PUT /profile/update/:id
+- GET /favorites
+- PUT /favorites/add/:id
+- PUT /favorites/remove/:id
+- GET /logout
+
+Issues:
+- Profile delete route is not protected.
+- Profile update route is not protected.
+- Favourite routes are empty in the controller.
+- Auth uses SECRET_KEY but middleware may use JWT_SECRET.
+- Tokens are returned in response body and also stored in cookies.
+- JWTs do not currently have an expiry.
+- Input validation is missing.
+
+### Image routes
+Current routes:
+- POST /upload
+- GET /getRandomItem/:item/:tempToday/:rainToday
+- GET /getAllItems/:item
+- GET /test
+
+Issues:
+- Upload route is not protected.
+- Image records are not linked to a user.
+- Request body is trusted directly.
+- getRandomItem should handle no matching items cleanly.
+- getAllItems uses incorrect empty array comparison.
+- Route names are not REST-style.
+- /test route should become a proper health check or be removed.
