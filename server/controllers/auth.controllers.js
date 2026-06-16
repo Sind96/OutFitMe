@@ -1,136 +1,184 @@
-const User = require('../models/user.models');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const SECRET_KEY = process.env.SECRET_KEY || 'secretkey';
+const User = require("../models/user.models");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
+const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
 
-exports.register = async (ctx) => {
-  const { username, email, password } = ctx.request.body;
-  const user = await User.findOne({ email: email});
-
-  if (user) {
-    return ctx.throw(409, 'Username already exists');
-  }
-
-  const hashPassword = await bcrypt.hashSync(password, 10);
-  const newUser = new User({ username , email, password: hashPassword });
-
+exports.register = async (req, res) => {
   try {
-    const { _id } = await newUser.save();
-    const accessToken = jwt.sign({ _id }, SECRET_KEY);
-    ctx.status = 201;
-    ctx.body = { 
-      message: 'User created successfully',
-      accessToken
-    };
+    const { username, email, password } = req.body;
+
+    const existingUser = await User.findOne({
+      $or: [{ email }, { username }],
+    });
+
+    if (existingUser) {
+      return res.status(409).json({
+        message: "Username or email already exists",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await User.create({
+      username,
+      email,
+      password: hashedPassword,
+    });
+
+    const accessToken = jwt.sign({ userId: newUser._id }, JWT_SECRET);
+
+    return res.status(201).json({
+      message: "User created successfully",
+      accessToken,
+    });
   } catch (err) {
-    ctx.throw(500, err);
-  }
-}
+    console.error("register error:", err);
 
-exports.login = async (ctx) => {
+    return res.status(500).json({
+      message: "Registration failed",
+    });
+  }
+};
+
+exports.login = async (req, res) => {
   try {
-    const { username, password } = ctx.request.body;
+    const { username, password } = req.body;
 
     const user = await User.findOne({ username });
+
     if (!user) {
-      return ctx.throw(401, 'Invalid credentials');
+      return res.status(401).json({
+        message: "Invalid credentials",
+      });
     }
 
-    const isPasswordValid = bcrypt.compareSync(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
     if (!isPasswordValid) {
-      return ctx.throw(401, 'Invalid credentials');
+      return res.status(401).json({
+        message: "Invalid credentials",
+      });
     }
 
-    const accessToken = jwt.sign({ _id: user._id }, SECRET_KEY);
-    const { password: hashPassword, ...userData } = user._doc;
+    const accessToken = jwt.sign({ userId: user._id }, JWT_SECRET);
 
-    ctx.cookies.set('accessToken', accessToken, { httpOnly: true });
-    
-    ctx.status = 200;
-    ctx.body = { 
-      message: 'Login successful',
+    const { password: hashedPassword, ...userData } = user._doc;
+
+    return res.status(200).json({
+      message: "Login successful",
       accessToken,
-      user: userData
-    };
+      user: userData,
+    });
   } catch (err) {
-    ctx.throw(500, err);
-  }
-}
+    console.error("login error:", err);
 
-exports.profile = async (ctx) => {  
+    return res.status(500).json({
+      message: "Login failed",
+    });
+  }
+};
+
+exports.profile = async (req, res) => {
   try {
-    console.log(ctx.state.user)
-    const { _id } = ctx.state.user;
-    const user = await User.findById(_id);
+    const { userId } = req.user;
+
+    const user = await User.findById(userId);
+
     if (!user) {
-      return ctx.throw(404, 'User not found');
+      return res.status(404).json({
+        message: "User not found",
+      });
     }
 
-    const { password: hashPassword, ...userData } = user._doc;
-    ctx.status = 200;
-    ctx.body = { user: userData };
-} catch (err) {
-    ctx.status = 500;
-    ctx.body = { message: 'Profile not found' };
-  }
-}
+    const { password: hashedPassword, ...userData } = user._doc;
 
-exports.deleteProfile = async (ctx) => {  
-  try {
-    const { id } = ctx.params;
-    if (!id) {
-      ctx.status = 404;
-      ctx.body = { message: `User not found by ${id}` }
-    } else {
-      const result = await User.deleteOne({ _id : id });
-      ctx.status = 200;
-      ctx.body = { message: `User has been successfully deleted` }
-    }
-  } catch (e) {
-    ctx.status = 500;
-    console.log('Error deleting profile',e)
-  }
-}
-
-exports.updateProfile = async (ctx) => {    
-  try {
-    const { id } = ctx.params;
-    const updates = ctx.request.body;
-    console.log("thisisupdates" , updates);
-    if (!id) {
-      ctx.status = 404;
-      ctx.body = { message: `User not found by ${id}` }
-    } else {
-      const result = await User.findByIdAndUpdate( id, updates, {new : true});
-      ctx.status = 200;
-      ctx.body = result;
-    }
-  } catch (e) {
-    ctx.status = 500;
-    console.log('Error updating profile',e)
-  }
-} 
-
-exports.getFavorites = async (ctx) => { 
-
-} 
-
-exports.addFavorite = async (ctx) => {         
-
-}
-
-exports.removeFavorite = async (ctx) => { 
-
-} 
-
-exports.logout = async (ctx) => { 
-  try {
-    ctx.cookies.set('accessToken', null);
-    ctx.status = 200;
-    ctx.body = { message: 'Logout successful', accessToken: null};
+    return res.status(200).json({
+      message: "Profile retrieved successfully",
+      user: userData,
+    });
   } catch (err) {
-    ctx.status = 500;
-    ctx.body = { message: 'Logout failed' };
+    console.error("profile error:", err);
+
+    return res.status(500).json({
+      message: "Error retrieving profile",
+    });
   }
-} 
+};
+
+exports.deleteProfile = async (req, res) => {
+  try {
+    const { id: userId } = req.params;
+
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Profile deleted successfully",
+    });
+  } catch (err) {
+    console.error("deleteProfile error:", err);
+
+    return res.status(500).json({
+      message: "Error deleting profile",
+    });
+  }
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const { id: userId } = req.params;
+    const updates = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updates, {
+      new: true,
+    }).select("-password");
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Profile updated successfully",
+      user: updatedUser,
+    });
+  } catch (err) {
+    console.error("updateProfile error:", err);
+
+    return res.status(500).json({
+      message: "Error updating profile",
+    });
+  }
+};
+
+exports.getFavorites = async (req, res) => {
+  return res.status(501).json({
+    message: "Get favourites has not been implemented yet",
+  });
+};
+
+exports.addFavorite = async (req, res) => {
+  return res.status(501).json({
+    message: "Add favourite has not been implemented yet",
+  });
+};
+
+exports.removeFavorite = async (req, res) => {
+  return res.status(501).json({
+    message: "Remove favourite has not been implemented yet",
+  });
+};
+
+exports.logout = async (req, res) => {
+  return res.status(200).json({
+    message: "Logout successful",
+    accessToken: null,
+  });
+};
