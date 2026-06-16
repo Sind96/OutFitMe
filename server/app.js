@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const authRouter = require("./routes/auth.routes");
-const imageRouter = require("./routes/image.routes");
+const clothingItemRouter = require("./routes/clothingItem.routes");
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use(authRouter);
-app.use(imageRouter);
+app.use(clothingItemRouter);
 
 // 404 handler LAST
 app.use((req, res) => {

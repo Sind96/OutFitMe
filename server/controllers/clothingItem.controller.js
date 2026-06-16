@@ -1,13 +1,13 @@
-const Image = require("../models/image.model");
+const ClothingItem = require("../models/clothingItem.model");
 
 // Saves a clothing item after the client receives the image URL from Cloudinary
 exports.postImage = async (req, res) => {
   try {
-    const newImage = await Image.create(req.body);
+    const newClothingItem = await ClothingItem.create(req.body);
 
     return res.status(201).json({
       message: "Clothing item uploaded successfully",
-      image: newImage,
+      clothingItem: newClothingItem,
     });
   } catch (err) {
     return res.status(500).json({
@@ -21,7 +21,7 @@ exports.getRandomItem = async (req, res) => {
   const { item, tempToday, rainToday } = req.params;
 
   try {
-    const allItems = await Image.find({
+    const allItems = await ClothingItem.find({
       item,
       tempRange: tempToday,
       rain: rainToday,
@@ -47,7 +47,7 @@ exports.getAllItems = async (req, res) => {
   const { item } = req.params;
 
   try {
-    const allItems = await Image.find({ item });
+    const allItems = await ClothingItem.find({ item });
 
     if (allItems.length === 0) {
       return res.status(404).json({
