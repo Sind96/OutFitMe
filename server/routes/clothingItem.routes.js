@@ -3,12 +3,16 @@ const router = express.Router();
 
 const clothingItem = require("../controllers/clothingItem.controller");
 
-// MVP routes
-router.post("/upload", clothingItem.postImage);
-router.get("/getRandomItem/:item/:tempToday/:rainToday", clothingItem.getRandomItem);
-router.get("/getAllItems/:item", clothingItem.getAllItems);
+router.post("/api/clothing-items", clothingItem.postImage);
 
-router.get("/test", (req, res) => {
+router.get(
+  "/api/clothing-items/random/:item/:tempToday/:rainToday",
+  clothingItem.getRandomItem,
+);
+
+router.get("/api/clothing-items/:item", clothingItem.getAllItems);
+
+router.get("/api/health", (req, res) => {
   res.sendStatus(200);
 });
 
