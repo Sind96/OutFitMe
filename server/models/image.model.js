@@ -1,10 +1,6 @@
-'use strict';
+const mongoose = require("mongoose");
 
-const mongoose = require('../dbconnect');
-
-const Schema = mongoose.Schema;
-
-const imageSchema = new Schema({
+const imageSchema = new mongoose.Schema({
   imgURL: {
     type: String,
     lowercase: true,
@@ -27,6 +23,6 @@ const imageSchema = new Schema({
   },
 });
 
-const Image = mongoose.model('Image', imageSchema);
+const Image = mongoose.model("Image", imageSchema);
 
 module.exports = Image;
