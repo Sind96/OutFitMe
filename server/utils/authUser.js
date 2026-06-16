@@ -1,15 +1,24 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-exports.verifyToken = async (ctx, next) => {
-  const token = ctx.request.header.authorization;
+const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
+
+exports.verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
   if (!token) {
-    return ctx.throw(401, 'You need to login');
+    return res.status(401).json({
+      message: "You need to log in",
+    });
   }
+
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    ctx.state.user = decoded;
-    next();
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
+
+    return next();
   } catch (err) {
-    return ctx.throw(403, 'Invalid token');
+    return res.status(403).json({
+      message: "Invalid token",
+    });
   }
-}
+};
