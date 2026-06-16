@@ -1,4 +1,4 @@
-const Image = require("../models/image.models");
+const Image = require("../models/image.model");
 
 // Saves a clothing item after the client receives the image URL from Cloudinary
 exports.postImage = async (req, res) => {

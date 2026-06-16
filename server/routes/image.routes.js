@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const image = require("../controllers/image.controllers");
+const image = require("../controllers/image.controller");
 
 // MVP routes
 router.post("/upload", image.postImage);
