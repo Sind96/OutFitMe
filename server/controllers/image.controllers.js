@@ -1,61 +1,65 @@
-'use strict';
+const Image = require("../models/image.models");
 
-const Image = require('../models/image.models');
-
-//This method waits in client for cloudinary to send the imURL, then saves the image to the database
-exports.postImage = async (ctx) => {
-  console.log(ctx.request.body);
+// Saves a clothing item after the client receives the image URL from Cloudinary
+exports.postImage = async (req, res) => {
   try {
-    await Image.create(ctx.request.body);
-    ctx.status = 200;
+    const newImage = await Image.create(req.body);
+
+    return res.status(201).json({
+      message: "Clothing item uploaded successfully",
+      image: newImage,
+    });
   } catch (err) {
-    ctx.throw(500, 'Something went wrong uploading the picture');
+    return res.status(500).json({
+      message: "Something went wrong uploading the clothing item",
+    });
   }
 };
 
-//uses params to dynamically return ONE image that meets the criteria for the day's weather
-exports.getRandomItem = async (ctx) => {
-  console.log(ctx.params);
-  const { item, tempToday, rainToday } = ctx.params;
+// Returns one random clothing item matching the selected weather criteria
+exports.getRandomItem = async (req, res) => {
+  const { item, tempToday, rainToday } = req.params;
+
   try {
     const allItems = await Image.find({
-      item: item,
+      item,
       tempRange: tempToday,
       rain: rainToday,
     });
 
+    if (allItems.length === 0) {
+      return res.status(404).json({
+        message: "No appropriate clothing items were found",
+      });
+    }
+
     const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
 
-    if (randomItem) {
-      ctx.body = randomItem;
-      ctx.status = 200;
-      return;
-    } else {
-      ctx.throw(404, 'No appropiate clothing items were found');
-    }
+    return res.status(200).json(randomItem);
   } catch (error) {
-    ctx.throw(500, 'Something went wrong getting the pictures');
+    return res.status(500).json({
+      message: "Something went wrong getting the clothing item",
+    });
   }
 };
 
-exports.getAllItems = async (ctx) => {
-  const { item } = ctx.params;
-  try {
-    const allItems = await Image.find({
-      item: item,
-    });
+exports.getAllItems = async (req, res) => {
+  const { item } = req.params;
 
-    if (allItems != []) {
-      ctx.body = allItems;
-      ctx.status = 200;
-      return;
-    } else {
-      ctx.throw(404, 'No clothing items found for this category');
+  try {
+    const allItems = await Image.find({ item });
+
+    if (allItems.length === 0) {
+      return res.status(404).json({
+        message: "No clothing items found for this category",
+      });
     }
+
+    return res.status(200).json(allItems);
   } catch (error) {
-    ctx.throw(
-      500,
-      'Something went wrong getting the clothing items for this category'
-    );
+    return res.status(500).json({
+      message:
+        "Something went wrong getting the clothing items for this category",
+    });
   }
 };
