@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { addImage } from '../../Services/apiService';
+import { addClothingItem } from '../../Services/apiService';
 import './UploadModal.css';
 import Button from '../Button/Button';
 import {  IImage, ITempChecks } from './Types.Modal';
-import {FormDataProps} from '../../Services/apiService';
+import { ClothingItemFormData } from '../../Types/clothingItem.types';
 
 
-interface onCloseProps {
-  onClose: Function;
+interface UploadModalProps {
+  onClose: () => void;
 }
-
-const UploadModal = ({ onClose }: onCloseProps) => {
+const UploadModal = ({ onClose }: UploadModalProps) => {
   const cloudName = import.meta.env.VITE_CLOUD_NAME;
   const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
   const folder = import.meta.env.VITE_CLOUDINARY_FOLDER;
 
-  const [formData, setFormData] = useState<FormDataProps>({
+  const [formData, setFormData] = useState<ClothingItemFormData>({
     imgURL: '',
     item: '',
     tempRange: [],
@@ -31,7 +30,7 @@ const UploadModal = ({ onClose }: onCloseProps) => {
       //if setFormData is not finished, return early
       return;
     }
-    addImage(formData); //post to database
+    addClothingItem(formData); //post to database
     onClose(); // Close the modal after uploading TODO: Close modal using a button and/or clicking background as well
   }, [formData.imgURL]);
 
@@ -234,7 +233,7 @@ const UploadModal = ({ onClose }: onCloseProps) => {
             </div>
           </fieldset>
 
-          <Button text="Upload" />
+          <Button text="Upload" className="upload-button" />
         </form>
       </div>
     </div>
