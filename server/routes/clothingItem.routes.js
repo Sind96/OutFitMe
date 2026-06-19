@@ -2,8 +2,16 @@ const express = require("express");
 const router = express.Router();
 
 const clothingItem = require("../controllers/clothingItem.controller");
+const validate = require("../middleware/validate.middleware");
+const {
+  createClothingItemSchema,
+} = require("../validation/clothingItem.validation");
 
-router.post("/api/clothing-items", clothingItem.postImage);
+router.post(
+  "/api/clothing-items",
+  validate(createClothingItemSchema),
+  clothingItem.postImage,
+);
 
 router.get(
   "/api/clothing-items/random/:item/:tempToday/:rainToday",
