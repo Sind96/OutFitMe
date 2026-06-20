@@ -10,14 +10,14 @@ import {
   signUpStart,
   signUpSuccess,
 } from "../../store/slices/userSlice";
-
+import type { SignUpFormData } from "../../Types/auth.types";
 
 export default function SignUp() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { isLoading, error } = useAppSelector((state) => state.user);
 
-  const [signUpForm, setSignUpForm] = useState({
+  const [signUpForm, setSignUpForm] = useState<SignUpFormData>({
     username: "",
     email: "",
     password: "",
@@ -35,8 +35,8 @@ export default function SignUp() {
     dispatch(signUpStart());
 
     try {
-      dispatch(signUpSuccess());
       await signUp(signUpForm);
+      dispatch(signUpSuccess());
       toast.success("Account created successfully", {
         position: "top-center",
         autoClose: 4000,
@@ -45,8 +45,13 @@ export default function SignUp() {
       });
       navigate("/");
     } catch (error) {
-      dispatch(signUpFailed());
-      toast.error("Something went wrong. Please try again", {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.";
+
+      dispatch(signUpFailed(errorMessage));
+      toast.error(errorMessage, {
         position: "top-center",
         autoClose: 4000,
         hideProgressBar: false,
@@ -105,7 +110,7 @@ export default function SignUp() {
           <span>Sign in</span>
         </Link>
       </div>
-      <p> {error && "something went wrong"} </p>
+      {error && <p>{error}</p>}
       <ToastContainer />
     </main>
   );
