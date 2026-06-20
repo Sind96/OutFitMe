@@ -1,38 +1,44 @@
 import "./Gallery.css";
-import GalleryCard from "../GalleryCard/GalleryCard";
 import { useEffect, useState } from "react";
-import { getAllItemsFromCat } from "../../Services/apiService";
-import { IItemGallery, IGalleryProps } from "./Gallery.Types";
-import { useAppSelector } from "../../store/hooks/reduxHooks";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 
-function Gallery({ itemType }: IGalleryProps) {
-  const { currentUser } = useAppSelector((state) => state.user);
+import { getAllItemsFromCat } from "../../Services/apiService";
+import type { ClothingItem } from "../../Types/clothingItem.types";
+import GalleryCard from "../GalleryCard/GalleryCard";
+import type { IGalleryProps } from "./Gallery.Types";
 
-  const [itemGallery, setItemGallery] = useState<IItemGallery[]>([]);
+function Gallery({ itemType }: IGalleryProps) {
+  const [itemGallery, setItemGallery] = useState<ClothingItem[]>([]);
 
   useEffect(() => {
-    getAllItemsFromCat(itemType).then((res) => {
-      setItemGallery(res);
-    });
+    const fetchGalleryItems = async () => {
+      try {
+        const items = await getAllItemsFromCat(itemType);
+        setItemGallery(items);
+      } catch (error) {
+        console.error("Failed to fetch gallery items", error);
+        setItemGallery([]);
+      }
+    };
+
+    fetchGalleryItems();
   }, [itemType]);
 
   return (
-    <>
-      <div className="gallery">
-        <h1 className="gallery-title">{itemType.toUpperCase()}</h1>
-        <div className="gallery-items">
-          {itemGallery.map((item) => (
-            <li key={item._id}>
-              <Zoom>
-                <GalleryCard source={item.imgURL} />
-              </Zoom>
-            </li>
-          ))}
-        </div>
-      </div>
-    </>
+    <div className="gallery">
+      <h1 className="gallery-title">{itemType.toUpperCase()}</h1>
+
+      <ul className="gallery-items">
+        {itemGallery.map((item) => (
+          <li key={item._id}>
+            <Zoom>
+              <GalleryCard source={item.imgURL} />
+            </Zoom>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
