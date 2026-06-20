@@ -1,8 +1,9 @@
 import styles from "./login.module.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
 import { Link, useNavigate } from "react-router-dom";
 import { logIn } from "../../Services/authApiServices";
+import type { LoginFormData } from "../../Types/auth.types";
 import {
   signInFailed,
   signInStart,
@@ -19,31 +20,38 @@ export default function SignIn({ getLocation }: SignInProps) {
 
   const { isLoading, error } = useAppSelector((state) => state.user);
 
-  const [signInForm, setSignInForm] = useState({
+  const [signInForm, setSignInForm] = useState<LoginFormData>({
     username: "",
     password: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSignInForm({
       ...signInForm,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     getLocation();
     dispatch(signInStart());
+
     try {
       const userData = await logIn(signInForm);
+
       dispatch(signInSuccess(userData));
       navigate("/home");
     } catch (error) {
-      console.log("this is the error", error);
-      const errorMessage = error || "An error occurred. Please try again.";
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "An error occurred. Please try again.";
+
       dispatch(signInFailed(errorMessage));
     }
+
     setSignInForm({
       username: "",
       password: "",
@@ -75,17 +83,18 @@ export default function SignIn({ getLocation }: SignInProps) {
           required
         />
         <button disabled={isLoading}>
-          {isLoading ? "Creating" : "Sign In"}
+          {isLoading ? "Signing in..." : "Sign In"}
         </button>
       </form>
 
       <div className={styles.SignInExtra}>
         <p>{`Don't have an account?`}</p>
-        <Link to={"/signup"}>
+        <Link to="/signup">
           <span className={styles.blueFont}>Sign up</span>
         </Link>
       </div>
-      <p> {error ? error || "Something went wrong logging in..." : ""} </p>
+
+      {error && <p>{error}</p>}
     </main>
   );
 }
