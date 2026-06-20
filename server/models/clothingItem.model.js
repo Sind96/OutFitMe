@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const imageSchema = new mongoose.Schema({
+const clothingItemSchema = new mongoose.Schema({
   imgURL: {
     type: String,
     lowercase: true,
@@ -23,6 +23,6 @@ const imageSchema = new mongoose.Schema({
   },
 });
 
-const Image = mongoose.model("Image", imageSchema);
+const ClothingItem = mongoose.model("ClothingItem", clothingItemSchema);
 
-module.exports = Image;
+module.exports = ClothingItem;
