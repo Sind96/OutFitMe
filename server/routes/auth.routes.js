@@ -11,7 +11,7 @@ const {
 
 // User routes
 router.post("/register", validate(registerSchema), auth.register);
-router.post("/login", auth.login);
+router.post("/login", validate(loginSchema), auth.login);
 router.get("/profile", verifyToken, auth.profile);
 router.delete("/profile/delete/:id", auth.deleteProfile);
 router.put("/profile/update/:id", auth.updateProfile);

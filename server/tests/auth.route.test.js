@@ -34,6 +34,20 @@ describe("Auth routes", () => {
     expect(response.body.accessToken).toBeDefined();
   });
 
+  it("POST /register rejects duplicate username or email", async () => {
+    const payload = {
+      username: "test",
+      email: "test@email.com",
+      password: "password123",
+    };
+
+    const firstResponse = await request(app).post("/register").send(payload);
+    const response = await request(app).post("/register").send(payload);
+
+    expect(response.status).toBe(409);
+    expect(response.body.message).toBe("Username or email already exists");
+  });
+
   it("POST /register rejects missing fields", async () => {
     const response = await request(app).post("/register").send({});
 
@@ -56,6 +70,13 @@ describe("Auth routes", () => {
     expect(response.status).toBe(200);
     expect(response.body.message).toBe("Login successful");
     expect(response.body.accessToken).toBeDefined();
+  });
+
+  it("POST /login rejects missing fields", async () => {
+    const response = await request(app).post("/login").send({});
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("Validation failed");
   });
 
   it("POST /login rejects invalid credentials", async () => {
