@@ -1,17 +1,15 @@
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-import { getWeatherData } from './Services/apiService';
-import { IWeatherDisplayProps } from './Types/App.Types';
+import { getWeatherData } from "./Services/apiService";
+import { IWeatherDisplayProps } from "./Types/App.Types";
 // import LoginPage from './Components/LoginPage/LoginPage';
-import SignIn from './Pages/Login/SignIn';
-import SignUp from './Pages/Login/SignUp';
-import Home from './Pages/Home/Home';
-import Profile from './Pages/profile/Profile';
-import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
-
-
+import SignIn from "./Pages/Login/SignIn";
+import SignUp from "./Pages/Login/SignUp";
+import Home from "./Pages/Home/Home";
+import Profile from "./Pages/profile/Profile";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 
 function App() {
   //TODO: Style the page where user accepts to give their location first, have that accept button get weather and random outfit
@@ -19,53 +17,53 @@ function App() {
 
   //WEATHER
   const [weatherData, setWeatherData] = useState<IWeatherDisplayProps>({
-    location: '',
-    temp: '',
-    temp_max: '',
-    temp_min: '',
-    humidity: '',
-    feels_like: '',
-    description: '',
+    location: "",
+    temp: "",
+    temp_max: "",
+    temp_min: "",
+    humidity: "",
+    feels_like: "",
+    description: "",
   });
 
-  const [emoji, setEmoji] = useState<string>('');
+  const [emoji, setEmoji] = useState<string>("");
 
   //GALLERIES
-  const [itemType, setItemType] = useState<string>('');
-  const [gallery, setGallery] = useState<string>('');
+  const [itemType, setItemType] = useState<string>("");
+  const [gallery, setGallery] = useState<string>("");
 
   ////////////////////////////////////////////////////////////////////////////
-  
+
   //WEATHER
   useEffect(() => {
-    if (weatherData.description === '') return;
+    if (weatherData.description === "") return;
 
     const descriptionToday = weatherData.description;
 
     switch (descriptionToday) {
-      case 'Thunderstorm':
-        setEmoji('⛈');
+      case "Thunderstorm":
+        setEmoji("⛈");
         break;
-      case 'Drizzle':
-        setEmoji('🌧');
+      case "Drizzle":
+        setEmoji("🌧");
         break;
-      case 'Rain':
-        setEmoji('🌧');
+      case "Rain":
+        setEmoji("🌧");
         break;
-      case 'Snow':
-        setEmoji('🌨');
+      case "Snow":
+        setEmoji("🌨");
         break;
-      case 'Clouds':
-        setEmoji('⛅');
+      case "Clouds":
+        setEmoji("⛅");
         break;
       default: //'Clear'
-        setEmoji('☀');
+        setEmoji("☀");
     }
   }, [weatherData.description]);
 
-  const getLocation = (event : React.MouseEvent) => {
+  const getLocation = () => {
     // event.preventDefault();
-    if ('geolocation' in navigator) {
+    if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
@@ -73,10 +71,9 @@ function App() {
         getWeather(lat, lon);
       });
     } else {
-      alert('Please enable geolocation to use this app.'); //TODO: maybe try sweetalert2?  https://sweetalert2.github.io/
+      alert("Please enable geolocation to use this app."); //TODO: maybe try sweetalert2?  https://sweetalert2.github.io/
     }
   };
-  
 
   const getWeather = (lat: number, lon: number) => {
     //apiService method for weather gets lat and lon as arguments to add to the url
@@ -104,16 +101,29 @@ function App() {
     setGallery(itemType);
   };
 
-
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<SignIn getLocation={getLocation} />}  />
-          <Route path="/signup" element={<SignUp />}  />
-          <Route element={<PrivateRoute />} >
-            <Route path='/home' element={<Home gallery={gallery} weatherData={weatherData} emoji={emoji} onMenuClick={onMenuClick} itemType={itemType}/>} />
-            <Route path='/profile' element={<Profile />} />
+          <Route path="/" element={<SignIn getLocation={getLocation} />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route element={<PrivateRoute />}>
+            <Route
+              path="/home"
+              element={
+                <Home
+                  gallery={gallery}
+                  weatherData={weatherData}
+                  emoji={emoji}
+                  onMenuClick={onMenuClick}
+                  itemType={itemType}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={<Profile onMenuClick={onMenuClick} />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
