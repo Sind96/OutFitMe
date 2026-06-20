@@ -1,15 +1,10 @@
-import './GalleryCard.css';
-
-interface GalleryCardProps {
-
-  source: string;
-
-}
+import "./GalleryCard.css";
+import { GalleryCardProps } from "./GalleryCard.Types";
 
 function GalleryCard({ source }: GalleryCardProps) {
   return (
-    <div className='grid-container'>
-      <img className="gallery-item" src={source} ></img>
+    <div className="grid-container">
+      <img className="gallery-item" src={source} alt="Clothing item" />
     </div>
   );
 }
