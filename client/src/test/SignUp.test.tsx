@@ -34,13 +34,13 @@ describe("SignUp", () => {
 
   it("should render email input field with placeholder 'email'", () => {
     render(<SignUp />);
-    const emailInput = screen.getByPlaceholderText("email");
+    const emailInput = screen.getByPlaceholderText("Email");
     expect(emailInput).toBeInTheDocument();
   });
 
   it("should render password input field with placeholder 'password'", () => {
     render(<SignUp />);
-    const passwordInput = screen.getByPlaceholderText("password");
+    const passwordInput = screen.getByPlaceholderText("Password");
     expect(passwordInput).toBeInTheDocument();
   });
 

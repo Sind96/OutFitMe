@@ -1,56 +1,84 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type {
+  AuthResponse,
+  UpdateUserFormData,
+  User,
+} from "../../Types/auth.types";
 
-const initialState = {
+interface UserState {
+  currentUser: User | null;
+  token: string | null;
+  favoriteOutfits: string[];
+  isLoading: boolean;
+  error: string | null;
+}
+
+const initialState: UserState = {
   currentUser: null,
   token: null,
   favoriteOutfits: [],
   isLoading: false,
-  error: false,
+  error: null,
 };
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     signInStart: (state) => {
       state.isLoading = true;
+      state.error = null;
     },
-    signInSuccess: (state, action) => {
-      state.currentUser = action.payload.user;
+    signInSuccess: (state, action: PayloadAction<AuthResponse>) => {
+      state.currentUser = action.payload.user ?? null;
       state.token = action.payload.accessToken;
-      state.favoriteOutfits = action.payload.user.favoriteOutfits;
+      state.favoriteOutfits = [];
       state.isLoading = false;
-      state.error = false;
+      state.error = null;
     },
-    signInFailed: (state) => {
+    signInFailed: (state, action: PayloadAction<string | undefined>) => {
       state.isLoading = false;
-      state.error = false;
+      state.error = action.payload ?? "Sign in failed";
     },
     signUpStart: (state) => {
       state.isLoading = true;
+      state.error = null;
     },
     signUpSuccess: (state) => {
       state.isLoading = false;
-      state.error = false;
+      state.error = null;
     },
-    signUpFailed: (state) => {
+    signUpFailed: (state, action: PayloadAction<string | undefined>) => {
       state.isLoading = false;
-      state.error = true;
+      state.error = action.payload ?? "Sign up failed";
     },
-   
     signOut: (state) => {
       state.currentUser = null;
       state.token = null;
       state.favoriteOutfits = [];
       state.isLoading = false;
-      state.error = false;
+      state.error = null;
     },
-    updateUserInfo: (state, action) => {
-      state.currentUser.username = action.payload.username;
-      state.currentUser.email = action.payload.email;
+    updateUserInfo: (state, action: PayloadAction<UpdateUserFormData>) => {
+      if (!state.currentUser) return;
+
+      state.currentUser = {
+        ...state.currentUser,
+        ...action.payload,
+      };
     },
-    
   },
 });
-export const { signInStart, signInSuccess, signInFailed,signUpStart,signUpSuccess, signUpFailed, signOut, updateUserInfo } = userSlice.actions;
+
+export const {
+  signInStart,
+  signInSuccess,
+  signInFailed,
+  signUpStart,
+  signUpSuccess,
+  signUpFailed,
+  signOut,
+  updateUserInfo,
+} = userSlice.actions;
+
 export default userSlice.reducer;
