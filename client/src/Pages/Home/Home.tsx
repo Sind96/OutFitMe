@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../store/hooks/reduxHooks';
 import DisplayContainer from '../../Components/DisplayContainer/DisplayContainer'
 import Gallery from '../../Components/Gallery/Gallery'
 import Sidebar from '../../Components/Sidebar/Sidebar'
@@ -8,8 +8,7 @@ import { GiConsoleController } from 'react-icons/gi'
 
 export default function Home({ gallery, weatherData, emoji, onMenuClick, itemType}) {
 
-  const {currentUser} = useSelector((state: any) => state.user);
-
+const { currentUser } = useAppSelector((state) => state.user);
 
   return (
     <div className="display-container">

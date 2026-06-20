@@ -1,63 +1,63 @@
-import styles from "./login.module.css"
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate} from 'react-router-dom';
+import styles from "./login.module.css";
+import { useState, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
+import { Link, useNavigate } from "react-router-dom";
 import { logIn } from "../../Services/authApiServices";
-import { signInFailed, signInStart, signInSuccess } from "../../store/slices/userSlice";
+import {
+  signInFailed,
+  signInStart,
+  signInSuccess,
+} from "../../store/slices/userSlice";
 
-export default function SignIn ({ getLocation }:any) {
+interface SignInProps {
+  getLocation: () => void;
+}
 
-  const dispatch = useDispatch();
+export default function SignIn({ getLocation }: SignInProps) {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { isLoading , error} = useSelector((state: any) => state.user);
+  const { isLoading, error } = useAppSelector((state) => state.user);
 
   const [signInForm, setSignInForm] = useState({
-    username: '',
-    password: ''
+    username: "",
+    password: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSignInForm({
       ...signInForm,
-      [e.target.name]: e.target.value
-    })  
-  }  
-
-  
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    getLocation()
-    dispatch(signInStart())
+    getLocation();
+    dispatch(signInStart());
     try {
       const userData = await logIn(signInForm);
       dispatch(signInSuccess(userData));
-      navigate('/home');
+      navigate("/home");
     } catch (error) {
-      console.log("this is the error",error)
-      const errorMessage = error || "An error occurred. Please try again."
+      console.log("this is the error", error);
+      const errorMessage = error || "An error occurred. Please try again.";
       dispatch(signInFailed(errorMessage));
-
     }
     setSignInForm({
-      username: '',
-      password: ''
-  })
-
-  }  
-
+      username: "",
+      password: "",
+    });
+  };
 
   return (
-  <main className={styles.SignIn} >
-     
-    <div className={styles.TopHeader}>
+    <main className={styles.SignIn}>
+      <div className={styles.TopHeader}>
         <p id={styles.LargeText1}>OutFitMe</p>
         <p>Sign In</p>
       </div>
 
-
-      <form onSubmit={handleSubmit} className={styles.flexForm} >
+      <form onSubmit={handleSubmit} className={styles.flexForm}>
         <input
           type="text"
           placeholder="Username"
@@ -65,7 +65,7 @@ export default function SignIn ({ getLocation }:any) {
           value={signInForm.username}
           onChange={handleChange}
           required
-          />
+        />
         <input
           type="password"
           placeholder="Password"
@@ -73,19 +73,19 @@ export default function SignIn ({ getLocation }:any) {
           value={signInForm.password}
           onChange={handleChange}
           required
-          />
+        />
         <button disabled={isLoading}>
-            {isLoading ? 'Creating' : 'Sign In'} 
+          {isLoading ? "Creating" : "Sign In"}
         </button>
       </form>
 
       <div className={styles.SignInExtra}>
         <p>{`Don't have an account?`}</p>
-        <Link to={'/signup'}>
+        <Link to={"/signup"}>
           <span className={styles.blueFont}>Sign up</span>
         </Link>
       </div>
-      <p> {error ? error  || 'Something went wrong logging in...' : ''} </p>
-  </main>
+      <p> {error ? error || "Something went wrong logging in..." : ""} </p>
+    </main>
   );
 }
