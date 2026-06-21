@@ -1,32 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { addClothingItem } from '../../Services/apiService';
-import './UploadModal.css';
-import Button from '../Button/Button';
-import {  IImage, ITempChecks } from './Types.Modal';
-import { ClothingItemFormData } from '../../Types/clothingItem.types';
+import React, { useState, useEffect } from "react";
+import { addClothingItem } from "../../Services/apiService";
+import "./UploadModal.css";
+import Button from "../Button/Button";
+import type {
+  TempChecksState,
+  UploadImageState,
+  UploadModalProps,
+} from "./UploadModal.Types";
+import { ClothingItemFormData } from "../../Types/clothingItem.types";
 
-
-interface UploadModalProps {
-  onClose: () => void;
-}
 const UploadModal = ({ onClose }: UploadModalProps) => {
   const cloudName = import.meta.env.VITE_CLOUD_NAME;
   const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
   const folder = import.meta.env.VITE_CLOUDINARY_FOLDER;
 
   const [formData, setFormData] = useState<ClothingItemFormData>({
-    imgURL: '',
-    item: '',
+    imgURL: "",
+    item: "",
     tempRange: [],
-    rain: '',
+    rain: "",
   });
 
-  const [image, setImage] = useState<IImage>({url: {} as File})
+  const [image, setImage] = useState<UploadImageState>({ file: null });
 
-  const [tempChecks, setTempChecks] = useState<ITempChecks>({tempChecks : []});
+  const [tempChecks, setTempChecks] = useState<TempChecksState>({
+    tempChecks: [],
+  });
 
   useEffect(() => {
-    if (formData.imgURL === '') {
+    if (formData.imgURL === "") {
       //if setFormData is not finished, return early
       return;
     }
@@ -37,8 +39,8 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
 
-    if (name === 'rain') {
-      value = value === 'true'? 'true' : 'false';
+    if (name === "rain") {
+      value = value === "true" ? "true" : "false";
     }
 
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -46,26 +48,25 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
-      console.log("Event.target.file",event.target.files[0])
-      setImage({url: event.target.files[0]});
-
+      console.log("Event.target.file", event.target.files[0]);
+      setImage({ file: event.target.files[0] });
     }
   };
 
-  const handleTempChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+  const handleTempChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { value, checked } = event.target;
     value = value.toLowerCase();
-  
+
     // Case 1 : The user checks the box
     if (checked) {
       setTempChecks((prevTempChecks) => {
-        return {tempChecks : [...prevTempChecks.tempChecks, value]}
+        return { tempChecks: [...prevTempChecks.tempChecks, value] };
       });
     }
     // Case 2  : The user unchecks the box
     else {
       setTempChecks({
-        tempChecks: tempChecks.tempChecks.filter((event) => event !== value)
+        tempChecks: tempChecks.tempChecks.filter((event) => event !== value),
       });
     }
   };
@@ -75,14 +76,19 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
 
     try {
       const fd = new FormData();
-      fd.append('file', image.url);
-      fd.append('folder', folder);
-      fd.append('upload_preset', uploadPreset);
-      fd.append('resorce_type', 'image');
+      if (!image.file) {
+        console.error("No file selected");
+        return;
+      }
+
+      fd.append("file", image.file);
+      fd.append("folder", folder);
+      fd.append("upload_preset", uploadPreset);
+      fd.append("resorce_type", "image");
 
       const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
       const options = {
-        method: 'POST',
+        method: "POST",
         body: fd,
       };
       const response = await fetch(url, options).then((res) => res.json()); //just needed to parse the response body :-)
@@ -95,7 +101,7 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
         tempRange: [...tempChecks.tempChecks],
       }));
     } catch (error) {
-      console.error('Upload failed', error);
+      console.error("Upload failed", error);
     }
   };
 
@@ -112,13 +118,12 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
 
         <form className="form" onSubmit={handleUpload}>
           <fieldset className="fieldset picture">
-            <legend >Choose a picture to upload</legend>
+            <legend>Choose a picture to upload</legend>
             <input
               type="file"
               id="file"
               name="file"
               onChange={handleFileChange}
-
             />
           </fieldset>
 
@@ -130,7 +135,7 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
                 id="top"
                 name="item"
                 value="Top"
-                checked={formData.item === 'Top'}
+                checked={formData.item === "Top"}
                 onChange={handleChange}
               />
               <label htmlFor="top">Top</label>
@@ -141,7 +146,7 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
                 id="bottom"
                 name="item"
                 value="Bottom"
-                checked={formData.item === 'Bottom'}
+                checked={formData.item === "Bottom"}
                 onChange={handleChange}
               />
               <label htmlFor="bottom">Bottom</label>
@@ -152,7 +157,7 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
                 id="shoe"
                 name="item"
                 value="Shoe"
-                checked={formData.item === 'Shoe'}
+                checked={formData.item === "Shoe"}
                 onChange={handleChange}
               />
               <label htmlFor="shoe">Shoe</label>
@@ -161,7 +166,7 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
 
           <fieldset className=" fieldset temperature">
             <legend>For which temperature is it comfortable?</legend>
-            <div className='check'>
+            <div className="check">
               <input
                 type="checkbox"
                 id="cold"
@@ -214,7 +219,7 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
                 type="radio"
                 id="yes"
                 name="rain"
-                value='true'
+                value="true"
                 checked={formData.rain === "true"}
                 onChange={handleChange}
               />
@@ -225,7 +230,7 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
                 type="radio"
                 id="no"
                 name="rain"
-                value='false'
+                value="false"
                 checked={formData.rain === "false"}
                 onChange={handleChange}
               />
