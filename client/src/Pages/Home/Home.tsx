@@ -5,7 +5,6 @@ import Sidebar from "../../Components/Sidebar/Sidebar";
 import { IWeatherDisplayProps } from "../../Types/weather.types";
 
 interface HomeProps {
-  gallery: string;
   weatherData: IWeatherDisplayProps;
   emoji: string;
   onMenuClick: (itemType: string) => void;
@@ -13,7 +12,6 @@ interface HomeProps {
 }
 
 export default function Home({
-  gallery,
   weatherData,
   emoji,
   onMenuClick,
@@ -27,7 +25,7 @@ export default function Home({
 
   return (
     <div className="display-container">
-      {!gallery ? (
+      {!itemType ? (
         <DisplayContainer
           weatherData={weatherData}
           emoji={emoji}

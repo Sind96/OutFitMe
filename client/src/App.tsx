@@ -25,7 +25,6 @@ function App() {
   const [emoji, setEmoji] = useState<string>("");
 
   const [itemType, setItemType] = useState<string>("");
-  const [gallery, setGallery] = useState<string>("");
 
   useEffect(() => {
     if (!weatherData.description) return;
@@ -65,9 +64,8 @@ function App() {
     });
   };
 
-  const onMenuClick = async (itemType: string) => {
+  const onMenuClick = (itemType: string) => {
     setItemType(itemType);
-    setGallery(itemType);
   };
 
   return (
@@ -80,7 +78,6 @@ function App() {
             path="/home"
             element={
               <Home
-                gallery={gallery}
                 weatherData={weatherData}
                 emoji={emoji}
                 onMenuClick={onMenuClick}
