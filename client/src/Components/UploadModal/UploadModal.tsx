@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addClothingItem } from "../../Services/apiService";
+import { addClothingItem } from "../../Services/clothingItemService";
 import "./UploadModal.css";
 import Button from "../Button/Button";
 import type {

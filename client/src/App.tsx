@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import { getWeatherData } from "./Services/apiService";
+import { getWeatherData } from "./Services/weatherService";
 // import LoginPage from './Components/LoginPage/LoginPage';
 import SignIn from "./Pages/Auth/SignIn";
 import SignUp from "./Pages/Auth/SignUp";
@@ -18,11 +18,11 @@ function App() {
   //WEATHER
   const [weatherData, setWeatherData] = useState<IWeatherDisplayProps>({
     location: "",
-    temp: "",
-    temp_max: "",
-    temp_min: "",
-    humidity: "",
-    feels_like: "",
+    temp: 0,
+    temp_max: 0,
+    temp_min: 0,
+    humidity: 0,
+    feels_like: 0,
     description: "",
   });
 
@@ -76,7 +76,6 @@ function App() {
   };
 
   const getWeather = (lat: number, lon: number) => {
-    //apiService method for weather gets lat and lon as arguments to add to the url
     getWeatherData(lat, lon).then((weatherData) => {
       const {
         name: location,

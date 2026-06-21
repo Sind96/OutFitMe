@@ -3,7 +3,7 @@ import {
   temperatureToWeather,
   rainToWeather,
 } from "../../Utils/helperFunctions";
-import { getRandomItem } from "../../Services/apiService";
+import { getRandomItem } from "../../Services/clothingItemService";
 import Button from "../Button/Button";
 import "./OutfitDisplay.css";
 import { IoShirtOutline } from "react-icons/io5";
