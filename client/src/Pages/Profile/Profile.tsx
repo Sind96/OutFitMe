@@ -8,7 +8,7 @@ import { deleteUser, updateUser } from "../../Services/authApiServices";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
 import { signOut, updateUserInfo } from "../../store/slices/userSlice";
 import type { UpdateUserFormData } from "../../Types/auth.types";
-import styles from "./index.module.css";
+import styles from "./Profile.module.css";
 
 interface ProfileProps {
   onMenuClick: (itemType: string) => void;

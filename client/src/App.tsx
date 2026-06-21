@@ -7,7 +7,7 @@ import { getWeatherData } from "./Services/apiService";
 import SignIn from "./Pages/Login/SignIn";
 import SignUp from "./Pages/Login/SignUp";
 import Home from "./Pages/Home/Home";
-import Profile from "./Pages/profile/Profile";
+import Profile from "./Pages/Profile/Profile";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import { IWeatherDisplayProps } from "./Types/weather.types";
 

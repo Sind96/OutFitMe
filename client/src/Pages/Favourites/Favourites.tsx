@@ -1,4 +1,4 @@
-import styles from "./favourites.module.css";
+import styles from "./Favourites.module.css";
 
 export default function Favourites () {
 
