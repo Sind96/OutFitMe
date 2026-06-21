@@ -1,22 +1,29 @@
 import { render as rtlRender, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
-import SignIn from "../Pages/Login/SignIn";
+import SignIn from "../Pages/Auth/SignIn";
 import { store } from "../store/store";
 import { ReactNode } from "react";
 import { JSX } from "react/jsx-runtime";
 
-const render = (component: string | number | boolean | JSX.Element | Iterable<ReactNode> | null | undefined) => rtlRender(
-  <Provider store={store}>
-    <BrowserRouter> 
-      {component}
-    </BrowserRouter>
-  </Provider>
-)
+const render = (
+  component:
+    | string
+    | number
+    | boolean
+    | JSX.Element
+    | Iterable<ReactNode>
+    | null
+    | undefined,
+) =>
+  rtlRender(
+    <Provider store={store}>
+      <BrowserRouter>{component}</BrowserRouter>
+    </Provider>,
+  );
 
 describe("SignIn", () => {
- 
   it("renders the Apps name", () => {
     render(<SignIn />);
     expect(screen.getByText("OutFitMe")).toBeInTheDocument();
@@ -31,13 +38,13 @@ describe("SignIn", () => {
   });
 
   it("should render password input field with placeholder 'Password'", () => {
-    render(<SignIn  />);
+    render(<SignIn />);
     const passwordInput = screen.getByPlaceholderText("Password");
     expect(passwordInput).toBeInTheDocument();
   });
 
   it("should disable the submit button when isLoading is true", () => {
-    render(<SignIn/>);
+    render(<SignIn />);
     const submitButton = screen.getByRole("button");
     expect(submitButton).toBeEnabled();
   });

@@ -1,4 +1,4 @@
-import styles from "./login.module.css";
+import styles from "./Auth.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signUp } from "../../Services/authApiServices";

@@ -1,19 +1,27 @@
 import { render as rtlRender, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
-import SignUp from "../Pages/Login/SignUp";
+import SignUp from "../Pages/Auth/SignUp";
 import { store } from "../store/store";
 import { ReactNode } from "react";
 import { JSX } from "react/jsx-runtime";
 
-const render = (component: string | number | boolean | JSX.Element | Iterable<ReactNode> | null | undefined) => rtlRender(
-  <Provider store={store}>
-    <BrowserRouter> 
-      {component}
-    </BrowserRouter>
-  </Provider>
-)
+const render = (
+  component:
+    | string
+    | number
+    | boolean
+    | JSX.Element
+    | Iterable<ReactNode>
+    | null
+    | undefined,
+) =>
+  rtlRender(
+    <Provider store={store}>
+      <BrowserRouter>{component}</BrowserRouter>
+    </Provider>,
+  );
 
 describe("SignUp", () => {
   it("renders the SignUp component", () => {
@@ -25,7 +33,7 @@ describe("SignUp", () => {
     render(<SignUp />);
     expect(screen.getByText("OutFitMe")).toBeInTheDocument();
   });
-  
+
   it("should render username input field with placeholder 'Username'", () => {
     render(<SignUp />);
     const usernameInput = screen.getByPlaceholderText("Username");
@@ -56,5 +64,4 @@ describe("SignUp", () => {
     expect(signInLink).toBeInTheDocument();
     expect(signInLink.closest("a")).toHaveAttribute("href", "/"); // Check for expected href
   });
-  
 });

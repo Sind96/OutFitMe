@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 
 import { getWeatherData } from "./Services/apiService";
 // import LoginPage from './Components/LoginPage/LoginPage';
-import SignIn from "./Pages/Login/SignIn";
-import SignUp from "./Pages/Login/SignUp";
+import SignIn from "./Pages/Auth/SignIn";
+import SignUp from "./Pages/Auth/SignUp";
 import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
