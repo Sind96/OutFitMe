@@ -9,10 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
 import { signOut, updateUserInfo } from "../../store/slices/userSlice";
 import type { UpdateUserFormData } from "../../Types/auth.types";
 import styles from "./Profile.module.css";
-
-interface ProfileProps {
-  onMenuClick: (itemType: string) => void;
-}
+import { ProfileProps } from "./Profile.types";
 
 export default function Profile({ onMenuClick }: ProfileProps) {
   const { currentUser, token } = useAppSelector((state) => state.user);

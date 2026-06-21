@@ -9,10 +9,7 @@ import {
   signInStart,
   signInSuccess,
 } from "../../store/slices/userSlice";
-
-interface SignInProps {
-  getLocation: () => void;
-}
+import { SignInProps } from "./Auth.types";
 
 export default function SignIn({ getLocation }: SignInProps) {
   const dispatch = useAppDispatch();

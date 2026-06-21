@@ -3,13 +3,7 @@ import DisplayContainer from "../../Components/DisplayContainer/DisplayContainer
 import Gallery from "../../Components/Gallery/Gallery";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import { IWeatherDisplayProps } from "../../Types/weather.types";
-
-interface HomeProps {
-  weatherData: IWeatherDisplayProps;
-  emoji: string;
-  onMenuClick: (itemType: string) => void;
-  itemType: string;
-}
+import { HomeProps } from "./Home.types";
 
 export default function Home({
   weatherData,
