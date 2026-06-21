@@ -1,6 +1,5 @@
 import "./Sidebar.css";
 import { PiPants, PiTShirt, PiSneaker, PiHeartStraight } from "react-icons/pi";
-
 import { IoHomeOutline } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
@@ -11,21 +10,18 @@ import { signOut } from "../../store/slices/userSlice";
 import { GiClothes } from "react-icons/gi";
 import { useState } from "react";
 import { IoMdMore } from "react-icons/io";
-
-interface SidebarProps {
-  onMenuClick: (itemType: string) => void;
-}
+import { SidebarProps } from "./Sidebar.Types";
 
 function Sidebar({ onMenuClick }: SidebarProps) {
-  const [hideClothesIcons, setHideClothesIcons] = useState(true);
-  const [hideAdditonalIcons, sethideAdditionalIcons] = useState(true);
+  const [showClothingMenu, setShowClothingMenu] = useState(false);
+  const [showOptionsMenu, setShowOptionsMenu] = useState(false);
 
-  const handlerClothesReveal = () => {
-    setHideClothesIcons(!hideClothesIcons);
+  const toggleClothingMenu = () => {
+    setShowClothingMenu(!showClothingMenu);
   };
 
-  const handlerOptionsReveal = () => {
-    sethideAdditionalIcons(!hideAdditonalIcons);
+  const toggleOptionsMenu = () => {
+    setShowOptionsMenu(!showOptionsMenu);
   };
 
   //TODO: Add functionality to see (1) galleries by item type (2) liked outfits
@@ -44,59 +40,54 @@ function Sidebar({ onMenuClick }: SidebarProps) {
   };
 
   return (
-    <>
-      <div className="sidebar-nav">
-        <button className="sidebar-icon" onClick={() => onMenuClick("")}>
-          <Link to={"/home"} className="sidebar-icon">
-            {" "}
-            <IoHomeOutline />{" "}
+    <div className="sidebar-nav">
+      <button className="sidebar-icon" onClick={() => onMenuClick("")}>
+        <Link to={"/home"} className="sidebar-icon">
+          {" "}
+          <IoHomeOutline />{" "}
+        </Link>
+      </button>
+
+      <button className="sidebar-icon">
+        <PiHeartStraight />
+      </button>
+
+      {showClothingMenu && (
+        <div className="iconPopUps">
+          <button className="sidebar-icon" onClick={() => onMenuClick("top")}>
+            <PiTShirt />
+          </button>
+          <button
+            className="sidebar-icon"
+            onClick={() => onMenuClick("bottom")}
+          >
+            <PiPants />
+          </button>
+          <button className="sidebar-icon" onClick={() => onMenuClick("shoe")}>
+            <PiSneaker />
+          </button>
+        </div>
+      )}
+
+      <button className="sidebar-icon" onClick={toggleClothingMenu}>
+        <GiClothes />
+      </button>
+
+      {showOptionsMenu && (
+        <div className="iconPopUps2">
+          <Link to={"/profile"} className="sidebar-icon">
+            <CgProfile />
           </Link>
-        </button>
+          <button className="sidebar-icon" onClick={handleSignOut}>
+            <CiLogout />
+          </button>
+        </div>
+      )}
 
-        <button className="sidebar-icon">
-          <PiHeartStraight />
-        </button>
-
-        {!hideClothesIcons && (
-          <div className="iconPopUps">
-            <button className="sidebar-icon" onClick={() => onMenuClick("top")}>
-              <PiTShirt />
-            </button>
-            <button
-              className="sidebar-icon"
-              onClick={() => onMenuClick("bottom")}
-            >
-              <PiPants />
-            </button>
-            <button
-              className="sidebar-icon"
-              onClick={() => onMenuClick("shoe")}
-            >
-              <PiSneaker />
-            </button>
-          </div>
-        )}
-
-        <button className="sidebar-icon" onClick={handlerClothesReveal}>
-          <GiClothes />
-        </button>
-
-        {!hideAdditonalIcons && (
-          <div className="iconPopUps2">
-            <Link to={"/profile"} className="sidebar-icon">
-              <CgProfile />
-            </Link>
-            <button className="sidebar-icon" onClick={handleSignOut}>
-              <CiLogout />
-            </button>
-          </div>
-        )}
-
-        <button className="sidebar-icon" onClick={handlerOptionsReveal}>
-          <IoMdMore />
-        </button>
-      </div>
-    </>
+      <button className="sidebar-icon" onClick={toggleOptionsMenu}>
+        <IoMdMore />
+      </button>
+    </div>
   );
 }
 
