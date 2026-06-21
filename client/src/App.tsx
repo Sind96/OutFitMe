@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { getWeatherData } from "./Services/weatherService";
-// import LoginPage from './Components/LoginPage/LoginPage';
 import SignIn from "./Pages/Auth/SignIn";
 import SignUp from "./Pages/Auth/SignUp";
 import Home from "./Pages/Home/Home";
@@ -13,10 +12,6 @@ import { IWeatherDisplayProps } from "./Types/weather.types";
 import { getWeatherEmoji } from "./Utils/weatherHelpers";
 
 function App() {
-  //TODO: Style the page where user accepts to give their location first, have that accept button get weather and random outfit
-  // to avoid having to click two buttons
-
-  //WEATHER
   const [weatherData, setWeatherData] = useState<IWeatherDisplayProps>({
     location: "",
     temp: 0,
@@ -29,11 +24,8 @@ function App() {
 
   const [emoji, setEmoji] = useState<string>("");
 
-  //GALLERIES
   const [itemType, setItemType] = useState<string>("");
   const [gallery, setGallery] = useState<string>("");
-
-  ////////////////////////////////////////////////////////////////////////////
 
   useEffect(() => {
     if (!weatherData.description) return;
@@ -42,7 +34,6 @@ function App() {
   }, [weatherData.description]);
 
   const getLocation = () => {
-    // event.preventDefault();
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude;
@@ -51,7 +42,7 @@ function App() {
         getWeather(lat, lon);
       });
     } else {
-      alert("Please enable geolocation to use this app."); //TODO: maybe try sweetalert2?  https://sweetalert2.github.io/
+      alert("Please enable geolocation to use this app.");
     }
   };
 
@@ -74,39 +65,36 @@ function App() {
     });
   };
 
-  //GALLERIES
   const onMenuClick = async (itemType: string) => {
     setItemType(itemType);
     setGallery(itemType);
   };
 
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<SignIn getLocation={getLocation} />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route element={<PrivateRoute />}>
-            <Route
-              path="/home"
-              element={
-                <Home
-                  gallery={gallery}
-                  weatherData={weatherData}
-                  emoji={emoji}
-                  onMenuClick={onMenuClick}
-                  itemType={itemType}
-                />
-              }
-            />
-            <Route
-              path="/profile"
-              element={<Profile onMenuClick={onMenuClick} />}
-            />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignIn getLocation={getLocation} />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route element={<PrivateRoute />}>
+          <Route
+            path="/home"
+            element={
+              <Home
+                gallery={gallery}
+                weatherData={weatherData}
+                emoji={emoji}
+                onMenuClick={onMenuClick}
+                itemType={itemType}
+              />
+            }
+          />
+          <Route
+            path="/profile"
+            element={<Profile onMenuClick={onMenuClick} />}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 export default App;
