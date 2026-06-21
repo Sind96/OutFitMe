@@ -6,7 +6,7 @@ import type {
   TempChecksState,
   UploadImageState,
   UploadModalProps,
-} from "./UploadModal.Types";
+} from "./UploadModal.types";
 import { ClothingItemFormData } from "../../Types/clothingItem.types";
 
 const UploadModal = ({ onClose }: UploadModalProps) => {

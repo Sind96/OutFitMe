@@ -1,6 +1,6 @@
 import "./WeatherDisplay.css";
 import { FaLocationDot } from "react-icons/fa6";
-import { WeatherDisplayProps } from "./WeatherDisplay.Types";
+import { WeatherDisplayProps } from "./WeatherDisplay.types";
 
 function WeatherDisplay({ weatherData, emoji }: WeatherDisplayProps) {
   return (

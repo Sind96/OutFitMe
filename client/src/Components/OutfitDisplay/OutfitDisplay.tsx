@@ -16,7 +16,7 @@ import type {
   Outfit,
   OutfitDisplayProps,
   WeatherCriteria,
-} from "./OutfitDisplay.Types";
+} from "./OutfitDisplay.types";
 
 function OutfitDisplay({ weatherData }: OutfitDisplayProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

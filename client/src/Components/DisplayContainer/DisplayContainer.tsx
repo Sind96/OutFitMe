@@ -1,7 +1,7 @@
 import OutfitDisplay from "../OutfitDisplay/OutfitDisplay";
 import WeatherDisplay from "../WeatherDisplay/WeatherDisplay";
 import "./DisplayContainer.css";
-import type { DisplayContainerProps } from "./DisplayContainer.Types";
+import type { DisplayContainerProps } from "./DisplayContainer.types";
 
 function DisplayContainer({ weatherData, emoji, name }: DisplayContainerProps) {
   return (

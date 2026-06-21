@@ -6,7 +6,7 @@ import "react-medium-image-zoom/dist/styles.css";
 import { getAllItemsFromCat } from "../../Services/apiService";
 import type { ClothingItem } from "../../Types/clothingItem.types";
 import GalleryCard from "../GalleryCard/GalleryCard";
-import type { IGalleryProps } from "./Gallery.Types";
+import type { IGalleryProps } from "./Gallery.types";
 
 function Gallery({ itemType }: IGalleryProps) {
   const [itemGallery, setItemGallery] = useState<ClothingItem[]>([]);
