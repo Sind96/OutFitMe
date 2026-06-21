@@ -2,7 +2,7 @@ import styles from "./Auth.module.css";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
 import { Link, useNavigate } from "react-router-dom";
-import { logIn } from "../../Services/authApiServices";
+import { logIn } from "../../Services/authService";
 import type { LoginFormData } from "../../Types/auth.types";
 import {
   signInFailed,

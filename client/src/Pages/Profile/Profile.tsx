@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Sidebar from "../../Components/Sidebar/Sidebar";
-import { deleteUser, updateUser } from "../../Services/authApiServices";
+import { deleteUser, updateUser } from "../../Services/authService";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
 import { signOut, updateUserInfo } from "../../store/slices/userSlice";
 import type { UpdateUserFormData } from "../../Types/auth.types";

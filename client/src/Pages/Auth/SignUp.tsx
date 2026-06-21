@@ -1,7 +1,7 @@
 import styles from "./Auth.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { signUp } from "../../Services/authApiServices";
+import { signUp } from "../../Services/authService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
