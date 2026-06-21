@@ -10,6 +10,7 @@ import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import { IWeatherDisplayProps } from "./Types/weather.types";
+import { getWeatherEmoji } from "./Utils/weatherHelpers";
 
 function App() {
   //TODO: Style the page where user accepts to give their location first, have that accept button get weather and random outfit
@@ -34,31 +35,10 @@ function App() {
 
   ////////////////////////////////////////////////////////////////////////////
 
-  //WEATHER
   useEffect(() => {
-    if (weatherData.description === "") return;
+    if (!weatherData.description) return;
 
-    const descriptionToday = weatherData.description;
-
-    switch (descriptionToday) {
-      case "Thunderstorm":
-        setEmoji("⛈");
-        break;
-      case "Drizzle":
-        setEmoji("🌧");
-        break;
-      case "Rain":
-        setEmoji("🌧");
-        break;
-      case "Snow":
-        setEmoji("🌨");
-        break;
-      case "Clouds":
-        setEmoji("⛅");
-        break;
-      default: //'Clear'
-        setEmoji("☀");
-    }
+    setEmoji(getWeatherEmoji(weatherData.description));
   }, [weatherData.description]);
 
   const getLocation = () => {

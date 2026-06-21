@@ -21,3 +21,12 @@ export interface OpenWeatherResponse {
     main: string;
   }[];
 }
+
+export type WeatherCondition =
+  | "Thunderstorm"
+  | "Drizzle"
+  | "Rain"
+  | "Snow"
+  | "Clouds"
+  | "Clear"
+  | string;
