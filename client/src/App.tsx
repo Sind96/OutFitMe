@@ -1,68 +1,16 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
-
-import { getWeatherData } from "./Services/weatherService";
+import { useState } from "react";
 import SignIn from "./Pages/Auth/SignIn";
 import SignUp from "./Pages/Auth/SignUp";
 import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
-import { IWeatherDisplayProps } from "./Types/weather.types";
-import { getWeatherEmoji } from "./Utils/weatherHelpers";
+import { useWeather } from "./hooks/useWeather";
 
 function App() {
-  const [weatherData, setWeatherData] = useState<IWeatherDisplayProps>({
-    location: "",
-    temp: 0,
-    temp_max: 0,
-    temp_min: 0,
-    humidity: 0,
-    feels_like: 0,
-    description: "",
-  });
-
-  const [emoji, setEmoji] = useState<string>("");
-
   const [itemType, setItemType] = useState<string>("");
-
-  useEffect(() => {
-    if (!weatherData.description) return;
-
-    setEmoji(getWeatherEmoji(weatherData.description));
-  }, [weatherData.description]);
-
-  const getLocation = () => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-
-        getWeather(lat, lon);
-      });
-    } else {
-      alert("Please enable geolocation to use this app.");
-    }
-  };
-
-  const getWeather = (lat: number, lon: number) => {
-    getWeatherData(lat, lon).then((weatherData) => {
-      const {
-        name: location,
-        main: { temp, humidity, feels_like, temp_max, temp_min },
-        weather: [{ main }],
-      } = weatherData;
-      setWeatherData({
-        location: location,
-        temp: temp,
-        temp_max: temp_max,
-        temp_min: temp_min,
-        humidity: humidity,
-        feels_like: feels_like,
-        description: main,
-      });
-    });
-  };
+  const { weatherData, emoji, getLocation } = useWeather();
 
   const onMenuClick = (itemType: string) => {
     setItemType(itemType);
