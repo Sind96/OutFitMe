@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { addClothingItem } from "../../Services/apiService";
 import "./UploadModal.css";
 import Button from "../Button/Button";
@@ -26,15 +26,6 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
   const [tempChecks, setTempChecks] = useState<TempChecksState>({
     tempChecks: [],
   });
-
-  useEffect(() => {
-    if (formData.imgURL === "") {
-      //if setFormData is not finished, return early
-      return;
-    }
-    addClothingItem(formData); //post to database
-    onClose(); // Close the modal after uploading TODO: Close modal using a button and/or clicking background as well
-  }, [formData.imgURL]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
@@ -74,32 +65,37 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      const fd = new FormData();
-      if (!image.file) {
-        console.error("No file selected");
-        return;
-      }
+    if (!image.file) {
+      console.error("No file selected");
+      return;
+    }
 
-      fd.append("file", image.file);
-      fd.append("folder", folder);
-      fd.append("upload_preset", uploadPreset);
-      fd.append("resorce_type", "image");
+    try {
+      const uploadFormData = new FormData();
+
+      uploadFormData.append("file", image.file);
+      uploadFormData.append("folder", folder);
+      uploadFormData.append("upload_preset", uploadPreset);
+      uploadFormData.append("resource_type", "image");
 
       const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
-      const options = {
+
+      const response = await fetch(url, {
         method: "POST",
-        body: fd,
-      };
-      const response = await fetch(url, options).then((res) => res.json()); //just needed to parse the response body :-)
+        body: uploadFormData,
+      });
 
-      const resURL = response.secure_url;
+      const uploadResponse = await response.json();
+      const imageUrl = uploadResponse.secure_url;
 
-      setFormData((formData) => ({
+      const clothingItemPayload: ClothingItemFormData = {
         ...formData,
-        imgURL: resURL,
-        tempRange: [...tempChecks.tempChecks],
-      }));
+        imgURL: imageUrl,
+        tempRange: tempChecks.tempChecks,
+      };
+
+      await addClothingItem(clothingItemPayload);
+      onClose();
     } catch (error) {
       console.error("Upload failed", error);
     }
@@ -238,7 +234,7 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
             </div>
           </fieldset>
 
-          <Button text="Upload" className="upload-button" />
+          <Button text="Upload" className="upload-button" type="submit" />
         </form>
       </div>
     </div>
