@@ -1,9 +1,4 @@
 import { useState } from "react";
-import {
-  temperatureToWeather,
-  rainToWeather,
-} from "../../Utils/helperFunctions";
-import { getRandomItem } from "../../Services/clothingItemService";
 import Button from "../Button/Button";
 import "./OutfitDisplay.css";
 import { IoShirtOutline } from "react-icons/io5";
@@ -12,11 +7,8 @@ import { LiaShoePrintsSolid } from "react-icons/lia";
 import UploadModal from "../UploadModal/UploadModal";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import type {
-  Outfit,
-  OutfitDisplayProps,
-  WeatherCriteria,
-} from "./OutfitDisplay.types";
+import type { OutfitDisplayProps } from "./OutfitDisplay.types";
+import { useOutfitGenerator } from "../../hooks/useOutfitGenerator";
 
 function OutfitDisplay({ weatherData }: OutfitDisplayProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -29,49 +21,7 @@ function OutfitDisplay({ weatherData }: OutfitDisplayProps) {
     setIsModalOpen(false);
   };
 
-  //state to set imgURL's in display
-  const [outfit, setOutfit] = useState<Outfit>({
-    top: "",
-    bottom: "",
-    shoe: "",
-  });
-
-  //onclick gather weather info to send via request
-  const generateOutfit = async () => {
-    const weatherDataTemp = Number(weatherData.temp);
-    const weatherDataDescription = weatherData.description;
-
-    const weatherCriteria: WeatherCriteria = {
-      isDryWeather: rainToWeather(weatherDataDescription),
-      tempToday: temperatureToWeather(weatherDataTemp),
-    };
-
-    if (!weatherCriteria.tempToday) return;
-
-    try {
-      const [top, bottom, shoe] = await Promise.all([
-        getRandomItem(
-          "top",
-          weatherCriteria.tempToday,
-          weatherCriteria.isDryWeather,
-        ),
-        getRandomItem(
-          "bottom",
-          weatherCriteria.tempToday,
-          weatherCriteria.isDryWeather,
-        ),
-        getRandomItem(
-          "shoe",
-          weatherCriteria.tempToday,
-          weatherCriteria.isDryWeather,
-        ),
-      ]);
-
-      setOutfit({ top, bottom, shoe });
-    } catch (error) {
-      console.error("Failed to generate outfit", error);
-    }
-  };
+  const { outfit, generateOutfit } = useOutfitGenerator(weatherData);
 
   return (
     <>
