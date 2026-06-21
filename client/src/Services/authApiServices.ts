@@ -7,20 +7,7 @@ import type {
   UpdateUserFormData,
   UpdateUserResponse,
 } from "../Types/auth.types";
-
-const baseURL = import.meta.env.VITE_API_URL || "http://localhost:3000";
-
-const handleResponse = async <T>(response: Response): Promise<T> => {
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      data.message || `Request failed with status ${response.status}`,
-    );
-  }
-
-  return data;
-};
+import { baseURL, handleResponse } from "./apiClient";
 
 const signUp = async (formData: SignUpFormData): Promise<AuthResponse> => {
   const response = await fetch(`${baseURL}/register`, {

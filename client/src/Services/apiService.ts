@@ -3,17 +3,9 @@ import type {
   ClothingItemFormData,
   CreateClothingItemResponse,
 } from "../Types/clothingItem.types";
+import { baseURL, handleResponse } from "./apiClient";
 
-const baseURL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 const weatherAPIkey = import.meta.env.VITE_OPENWEATHER_API_KEY;
-
-const handleResponse = async <T>(response: Response): Promise<T> => {
-  if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}`);
-  }
-
-  return response.json();
-};
 
 const addClothingItem = async (
   formData: ClothingItemFormData,
