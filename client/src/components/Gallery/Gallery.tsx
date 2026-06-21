@@ -10,15 +10,23 @@ import type { IGalleryProps } from "./Gallery.types";
 
 function Gallery({ itemType }: IGalleryProps) {
   const [itemGallery, setItemGallery] = useState<ClothingItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchGalleryItems = async () => {
       try {
+        setIsLoading(true);
+        setError(null);
+
         const items = await getAllItemsFromCat(itemType);
         setItemGallery(items);
       } catch (error) {
         console.error("Failed to fetch gallery items", error);
         setItemGallery([]);
+        setError("Unable to load gallery items. Please try again.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -29,15 +37,25 @@ function Gallery({ itemType }: IGalleryProps) {
     <div className="gallery">
       <h1 className="gallery-title">{itemType.toUpperCase()}</h1>
 
-      <ul className="gallery-items">
-        {itemGallery.map((item) => (
-          <li key={item._id}>
-            <Zoom>
-              <GalleryCard source={item.imgURL} />
-            </Zoom>
-          </li>
-        ))}
-      </ul>
+      {isLoading && <p>Loading gallery...</p>}
+
+      {error && <p className="gallery-error">{error}</p>}
+
+      {!isLoading && !error && itemGallery.length === 0 && (
+        <p>No {itemType} items found.</p>
+      )}
+
+      {!isLoading && !error && itemGallery.length > 0 && (
+        <ul className="gallery-items">
+          {itemGallery.map((item) => (
+            <li key={item._id}>
+              <Zoom>
+                <GalleryCard source={item.imgURL} />
+              </Zoom>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
