@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { getRandomItem } from "../Services/clothingItemService";
-import { rainToWeather, temperatureToWeather } from "../Utils/helperFunctions";
-import type { IWeatherDisplayProps } from "../Types/weather.types";
+import { getRandomItem } from "../services/clothingItemService";
+import { rainToWeather, temperatureToWeather } from "../utils/helperFunctions";
+import type { IWeatherDisplayProps } from "../types/weather.types";
 import type {
   Outfit,
   WeatherCriteria,
-} from "../Components/OutfitDisplay/OutfitDisplay.types";
+} from "../components/OutfitDisplay/OutfitDisplay.types";
 
 export const useOutfitGenerator = (
   weatherData: Pick<IWeatherDisplayProps, "temp" | "description">,

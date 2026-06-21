@@ -1,5 +1,5 @@
 import { handleResponse } from "./apiClient";
-import type { OpenWeatherResponse } from "../Types/weather.types";
+import type { OpenWeatherResponse } from "../types/weather.types";
 
 const weatherAPIkey = import.meta.env.VITE_OPENWEATHER_API_KEY;
 

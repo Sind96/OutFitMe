@@ -2,8 +2,8 @@ import styles from "./Auth.module.css";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
 import { Link, useNavigate } from "react-router-dom";
-import { logIn } from "../../Services/authService";
-import type { LoginFormData } from "../../Types/auth.types";
+import { logIn } from "../../services/authService";
+import type { LoginFormData } from "../../types/auth.types";
 import {
   signInFailed,
   signInStart,

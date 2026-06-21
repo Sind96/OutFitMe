@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Sidebar from "../../Components/Sidebar/Sidebar";
-import { deleteUser, updateUser } from "../../Services/authService";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import { deleteUser, updateUser } from "../../services/authService";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
 import { signOut, updateUserInfo } from "../../store/slices/userSlice";
-import type { UpdateUserFormData } from "../../Types/auth.types";
+import type { UpdateUserFormData } from "../../types/auth.types";
 import styles from "./Profile.module.css";
 import { ProfileProps } from "./Profile.types";
 

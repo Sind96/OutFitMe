@@ -1,11 +1,11 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
-import SignIn from "./Pages/Auth/SignIn";
-import SignUp from "./Pages/Auth/SignUp";
-import Home from "./Pages/Home/Home";
-import Profile from "./Pages/Profile/Profile";
-import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import SignIn from "./pages/Auth/SignIn";
+import SignUp from "./pages/Auth/SignUp";
+import Home from "./pages/Home/Home";
+import Profile from "./pages/Profile/Profile";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { useWeather } from "./hooks/useWeather";
 
 function App() {

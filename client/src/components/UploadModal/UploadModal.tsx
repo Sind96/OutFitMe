@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addClothingItem } from "../../Services/clothingItemService";
+import { addClothingItem } from "../../services/clothingItemService";
 import "./UploadModal.css";
 import Button from "../Button/Button";
 import type {
@@ -7,7 +7,7 @@ import type {
   UploadImageState,
   UploadModalProps,
 } from "./UploadModal.types";
-import { ClothingItemFormData } from "../../Types/clothingItem.types";
+import { ClothingItemFormData } from "../../types/clothingItem.types";
 
 const UploadModal = ({ onClose }: UploadModalProps) => {
   const cloudName = import.meta.env.VITE_CLOUD_NAME;

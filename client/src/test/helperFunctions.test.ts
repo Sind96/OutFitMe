@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { rainToWeather, temperatureToWeather } from "../Utils/helperFunctions";
+import { rainToWeather, temperatureToWeather } from "../utils/helperFunctions";
 
 describe("temperatureToWeather", () => {
   it("returns cold for temperatures 10 or below", () => {

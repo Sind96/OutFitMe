@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getWeatherEmoji } from "../Utils/weatherHelpers";
+import { getWeatherEmoji } from "../utils/weatherHelpers";
 
 describe("getWeatherEmoji", () => {
   it("returns storm emoji for Thunderstorm", () => {

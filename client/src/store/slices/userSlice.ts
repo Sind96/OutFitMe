@@ -3,7 +3,7 @@ import type {
   AuthResponse,
   UpdateUserFormData,
   User,
-} from "../../Types/auth.types";
+} from "../../types/auth.types";
 
 interface UserState {
   currentUser: User | null;

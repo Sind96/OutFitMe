@@ -1,4 +1,4 @@
-import type { WeatherCondition } from "../Types/weather.types";
+import type { WeatherCondition } from "../types/weather.types";
 
 const getWeatherEmoji = (condition: WeatherCondition): string => {
   switch (condition) {

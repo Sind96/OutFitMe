@@ -2,7 +2,7 @@ import { render as rtlRender, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-import SignUp from "../Pages/Auth/SignUp";
+import SignUp from "../pages/Auth/SignUp";
 import { store } from "../store/store";
 import { ReactNode } from "react";
 import { JSX } from "react/jsx-runtime";

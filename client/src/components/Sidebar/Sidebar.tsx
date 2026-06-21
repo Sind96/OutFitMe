@@ -3,7 +3,7 @@ import { PiPants, PiTShirt, PiSneaker, PiHeartStraight } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
-import { logOut } from "../../Services/authService";
+import { logOut } from "../../services/authService";
 import { useAppDispatch } from "../../store/hooks/reduxHooks";
 import { Link } from "react-router-dom";
 import { signOut } from "../../store/slices/userSlice";

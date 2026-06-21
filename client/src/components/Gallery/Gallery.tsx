@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 
-import { getAllItemsFromCat } from "../../Services/clothingItemService";
-import type { ClothingItem } from "../../Types/clothingItem.types";
+import { getAllItemsFromCat } from "../../services/clothingItemService";
+import type { ClothingItem } from "../../types/clothingItem.types";
 import GalleryCard from "../GalleryCard/GalleryCard";
 import type { IGalleryProps } from "./Gallery.types";
 

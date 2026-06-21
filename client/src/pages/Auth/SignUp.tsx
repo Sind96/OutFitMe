@@ -1,7 +1,7 @@
 import styles from "./Auth.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { signUp } from "../../Services/authService";
+import { signUp } from "../../services/authService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
@@ -10,7 +10,7 @@ import {
   signUpStart,
   signUpSuccess,
 } from "../../store/slices/userSlice";
-import type { SignUpFormData } from "../../Types/auth.types";
+import type { SignUpFormData } from "../../types/auth.types";
 
 export default function SignUp() {
   const dispatch = useAppDispatch();

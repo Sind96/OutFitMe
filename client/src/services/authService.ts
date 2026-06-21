@@ -6,7 +6,7 @@ import type {
   SignUpFormData,
   UpdateUserFormData,
   UpdateUserResponse,
-} from "../Types/auth.types";
+} from "../types/auth.types";
 import { baseURL, handleResponse } from "./apiClient";
 
 const signUp = async (formData: SignUpFormData): Promise<AuthResponse> => {

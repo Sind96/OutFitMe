@@ -2,7 +2,7 @@ import type {
   ClothingItem,
   ClothingItemFormData,
   CreateClothingItemResponse,
-} from "../Types/clothingItem.types";
+} from "../types/clothingItem.types";
 import { baseURL, handleResponse } from "./apiClient";
 
 const addClothingItem = async (

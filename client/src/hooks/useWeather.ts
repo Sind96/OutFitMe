@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { getWeatherData } from "../Services/weatherService";
-import type { IWeatherDisplayProps } from "../Types/weather.types";
-import { getWeatherEmoji } from "../Utils/weatherHelpers";
+import { getWeatherData } from "../services/weatherService";
+import type { IWeatherDisplayProps } from "../types/weather.types";
+import { getWeatherEmoji } from "../utils/weatherHelpers";
 
 const initialWeatherData: IWeatherDisplayProps = {
   location: "",

@@ -1,8 +1,8 @@
 import { useAppSelector } from "../../store/hooks/reduxHooks";
-import DisplayContainer from "../../Components/DisplayContainer/DisplayContainer";
-import Gallery from "../../Components/Gallery/Gallery";
-import Sidebar from "../../Components/Sidebar/Sidebar";
-import { IWeatherDisplayProps } from "../../Types/weather.types";
+import DisplayContainer from "../../components/DisplayContainer/DisplayContainer";
+import Gallery from "../../components/Gallery/Gallery";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import { IWeatherDisplayProps } from "../../types/weather.types";
 import { HomeProps } from "./Home.types";
 
 export default function Home({
