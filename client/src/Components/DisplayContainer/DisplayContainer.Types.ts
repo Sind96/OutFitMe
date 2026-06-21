@@ -1,4 +1,4 @@
-import type { IWeatherDisplayProps } from "../../Types/App.Types";
+import { IWeatherDisplayProps } from "../../Types/weather.types";
 
 export interface DisplayContainerProps {
   weatherData: IWeatherDisplayProps;

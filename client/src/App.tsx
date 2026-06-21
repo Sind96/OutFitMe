@@ -3,13 +3,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { getWeatherData } from "./Services/apiService";
-import { IWeatherDisplayProps } from "./Types/App.Types";
 // import LoginPage from './Components/LoginPage/LoginPage';
 import SignIn from "./Pages/Login/SignIn";
 import SignUp from "./Pages/Login/SignUp";
 import Home from "./Pages/Home/Home";
 import Profile from "./Pages/profile/Profile";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import { IWeatherDisplayProps } from "./Types/weather.types";
 
 function App() {
   //TODO: Style the page where user accepts to give their location first, have that accept button get weather and random outfit

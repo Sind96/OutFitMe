@@ -2,7 +2,7 @@ import { useAppSelector } from "../../store/hooks/reduxHooks";
 import DisplayContainer from "../../Components/DisplayContainer/DisplayContainer";
 import Gallery from "../../Components/Gallery/Gallery";
 import Sidebar from "../../Components/Sidebar/Sidebar";
-import type { IWeatherDisplayProps } from "../../Types/App.Types";
+import { IWeatherDisplayProps } from "../../Types/weather.types";
 
 interface HomeProps {
   gallery: string;
