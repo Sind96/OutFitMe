@@ -1,17 +1,11 @@
-import './Button.css';
+import "./Button.css";
+import { ButtonProps } from "./Button.Types";
 
-interface ButtonProps {
-  text: string;
-  onClick?: () => void;
-  className: string;
-}
-
-
-function Button({ className, text, onClick }: ButtonProps) {
+function Button({ className, text, onClick, type = "button" }: ButtonProps) {
   return (
-      <button className={className} onClick={onClick}>
-        {text}
-      </button>
+    <button className={className} onClick={onClick} type={type}>
+      {text}
+    </button>
   );
 }
 
