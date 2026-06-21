@@ -18,7 +18,7 @@ export const useWeather = () => {
   const [weatherData, setWeatherData] =
     useState<IWeatherDisplayProps>(initialWeatherData);
 
-  const [emoji, setEmoji] = useState<string>("");
+  const [emoji, setEmoji] = useState("");
 
   useEffect(() => {
     if (!weatherData.description) return;
