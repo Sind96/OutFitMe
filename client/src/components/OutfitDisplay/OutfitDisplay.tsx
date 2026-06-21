@@ -21,7 +21,8 @@ function OutfitDisplay({ weatherData }: OutfitDisplayProps) {
     setIsModalOpen(false);
   };
 
-  const { outfit, generateOutfit } = useOutfitGenerator(weatherData);
+  const { outfit, generateOutfit, isLoading, error } =
+    useOutfitGenerator(weatherData);
 
   return (
     <>
@@ -68,9 +69,11 @@ function OutfitDisplay({ weatherData }: OutfitDisplayProps) {
             />
             <Button
               className="outfitMeButton"
-              text="OutFitMe!"
+              text={isLoading ? "Generating..." : "OutFitMe!"}
               onClick={generateOutfit}
+              disabled={isLoading}
             />
+            {error && <p className="outfit-error">{error}</p>}
           </div>
         </div>
       </div>

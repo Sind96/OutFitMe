@@ -15,6 +15,8 @@ export const useOutfitGenerator = (
     bottom: "",
     shoe: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const generateOutfit = async () => {
     const weatherCriteria: WeatherCriteria = {
@@ -22,9 +24,15 @@ export const useOutfitGenerator = (
       tempToday: temperatureToWeather(weatherData.temp),
     };
 
-    if (!weatherCriteria.tempToday) return;
+    if (!weatherCriteria.tempToday) {
+      setError("Weather data is not available yet.");
+      return;
+    }
 
     try {
+      setIsLoading(true);
+      setError(null);
+
       const [top, bottom, shoe] = await Promise.all([
         getRandomItem(
           "top",
@@ -46,11 +54,16 @@ export const useOutfitGenerator = (
       setOutfit({ top, bottom, shoe });
     } catch (error) {
       console.error("Failed to generate outfit", error);
+      setError("Unable to generate outfit. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return {
     outfit,
     generateOutfit,
+    isLoading,
+    error,
   };
 };
