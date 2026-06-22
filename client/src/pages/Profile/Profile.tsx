@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Navbar from "../../components/Navbar/Navbar";
 import { deleteUser, updateUser } from "../../services/authService";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
 import { signOut, updateUserInfo } from "../../store/slices/userSlice";
@@ -110,7 +110,7 @@ export default function Profile({ onMenuClick }: ProfileProps) {
         </button>
       </div>
 
-      <Sidebar onMenuClick={onMenuClick} />
+      <Navbar onMenuClick={onMenuClick} />
       <ToastContainer />
     </div>
   );

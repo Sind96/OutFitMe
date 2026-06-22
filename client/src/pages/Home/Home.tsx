@@ -1,7 +1,7 @@
 import { useAppSelector } from "../../store/hooks/reduxHooks";
 import DisplayContainer from "../../components/DisplayContainer/DisplayContainer";
 import Gallery from "../../components/Gallery/Gallery";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Navbar from "../../components/Navbar/Navbar";
 import { IWeatherDisplayProps } from "../../types/weather.types";
 import { HomeProps } from "./Home.types";
 
@@ -32,7 +32,7 @@ export default function Home({
       )}
 
       <div className="app-container">
-        <Sidebar onMenuClick={onMenuClick} />
+        <Navbar onMenuClick={onMenuClick} />
       </div>
     </div>
   );

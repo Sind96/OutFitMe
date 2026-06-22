@@ -1,4 +1,4 @@
-import "./Sidebar.css";
+import "./Navbar.css";
 import { PiPants, PiTShirt, PiSneaker, PiHeartStraight } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
@@ -10,9 +10,9 @@ import { signOut } from "../../store/slices/userSlice";
 import { GiClothes } from "react-icons/gi";
 import { useState } from "react";
 import { IoMdMore } from "react-icons/io";
-import type { SidebarProps } from "./Sidebar.types";
+import type { NavbarProps } from "./Navbar.types";
 
-function Sidebar({ onMenuClick }: SidebarProps) {
+function Navbar({ onMenuClick }: NavbarProps) {
   const [showClothingMenu, setShowClothingMenu] = useState(false);
   const [showOptionsMenu, setShowOptionsMenu] = useState(false);
   const navigate = useNavigate();
@@ -53,38 +53,38 @@ function Sidebar({ onMenuClick }: SidebarProps) {
   };
 
   return (
-    <div className="sidebar-nav">
-      <Link to="/home" className="sidebar-icon" onClick={() => onMenuClick("")}>
+    <div className="navbar-nav">
+      <Link to="/home" className="navbar-icon" onClick={() => onMenuClick("")}>
         <IoHomeOutline />
       </Link>
 
-      <button className="sidebar-icon">
+      <button className="navbar-icon">
         <PiHeartStraight />
       </button>
 
       <div className="menuWrapper">
-        <button className="sidebar-icon" onClick={toggleClothingMenu}>
+        <button className="navbar-icon" onClick={toggleClothingMenu}>
           <GiClothes />
         </button>
 
         {showClothingMenu && (
           <div className="iconPopUps">
             <button
-              className="sidebar-icon"
+              className="navbar-icon"
               onClick={() => handleGalleryClick("top")}
             >
               <PiTShirt />
             </button>
 
             <button
-              className="sidebar-icon"
+              className="navbar-icon"
               onClick={() => handleGalleryClick("bottom")}
             >
               <PiPants />
             </button>
 
             <button
-              className="sidebar-icon"
+              className="navbar-icon"
               onClick={() => handleGalleryClick("shoe")}
             >
               <PiSneaker />
@@ -94,17 +94,17 @@ function Sidebar({ onMenuClick }: SidebarProps) {
       </div>
 
       <div className="menuWrapper">
-        <button className="sidebar-icon" onClick={toggleOptionsMenu}>
+        <button className="navbar-icon" onClick={toggleOptionsMenu}>
           <IoMdMore />
         </button>
 
         {showOptionsMenu && (
           <div className="iconPopUps2">
-            <Link to={"/profile"} className="sidebar-icon">
+            <Link to={"/profile"} className="navbar-icon">
               <CgProfile />
             </Link>
 
-            <button className="sidebar-icon" onClick={handleSignOut}>
+            <button className="navbar-icon" onClick={handleSignOut}>
               <CiLogout />
             </button>
           </div>
@@ -114,4 +114,4 @@ function Sidebar({ onMenuClick }: SidebarProps) {
   );
 }
 
-export default Sidebar;
+export default Navbar;

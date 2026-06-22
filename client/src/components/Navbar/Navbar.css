@@ -1,4 +1,4 @@
-.sidebar-nav {
+.navbar-nav {
   position: fixed;
   left: 50%;
   bottom: 1rem;
@@ -23,7 +23,7 @@
   align-items: center;
 }
 
-.sidebar-icon {
+.navbar-icon {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,7 +38,7 @@
   text-decoration: none;
 }
 
-.sidebar-icon:hover {
+.navbar-icon:hover {
   background: rgba(255, 255, 255, 0.12);
 }
 
@@ -59,12 +59,12 @@
 }
 
 @media (max-width: 480px) {
-  .sidebar-nav {
+  .navbar-nav {
     width: calc(100% - 1rem);
     bottom: 0.5rem;
   }
 
-  .sidebar-icon {
+  .navbar-icon {
     width: 42px;
     height: 42px;
     font-size: 1.35rem;
