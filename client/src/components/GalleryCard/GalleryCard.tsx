@@ -1,5 +1,5 @@
 import "./GalleryCard.css";
-import { GalleryCardProps } from "./GalleryCard.types";
+import type { GalleryCardProps } from "./GalleryCard.types";
 
 function GalleryCard({ source }: GalleryCardProps) {
   return (

@@ -10,7 +10,7 @@ import { signOut } from "../../store/slices/userSlice";
 import { GiClothes } from "react-icons/gi";
 import { useState } from "react";
 import { IoMdMore } from "react-icons/io";
-import { SidebarProps } from "./Sidebar.types";
+import type { SidebarProps } from "./Sidebar.types";
 
 function Sidebar({ onMenuClick }: SidebarProps) {
   const [showClothingMenu, setShowClothingMenu] = useState(false);
