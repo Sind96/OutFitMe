@@ -1,23 +1,14 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* App display */
-
 .app-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  }
+}
 
 .display-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
 }
-
