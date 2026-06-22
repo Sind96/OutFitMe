@@ -9,6 +9,7 @@ import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import type { OutfitDisplayProps } from "./OutfitDisplay.types";
 import { useOutfitGenerator } from "../../hooks/useOutfitGenerator";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 function OutfitDisplay({ weatherData }: OutfitDisplayProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -73,8 +74,10 @@ function OutfitDisplay({ weatherData }: OutfitDisplayProps) {
               onClick={generateOutfit}
               disabled={isLoading}
             />
-            {error && <p className="outfit-error">{error}</p>}
           </div>
+
+          {isLoading && <LoadingSpinner text="Generating outfit..." />}
+          {error && <p className="outfit-error">{error}</p>}
         </div>
       </div>
       {isModalOpen && <UploadModal onClose={handleCloseModal} />}
