@@ -42,7 +42,15 @@ describe("Gallery", () => {
     render(<Gallery itemType="top" />);
 
     await waitFor(() => {
-      expect(screen.getByText("No top items found.")).toBeInTheDocument();
+      expect(
+        screen.getByRole("heading", {
+          name: "No top items uploaded yet.",
+        }),
+      ).toBeInTheDocument();
+
+      expect(
+        screen.getByText("Add some clothing items to start building outfits."),
+      ).toBeInTheDocument();
     });
   });
 
@@ -53,11 +61,14 @@ describe("Gallery", () => {
 
     render(<Gallery itemType="top" />);
 
-    const errorMessage = await screen.findByText(
-      "Unable to load gallery items. Please try again.",
-    );
+    const errorHeading = await screen.findByRole("heading", {
+      name: "We couldn't load your wardrobe.",
+    });
 
-    expect(errorMessage).toBeInTheDocument();
+    expect(errorHeading).toBeInTheDocument();
+    expect(
+      screen.getByText("Please try again in a moment."),
+    ).toBeInTheDocument();
 
     consoleSpy.mockRestore();
   });

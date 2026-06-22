@@ -2,7 +2,7 @@ import "./Gallery.css";
 import { useEffect, useState } from "react";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { getAllItemsFromCat } from "../../services/clothingItemService";
 import type { ClothingItem } from "../../types/clothingItem.types";
 import GalleryCard from "../GalleryCard/GalleryCard";
@@ -37,12 +37,20 @@ function Gallery({ itemType }: IGalleryProps) {
     <div className="gallery">
       <h1 className="gallery-title">{itemType.toUpperCase()}</h1>
 
-      {isLoading && <p>Loading gallery...</p>}
+      {isLoading && <LoadingSpinner text="Loading gallery..." />}
 
-      {error && <p className="gallery-error">{error}</p>}
+      {error && (
+        <div className="gallery-state gallery-state-error">
+          <h2>We couldn&apos;t load your wardrobe.</h2>
+          <p>Please try again in a moment.</p>
+        </div>
+      )}
 
       {!isLoading && !error && itemGallery.length === 0 && (
-        <p>No {itemType} items found.</p>
+        <div className="gallery-state">
+          <h2>No {itemType} items uploaded yet.</h2>
+          <p>Add some clothing items to start building outfits.</p>
+        </div>
       )}
 
       {!isLoading && !error && itemGallery.length > 0 && (
