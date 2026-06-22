@@ -1,16 +1,12 @@
 .weather-container {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  align-content: center;
-  background-color: rgb(226, 232, 232);
-  border: solid rgb(0,1,53);
-  border-radius: 20px;
   width: 100%;
-  max-width: 70%;
-  /* height: 100 vh; */
-  padding: 0.5em 1.5em 0 1.5em;
-  margin-top: 1.5em;
+  max-width: 720px;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
 }
 
 .top-data {
@@ -18,51 +14,75 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin-bottom: 1rem;
 }
 
 .locationapidata {
-  font-size: 2.5em;
-  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--colour-text);
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 800;
 }
 
 .locationicon {
-  display: inline;
-  justify-content: center;
-  align-items: center;
-  color: rgb(0,1,53); 
-  font-size: 30px;
+  color: var(--colour-primary);
+  font-size: 1.5rem;
 }
 
 .tempandemojicontainer {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 2rem;
 }
 
 .tempandemoji {
-  font-size: 2em;
-  font-weight: bold;
-  margin-right: 20px;
-  /* margin-top: 10px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 800;
+}
+
+.temperatureapidata {
+  font-size: clamp(2.5rem, 10vw, 4.5rem);
+  line-height: 1;
 }
 
 .emojiapidata {
-  font-size: 2em;
-  margin: 0;  
-  font-family: 'Segoe UI Emoji'; /*This font makes all emojis appear colored*/
-  /* padding-top: ; */
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+  font-size: clamp(2.5rem, 9vw, 4rem);
 }
 
 .humidityFeelslikeDesc {
   display: flex;
   flex-direction: column;
-  justify-content: right;
-  align-items:end;
-  /* margin-top: 10vh; */
+  align-items: flex-end;
+  gap: 0.4rem;
+  color: var(--colour-muted);
 }
 
-.apidata, .humidity, .feelslike, .weatherDescription {
-  font-size: 1em;
-  font-weight: bolder;
+.apidata,
+.humidity,
+.feelslike,
+.weatherDescription {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.weatherDescription {
+  color: var(--colour-primary);
+}
+
+@media (max-width: 640px) {
+  .tempandemojicontainer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .humidityFeelslikeDesc {
+    align-items: center;
+    text-align: center;
+  }
 }

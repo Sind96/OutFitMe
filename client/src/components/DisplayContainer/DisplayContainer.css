@@ -1,25 +1,26 @@
 .main {
+  width: 100%;
+  max-width: 960px;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
 .welcome-message {
-  font-size: 2em;
-  text-align: center;
-  /* margin-top: 1.4em; */
-  margin: 1em 0.8em 0 0.8em;
+  margin: 1rem 0 1.5rem;
+  color: var(--colour-text);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
 }
 
-.subtext {
-  font-size: 0.55em;
-  text-align: center;
-  margin: 0 5px;
-}
-
+.subtext,
 .welcome-message span {
-  font-size: 0.5em;
-  text-align: center;
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--colour-muted);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: normal;
 }
