@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import Navbar from "../../components/Navbar/Navbar";
 import { deleteUser, updateUser } from "../../services/authService";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
@@ -111,7 +110,6 @@ export default function Profile({ onMenuClick }: ProfileProps) {
       </div>
 
       <Navbar onMenuClick={onMenuClick} />
-      <ToastContainer />
     </div>
   );
 }

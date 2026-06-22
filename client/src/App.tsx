@@ -7,6 +7,8 @@ import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { useWeather } from "./hooks/useWeather";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [itemType, setItemType] = useState<string>("");
@@ -39,6 +41,7 @@ function App() {
           />
         </Route>
       </Routes>
+      <ToastContainer position="top-center" autoClose={4000} />
     </BrowserRouter>
   );
 }

@@ -2,7 +2,7 @@ import styles from "./Auth.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signUp } from "../../services/authService";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
 import {
@@ -111,7 +111,6 @@ export default function SignUp() {
         </Link>
       </div>
       {error && <p>{error}</p>}
-      <ToastContainer />
     </main>
   );
 }

@@ -8,6 +8,7 @@ import type {
   UploadModalProps,
 } from "./UploadModal.types";
 import { ClothingItemFormData } from "../../types/clothingItem.types";
+import { toast } from "react-toastify";
 
 const UploadModal = ({ onClose }: UploadModalProps) => {
   const cloudName = import.meta.env.VITE_CLOUD_NAME;
@@ -95,9 +96,11 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
       };
 
       await addClothingItem(clothingItemPayload);
+      toast.success("Clothing item uploaded successfully.");
       onClose();
     } catch (error) {
       console.error("Upload failed", error);
+      toast.error("Failed to upload clothing item.");
     }
   };
 
