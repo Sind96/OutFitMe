@@ -44,7 +44,7 @@
 
 OutFitMe is a user-friendly application that enables users to upload pictures of their clothing and tag them by type and optimal weather conditions (temperature range, rain suitability, etc.). With a simple click, users can generate outfits tailored to the day's weather forecast.
 
-The outfit randomizer display includes a live weather update for the user's location. Additionally, the sidebar features icons that lead to galleries of all uploaded items categorized by type.
+The outfit randomizer display includes a live weather update for the user's location. Additionally, the navbar features icons that lead to galleries of all uploaded items categorized by type.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -81,20 +81,17 @@ In order to get OutFitMe to work, there are two external services that need to b
   ```
 
 - Obtain API key for:
-
   - [OpenWeatherMap API ](https://openweathermap.org/):
-
     - Go to https://openweathermap.org/ and get a free membership.
     - Once logged in, locate your username drop down in the navbar, and navigate to "My API Keys".
     - In "My API Keys" make sure you have an **Active** key, and save its **Key** and **Name** to add them to the .env file.
 
   - [Cloudinary API ](https://cloudinary.com/):
-
     - Go to https://cloudinary.com/ and get a free membership.
-    - Once logged in, locate the "Assets" icon at the top of the sidebar and click on it.
+    - Once logged in, locate the "Assets" icon at the top of the navbar and click on it.
     - Here you can create a new folder to upload pictures to, name it however you want and save the **Folder name** to add it to the .env file.
-    - Now locate the settings icon at the bottom of the sidebar, and click on it.
-    - In "Settings", another sidebar will become visible. Click on "API Keys" and save your **Cloud name** to add it to the .env file.
+    - Now locate the settings icon at the bottom of the navbar, and click on it.
+    - In "Settings", another navbar will become visible. Click on "API Keys" and save your **Cloud name** to add it to the .env file.
     - Make sure you have an **Active** key, and save its **API Key** and **API Secret** to add them to the .env file.
     - In "Settings", click on "Upload Presets" and add a new preset with Signing mode **Unsigned**. Leave all other options as is and save it, then save its **Name** to add it to the .env file.
 
