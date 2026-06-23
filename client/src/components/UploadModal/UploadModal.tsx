@@ -40,7 +40,6 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
-      console.log("Event.target.file", event.target.files[0]);
       setImage({ file: event.target.files[0] });
     }
   };
@@ -87,7 +86,18 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
       });
 
       const uploadResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          uploadResponse.error?.message || "Cloudinary upload failed.",
+        );
+      }
+
       const imageUrl = uploadResponse.secure_url;
+
+      if (!imageUrl) {
+        throw new Error("Cloudinary did not return an image URL.");
+      }
 
       const clothingItemPayload: ClothingItemFormData = {
         ...formData,
