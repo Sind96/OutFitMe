@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const authRouter = require("./routes/auth.routes");
 const clothingItemRouter = require("./routes/clothingItem.routes");
+const weatherRouter = require("./routes/weather.routes");
 const errorHandler = require("./middleware/error.middleware");
 const AppError = require("./utils/AppError");
 
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use(authRouter);
 app.use(clothingItemRouter);
+app.use(weatherRouter);
 
 // 404 handler
 app.use((req, res, next) => {
