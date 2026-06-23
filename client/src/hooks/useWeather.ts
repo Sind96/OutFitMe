@@ -56,6 +56,10 @@ export const useWeather = () => {
     }
   };
 
+  useEffect(() => {
+    getLocation();
+  }, []);
+
   return {
     weatherData,
     emoji,
