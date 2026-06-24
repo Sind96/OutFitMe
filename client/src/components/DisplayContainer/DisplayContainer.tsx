@@ -3,7 +3,12 @@ import WeatherDisplay from "../WeatherDisplay/WeatherDisplay";
 import "./DisplayContainer.css";
 import type { DisplayContainerProps } from "./DisplayContainer.types";
 
-function DisplayContainer({ weatherData, emoji, name }: DisplayContainerProps) {
+function DisplayContainer({
+  weatherData,
+  emoji,
+  name,
+  onUploadSuccess,
+}: DisplayContainerProps) {
   return (
     <div className="main">
       <h1 className="welcome-message">
@@ -14,7 +19,10 @@ function DisplayContainer({ weatherData, emoji, name }: DisplayContainerProps) {
       </h1>
 
       <WeatherDisplay weatherData={weatherData} emoji={emoji} />
-      <OutfitDisplay weatherData={weatherData} />
+      <OutfitDisplay
+        weatherData={weatherData}
+        onUploadSuccess={onUploadSuccess}
+      />
     </div>
   );
 }

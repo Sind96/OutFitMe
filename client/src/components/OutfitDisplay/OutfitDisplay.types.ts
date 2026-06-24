@@ -2,6 +2,7 @@ import { IWeatherDisplayProps } from "../../types/weather.types";
 
 export interface OutfitDisplayProps {
   weatherData: Pick<IWeatherDisplayProps, "temp" | "description">;
+  onUploadSuccess: () => void;
 }
 
 export interface Outfit {

@@ -8,7 +8,7 @@ import type { ClothingItem } from "../../types/clothingItem.types";
 import GalleryCard from "../GalleryCard/GalleryCard";
 import type { IGalleryProps } from "./Gallery.types";
 
-function Gallery({ itemType }: IGalleryProps) {
+function Gallery({ itemType, refreshKey }: IGalleryProps) {
   const [itemGallery, setItemGallery] = useState<ClothingItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +31,7 @@ function Gallery({ itemType }: IGalleryProps) {
     };
 
     fetchGalleryItems();
-  }, [itemType]);
+  }, [itemType, refreshKey]);
 
   return (
     <div className="gallery">

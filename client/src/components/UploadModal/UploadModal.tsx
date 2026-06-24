@@ -10,7 +10,7 @@ import type {
 import { ClothingItemFormData } from "../../types/clothingItem.types";
 import { toast } from "react-toastify";
 
-const UploadModal = ({ onClose }: UploadModalProps) => {
+const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
   const cloudName = import.meta.env.VITE_CLOUD_NAME;
   const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
   const folder = import.meta.env.VITE_CLOUDINARY_FOLDER;
@@ -107,6 +107,7 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
 
       await addClothingItem(clothingItemPayload);
       toast.success("Clothing item uploaded successfully.");
+      onUploadSuccess();
       onClose();
     } catch (error) {
       console.error("Upload failed", error);

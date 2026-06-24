@@ -11,7 +11,7 @@ import type { OutfitDisplayProps } from "./OutfitDisplay.types";
 import { useOutfitGenerator } from "../../hooks/useOutfitGenerator";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
-function OutfitDisplay({ weatherData }: OutfitDisplayProps) {
+function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleAddItemClick = () => {
@@ -80,7 +80,12 @@ function OutfitDisplay({ weatherData }: OutfitDisplayProps) {
           {error && <p className="outfit-error">{error}</p>}
         </div>
       </div>
-      {isModalOpen && <UploadModal onClose={handleCloseModal} />}
+      {isModalOpen && (
+        <UploadModal
+          onClose={handleCloseModal}
+          onUploadSuccess={onUploadSuccess}
+        />
+      )}
     </>
   );
 }

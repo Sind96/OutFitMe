@@ -1,5 +1,6 @@
 export interface UploadModalProps {
   onClose: () => void;
+  onUploadSuccess: () => void;
 }
 
 export interface UploadImageState {

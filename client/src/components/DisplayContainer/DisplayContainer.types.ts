@@ -4,4 +4,5 @@ export interface DisplayContainerProps {
   weatherData: IWeatherDisplayProps;
   emoji: string;
   name: string;
+  onUploadSuccess: () => void;
 }
