@@ -15,3 +15,27 @@
   height: 140px;
   object-fit: contain;
 }
+
+.grid-container {
+  position: relative;
+}
+
+.delete-item-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 999px;
+  background: var(--colour-danger);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.delete-item-button:hover {
+  filter: brightness(0.95);
+}

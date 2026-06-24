@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-import { getAllItemsFromCat } from "../../services/clothingItemService";
+import {
+  deleteClothingItem,
+  getAllItemsFromCat,
+} from "../../services/clothingItemService";
 import type { ClothingItem } from "../../types/clothingItem.types";
 import GalleryCard from "../GalleryCard/GalleryCard";
 import type { IGalleryProps } from "./Gallery.types";
+import { toast } from "react-toastify";
 
 function Gallery({ itemType, refreshKey }: IGalleryProps) {
   const [itemGallery, setItemGallery] = useState<ClothingItem[]>([]);
@@ -33,6 +37,19 @@ function Gallery({ itemType, refreshKey }: IGalleryProps) {
     fetchGalleryItems();
   }, [itemType, refreshKey]);
 
+  const handleDeleteItem = async (id: string) => {
+    try {
+      await deleteClothingItem(id);
+      setItemGallery((prevItems) =>
+        prevItems.filter((item) => item._id !== id),
+      );
+      toast.success("Clothing item deleted successfully.");
+    } catch (error) {
+      console.error("Failed to delete clothing item", error);
+      toast.error("Failed to delete clothing item.");
+    }
+  };
+
   return (
     <div className="gallery">
       <h1 className="gallery-title">{itemType.toUpperCase()}</h1>
@@ -58,7 +75,10 @@ function Gallery({ itemType, refreshKey }: IGalleryProps) {
           {itemGallery.map((item) => (
             <li key={item._id}>
               <Zoom>
-                <GalleryCard source={item.imgURL} />
+                <GalleryCard
+                  source={item.imgURL}
+                  onDelete={() => handleDeleteItem(item._id)}
+                />
               </Zoom>
             </li>
           ))}

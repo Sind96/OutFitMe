@@ -39,4 +39,17 @@ const getAllItemsFromCat = async (item: string): Promise<ClothingItem[]> => {
   return handleResponse<ClothingItem[]>(response);
 };
 
-export { addClothingItem, getRandomItem, getAllItemsFromCat };
+const deleteClothingItem = async (id: string): Promise<{ message: string }> => {
+  const response = await fetch(`${baseURL}/api/clothing-items/${id}`, {
+    method: "DELETE",
+  });
+
+  return handleResponse<{ message: string }>(response);
+};
+
+export {
+  addClothingItem,
+  getRandomItem,
+  getAllItemsFromCat,
+  deleteClothingItem,
+};
