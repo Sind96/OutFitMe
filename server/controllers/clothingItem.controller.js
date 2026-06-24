@@ -2,7 +2,6 @@ const ClothingItem = require("../models/clothingItem.model");
 const asyncHandler = require("../utils/asyncHandler");
 const AppError = require("../utils/AppError");
 
-// Saves a clothing item after the client receives the image URL from Cloudinary
 exports.postImage = asyncHandler(async (req, res) => {
   const newClothingItem = await ClothingItem.create(req.body);
 
@@ -12,7 +11,6 @@ exports.postImage = asyncHandler(async (req, res) => {
   });
 });
 
-// Returns one random clothing item matching the selected weather criteria
 exports.getRandomItem = asyncHandler(async (req, res) => {
   const { item, tempToday, rainToday } = req.params;
 
@@ -41,4 +39,18 @@ exports.getAllItems = asyncHandler(async (req, res) => {
   }
 
   return res.status(200).json(allItems);
+});
+
+exports.deleteClothingItem = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const deletedItem = await ClothingItem.findByIdAndDelete(id);
+
+  if (!deletedItem) {
+    throw new AppError("Clothing item not found", 404);
+  }
+
+  return res.status(200).json({
+    message: "Clothing item deleted successfully",
+  });
 });

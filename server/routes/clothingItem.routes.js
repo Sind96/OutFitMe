@@ -13,6 +13,8 @@ router.post(
   clothingItem.postImage,
 );
 
+router.delete("/api/clothing-items/:id", clothingItem.deleteClothingItem);
+
 router.get(
   "/api/clothing-items/random/:item/:tempToday/:rainToday",
   clothingItem.getRandomItem,
