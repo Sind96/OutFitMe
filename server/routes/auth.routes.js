@@ -15,9 +15,9 @@ router.post("/login", validate(loginSchema), auth.login);
 router.get("/profile", verifyToken, auth.profile);
 router.delete("/profile/delete/:id", auth.deleteProfile);
 router.put("/profile/update/:id", auth.updateProfile);
-router.get("/favorites", auth.getFavorites);
+router.get("/favorites/:id", auth.getFavorites);
 router.put("/favorites/add/:id", auth.addFavorite);
-router.put("/favorites/remove/:id", auth.removeFavorite);
+router.delete("/favorites/remove/:userId/:favoriteId", auth.removeFavorite);
 router.get("/logout", auth.logout);
 
 module.exports = router;

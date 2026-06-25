@@ -108,11 +108,17 @@ exports.updateProfile = asyncHandler(async (req, res) => {
   });
 });
 
-exports.getFavorites = (req, res) => {
-  return res.status(501).json({
-    message: "Get favourites has not been implemented yet",
-  });
-};
+exports.getFavorites = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findById(id).select("favoriteOutfits");
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  return res.status(200).json(user.favoriteOutfits);
+});
 
 exports.addFavorite = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -145,11 +151,32 @@ exports.addFavorite = asyncHandler(async (req, res) => {
   res.status(200).json(user.favoriteOutfits);
 });
 
-exports.removeFavorite = (req, res) => {
-  return res.status(501).json({
-    message: "Remove favourite has not been implemented yet",
+exports.removeFavorite = asyncHandler(async (req, res) => {
+  const { userId, favoriteId } = req.params;
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  const originalLength = user.favoriteOutfits.length;
+
+  user.favoriteOutfits = user.favoriteOutfits.filter(
+    (outfit) => outfit._id.toString() !== favoriteId,
+  );
+
+  if (user.favoriteOutfits.length === originalLength) {
+    throw new AppError("Favourite outfit not found", 404);
+  }
+
+  await user.save();
+
+  return res.status(200).json({
+    message: "Favourite outfit removed successfully",
+    favoriteOutfits: user.favoriteOutfits,
   });
-};
+});
 
 exports.logout = (req, res) => {
   return res.status(200).json({
