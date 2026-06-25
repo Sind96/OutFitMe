@@ -10,6 +10,9 @@ import "react-medium-image-zoom/dist/styles.css";
 import type { OutfitDisplayProps } from "./OutfitDisplay.types";
 import { useOutfitGenerator } from "../../hooks/useOutfitGenerator";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { toast } from "react-toastify";
+import { addFavoriteOutfit } from "../../services/authService";
+import { useAppSelector } from "../../store/hooks/reduxHooks";
 
 function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -24,6 +27,26 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
 
   const { outfit, generateOutfit, isLoading, error } =
     useOutfitGenerator(weatherData);
+
+  const { currentUser } = useAppSelector((state) => state.user);
+
+  const saveOutfit = async () => {
+    if (!currentUser?._id) {
+      toast.error("You need to be signed in to save an outfit.");
+      return;
+    }
+    if (!outfit.top || !outfit.bottom || !outfit.shoe) {
+      toast.error("Generate a complete outfit before saving.");
+      return;
+    }
+    try {
+      await addFavoriteOutfit(currentUser._id, outfit);
+      toast.success("Outfit saved to favourites.");
+    } catch (error) {
+      console.error("Failed to save outfit", error);
+      toast.error("Failed to save outfit.");
+    }
+  };
 
   return (
     <>
@@ -74,6 +97,13 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
               onClick={generateOutfit}
               disabled={isLoading}
             />
+            {outfit.top && outfit.bottom && outfit.shoe && (
+              <Button
+                className="saveOutfitButton"
+                text="❤ Save Outfit"
+                onClick={saveOutfit}
+              />
+            )}
           </div>
 
           {isLoading && <LoadingSpinner text="Generating outfit..." />}

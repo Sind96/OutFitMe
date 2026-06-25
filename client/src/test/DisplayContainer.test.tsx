@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-
+import { describe, expect, it, vi } from "vitest";
 import DisplayContainer from "../components/DisplayContainer/DisplayContainer";
 
 const mockWeatherData = {
@@ -13,6 +12,10 @@ const mockWeatherData = {
   description: "Clouds",
 };
 
+vi.mock("../components/OutfitDisplay/OutfitDisplay", () => ({
+  default: () => <div>Mock Outfit Display</div>,
+}));
+
 describe("DisplayContainer", () => {
   it("renders the personalised welcome message", () => {
     render(
@@ -20,6 +23,7 @@ describe("DisplayContainer", () => {
         weatherData={mockWeatherData}
         emoji="⛅"
         name="Sindhu"
+        onUploadSuccess={vi.fn()}
       />,
     );
 
@@ -35,6 +39,7 @@ describe("DisplayContainer", () => {
         weatherData={mockWeatherData}
         emoji="⛅"
         name="Sindhu"
+        onUploadSuccess={vi.fn()}
       />,
     );
 
@@ -42,17 +47,16 @@ describe("DisplayContainer", () => {
     expect(screen.getByText("18ºC")).toBeInTheDocument();
   });
 
-  it("renders the outfit action button", () => {
+  it("renders the outfit display section", () => {
     render(
       <DisplayContainer
         weatherData={mockWeatherData}
         emoji="⛅"
         name="Sindhu"
+        onUploadSuccess={vi.fn()}
       />,
     );
 
-    expect(
-      screen.getByRole("button", { name: "OutFitMe!" }),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Mock Outfit Display")).toBeInTheDocument();
   });
 });

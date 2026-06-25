@@ -1,3 +1,4 @@
+import type { Outfit } from "../components/OutfitDisplay/OutfitDisplay.types";
 import type {
   AuthResponse,
   LoginFormData,
@@ -71,4 +72,16 @@ const updateUser = async (
   return handleResponse<UpdateUserResponse>(response);
 };
 
-export { signUp, logIn, logOut, deleteUser, updateUser };
+const addFavoriteOutfit = async (id: string, outfit: Outfit) => {
+  const response = await fetch(`${baseURL}/favorites/add/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(outfit),
+  });
+
+  return handleResponse(response);
+};
+
+export { signUp, logIn, logOut, deleteUser, updateUser, addFavoriteOutfit };

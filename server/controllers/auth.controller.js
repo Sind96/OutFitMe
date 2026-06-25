@@ -114,11 +114,36 @@ exports.getFavorites = (req, res) => {
   });
 };
 
-exports.addFavorite = (req, res) => {
-  return res.status(501).json({
-    message: "Add favourite has not been implemented yet",
+exports.addFavorite = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const { top, bottom, shoe } = req.body;
+
+  const user = await User.findById(id);
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  const outfitAlreadySaved = user.favoriteOutfits.some(
+    (outfit) =>
+      outfit.top === top && outfit.bottom === bottom && outfit.shoe === shoe,
+  );
+
+  if (outfitAlreadySaved) {
+    throw new AppError("This outfit is already saved", 409);
+  }
+
+  user.favoriteOutfits.push({
+    top,
+    bottom,
+    shoe,
   });
-};
+
+  await user.save();
+
+  res.status(200).json(user.favoriteOutfits);
+});
 
 exports.removeFavorite = (req, res) => {
   return res.status(501).json({
