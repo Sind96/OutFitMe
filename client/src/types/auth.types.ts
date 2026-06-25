@@ -44,3 +44,16 @@ export interface UpdateUserResponse {
   message: string;
   user: User;
 }
+
+export interface FavouriteOutfit {
+  _id: string;
+  top: string;
+  bottom: string;
+  shoe: string;
+  createdAt: string;
+}
+
+export interface RemoveFavouriteOutfitResponse {
+  message: string;
+  favoriteOutfits: FavouriteOutfit[];
+}

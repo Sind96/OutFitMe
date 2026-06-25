@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "../Button/Button";
 import "./OutfitDisplay.css";
 import { IoShirtOutline } from "react-icons/io5";
-import { PiPants } from "react-icons/pi";
+import { PiHeartStraight, PiHeartStraightFill, PiPants } from "react-icons/pi";
 import { LiaShoePrintsSolid } from "react-icons/lia";
 import UploadModal from "../UploadModal/UploadModal";
 import Zoom from "react-medium-image-zoom";
@@ -11,11 +11,22 @@ import type { OutfitDisplayProps } from "./OutfitDisplay.types";
 import { useOutfitGenerator } from "../../hooks/useOutfitGenerator";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { toast } from "react-toastify";
-import { addFavoriteOutfit } from "../../services/authService";
+import {
+  addFavoriteOutfit,
+  removeFavoriteOutfit,
+} from "../../services/authService";
 import { useAppSelector } from "../../store/hooks/reduxHooks";
 
 function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [savedFavouriteId, setSavedFavouriteId] = useState<string | null>(null);
+
+  const { outfit, generateOutfit, isLoading, error } =
+    useOutfitGenerator(weatherData);
+
+  const { currentUser } = useAppSelector((state) => state.user);
+
+  const isOutfitSaved = Boolean(savedFavouriteId);
 
   const handleAddItemClick = () => {
     setIsModalOpen(true);
@@ -25,26 +36,44 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
     setIsModalOpen(false);
   };
 
-  const { outfit, generateOutfit, isLoading, error } =
-    useOutfitGenerator(weatherData);
+  const handleGenerateOutfit = async () => {
+    setSavedFavouriteId(null);
+    await generateOutfit();
+  };
 
-  const { currentUser } = useAppSelector((state) => state.user);
-
-  const saveOutfit = async () => {
+  const toggleFavouriteOutfit = async () => {
     if (!currentUser?._id) {
       toast.error("You need to be signed in to save an outfit.");
       return;
     }
+
     if (!outfit.top || !outfit.bottom || !outfit.shoe) {
       toast.error("Generate a complete outfit before saving.");
       return;
     }
+
     try {
-      await addFavoriteOutfit(currentUser._id, outfit);
+      if (savedFavouriteId) {
+        await removeFavoriteOutfit(currentUser._id, savedFavouriteId);
+        setSavedFavouriteId(null);
+        toast.success("Outfit removed from favourites.");
+        return;
+      }
+
+      const favouriteOutfits = await addFavoriteOutfit(currentUser._id, outfit);
+
+      const savedOutfit = favouriteOutfits.find(
+        (favourite) =>
+          favourite.top === outfit.top &&
+          favourite.bottom === outfit.bottom &&
+          favourite.shoe === outfit.shoe,
+      );
+
+      setSavedFavouriteId(savedOutfit?._id ?? null);
       toast.success("Outfit saved to favourites.");
     } catch (error) {
-      console.error("Failed to save outfit", error);
-      toast.error("Failed to save outfit.");
+      console.error("Failed to update favourite outfit", error);
+      toast.error("Failed to update favourite outfit.");
     }
   };
 
@@ -59,7 +88,6 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
           ) : (
             <IoShirtOutline className="tops clothing-item" />
           )}
-
           {outfit.bottom ? (
             <Zoom>
               <img
@@ -71,7 +99,6 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
           ) : (
             <PiPants className="bottoms clothing-item" />
           )}
-
           {outfit.shoe ? (
             <Zoom>
               <img
@@ -94,15 +121,22 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
             <Button
               className="outfitMeButton"
               text={isLoading ? "Generating..." : "OutFitMe!"}
-              onClick={generateOutfit}
+              onClick={handleGenerateOutfit}
               disabled={isLoading}
             />
             {outfit.top && outfit.bottom && outfit.shoe && (
-              <Button
-                className="saveOutfitButton"
-                text="❤ Save Outfit"
-                onClick={saveOutfit}
-              />
+              <button
+                type="button"
+                className={`saveOutfitButton ${isOutfitSaved ? "saved" : ""}`}
+                onClick={toggleFavouriteOutfit}
+                aria-label={
+                  isOutfitSaved
+                    ? "Remove outfit from favourites"
+                    : "Save outfit"
+                }
+              >
+                {isOutfitSaved ? <PiHeartStraightFill /> : <PiHeartStraight />}
+              </button>
             )}
           </div>
 

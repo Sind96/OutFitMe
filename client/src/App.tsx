@@ -5,6 +5,7 @@ import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
+import Favourites from "./pages/Favourites/Favourites";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { useWeather } from "./hooks/useWeather";
 import { ToastContainer } from "react-toastify";
@@ -39,6 +40,7 @@ function App() {
             path="/profile"
             element={<Profile onMenuClick={onMenuClick} />}
           />
+          <Route path="/favourites" element={<Favourites />} />
         </Route>
       </Routes>
       <ToastContainer position="top-center" autoClose={4000} />

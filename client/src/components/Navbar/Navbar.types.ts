@@ -1,3 +1,3 @@
 export interface NavbarProps {
-  onMenuClick: (itemType: string) => void;
+  onMenuClick?: (itemType: string) => void;
 }

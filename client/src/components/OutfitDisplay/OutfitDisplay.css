@@ -116,3 +116,29 @@ button.outfitMeButton:hover {
     margin-top: 0.5rem;
   }
 }
+
+.saveOutfitButton {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border: 2px solid var(--colour-border);
+  border-radius: 999px;
+  background: var(--colour-surface);
+  color: var(--colour-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.saveOutfitButton:hover {
+  color: var(--colour-danger);
+  border-color: rgba(220, 38, 38, 0.45);
+}
+
+.saveOutfitButton.saved {
+  color: var(--colour-danger);
+  border-color: rgba(220, 38, 38, 0.55);
+  background: rgba(220, 38, 38, 0.08);
+}

@@ -47,20 +47,24 @@ function Navbar({ onMenuClick }: NavbarProps) {
   };
 
   const handleGalleryClick = (itemType: string) => {
-    onMenuClick(itemType);
+    onMenuClick?.(itemType);
     setShowClothingMenu(false);
     navigate("/home");
   };
 
   return (
     <div className="navbar-nav">
-      <Link to="/home" className="navbar-icon" onClick={() => onMenuClick("")}>
+      <Link
+        to="/home"
+        className="navbar-icon"
+        onClick={() => onMenuClick?.("")}
+      >
         <IoHomeOutline />
       </Link>
 
-      <button className="navbar-icon">
+      <Link to="/favourites" className="navbar-icon">
         <PiHeartStraight />
-      </button>
+      </Link>
 
       <div className="menuWrapper">
         <button className="navbar-icon" onClick={toggleClothingMenu}>

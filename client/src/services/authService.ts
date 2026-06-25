@@ -1,9 +1,11 @@
 import type { Outfit } from "../components/OutfitDisplay/OutfitDisplay.types";
 import type {
   AuthResponse,
+  FavouriteOutfit,
   LoginFormData,
   LogoutResponse,
   MessageResponse,
+  RemoveFavouriteOutfitResponse,
   SignUpFormData,
   UpdateUserFormData,
   UpdateUserResponse,
@@ -72,7 +74,10 @@ const updateUser = async (
   return handleResponse<UpdateUserResponse>(response);
 };
 
-const addFavoriteOutfit = async (id: string, outfit: Outfit) => {
+const addFavoriteOutfit = async (
+  id: string,
+  outfit: Outfit,
+): Promise<FavouriteOutfit[]> => {
   const response = await fetch(`${baseURL}/favorites/add/${id}`, {
     method: "PUT",
     headers: {
@@ -81,7 +86,36 @@ const addFavoriteOutfit = async (id: string, outfit: Outfit) => {
     body: JSON.stringify(outfit),
   });
 
-  return handleResponse(response);
+  return handleResponse<FavouriteOutfit[]>(response);
 };
 
-export { signUp, logIn, logOut, deleteUser, updateUser, addFavoriteOutfit };
+const getFavoriteOutfits = async (id: string): Promise<FavouriteOutfit[]> => {
+  const response = await fetch(`${baseURL}/favorites/${id}`);
+
+  return handleResponse<FavouriteOutfit[]>(response);
+};
+
+const removeFavoriteOutfit = async (
+  userId: string,
+  favoriteId: string,
+): Promise<RemoveFavouriteOutfitResponse> => {
+  const response = await fetch(
+    `${baseURL}/favorites/remove/${userId}/${favoriteId}`,
+    {
+      method: "DELETE",
+    },
+  );
+
+  return handleResponse<RemoveFavouriteOutfitResponse>(response);
+};
+
+export {
+  signUp,
+  logIn,
+  logOut,
+  deleteUser,
+  updateUser,
+  addFavoriteOutfit,
+  getFavoriteOutfits,
+  removeFavoriteOutfit,
+};
