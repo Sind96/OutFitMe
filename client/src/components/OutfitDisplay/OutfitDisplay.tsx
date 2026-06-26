@@ -12,8 +12,8 @@ import { useOutfitGenerator } from "../../hooks/useOutfitGenerator";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { toast } from "react-toastify";
 import {
-  addFavoriteOutfit,
-  removeFavoriteOutfit,
+  addFavouriteOutfit,
+  removeFavouriteOutfit,
 } from "../../services/authService";
 import { useAppSelector } from "../../store/hooks/reduxHooks";
 
@@ -54,13 +54,13 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
 
     try {
       if (savedFavouriteId) {
-        await removeFavoriteOutfit(currentUser._id, savedFavouriteId);
+        await removeFavouriteOutfit(currentUser._id, savedFavouriteId);
         setSavedFavouriteId(null);
         toast.success("Outfit removed from favourites.");
         return;
       }
 
-      const favouriteOutfits = await addFavoriteOutfit(currentUser._id, outfit);
+      const favouriteOutfits = await addFavouriteOutfit(currentUser._id, outfit);
 
       const savedOutfit = favouriteOutfits.find(
         (favourite) =>

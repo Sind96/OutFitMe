@@ -4,8 +4,8 @@ import "./Favourites.css";
 
 import Navbar from "../../components/Navbar/Navbar";
 import {
-  getFavoriteOutfits,
-  removeFavoriteOutfit,
+  getFavouriteOutfits,
+  removeFavouriteOutfit,
 } from "../../services/authService";
 import { useAppSelector } from "../../store/hooks/reduxHooks";
 import type { FavouriteOutfit } from "../../types/auth.types";
@@ -24,7 +24,7 @@ export default function Favourites() {
 
       try {
         setIsLoading(true);
-        const outfits = await getFavoriteOutfits(currentUser._id);
+        const outfits = await getFavouriteOutfits(currentUser._id);
         setFavouriteOutfits(outfits);
       } catch (error) {
         console.error("Failed to fetch favourite outfits", error);
@@ -37,12 +37,12 @@ export default function Favourites() {
     fetchFavouriteOutfits();
   }, [currentUser?._id]);
 
-  const handleRemoveFavourite = async (favoriteId: string) => {
+  const handleRemoveFavourite = async (favouriteId: string) => {
     if (!currentUser?._id) return;
 
     try {
-      const response = await removeFavoriteOutfit(currentUser._id, favoriteId);
-      setFavouriteOutfits(response.favoriteOutfits);
+      const response = await removeFavouriteOutfit(currentUser._id, favouriteId);
+      setFavouriteOutfits(response.favouriteOutfits);
       toast.success("Favourite outfit removed.");
     } catch (error) {
       console.error("Failed to remove favourite outfit", error);

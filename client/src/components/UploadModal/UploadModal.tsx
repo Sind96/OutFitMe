@@ -48,13 +48,11 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
     let { value, checked } = event.target;
     value = value.toLowerCase();
 
-    // Case 1 : The user checks the box
     if (checked) {
       setTempChecks((prevTempChecks) => {
         return { tempChecks: [...prevTempChecks.tempChecks, value] };
       });
     }
-    // Case 2  : The user unchecks the box
     else {
       setTempChecks({
         tempChecks: tempChecks.tempChecks.filter((event) => event !== value),
@@ -64,12 +62,10 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
 
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     if (!image.file) {
       console.error("No file selected");
       return;
     }
-
     try {
       const uploadFormData = new FormData();
 
@@ -182,7 +178,6 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
                 id="cold"
                 name="tempRange"
                 value="Cold"
-                // checked={formData.tempRange.includes('Cold')}
                 onChange={handleTempChange}
               />
               <label htmlFor="cold">Cold</label>
@@ -193,7 +188,6 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
                 id="cool"
                 name="tempRange"
                 value="Cool"
-                // checked={formData.tempRange.includes('Cool')}
                 onChange={handleTempChange}
               />
               <label htmlFor="cool">Cool</label>
@@ -204,7 +198,6 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
                 id="warm"
                 name="tempRange"
                 value="Warm"
-                // checked={formData.tempRange.includes('Warm')}
                 onChange={handleTempChange}
               />
               <label htmlFor="warm">Warm</label>
@@ -215,7 +208,6 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
                 id="hot"
                 name="tempRange"
                 value="Hot"
-                // checked={formData.tempRange.includes('Hot')}
                 onChange={handleTempChange}
               />
               <label htmlFor="hot">Hot</label>

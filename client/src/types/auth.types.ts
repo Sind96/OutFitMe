@@ -55,5 +55,5 @@ export interface FavouriteOutfit {
 
 export interface RemoveFavouriteOutfitResponse {
   message: string;
-  favoriteOutfits: FavouriteOutfit[];
+  favouriteOutfits: FavouriteOutfit[];
 }

@@ -62,6 +62,6 @@ describe("SignUp", () => {
     render(<SignUp />);
     const signInLink = screen.getByText("Sign in");
     expect(signInLink).toBeInTheDocument();
-    expect(signInLink.closest("a")).toHaveAttribute("href", "/"); // Check for expected href
+    expect(signInLink.closest("a")).toHaveAttribute("href", "/");
   });
 });

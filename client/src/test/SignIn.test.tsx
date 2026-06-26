@@ -29,8 +29,6 @@ describe("SignIn", () => {
     expect(screen.getByText("OutFitMe")).toBeInTheDocument();
   });
 
-  // New Tests:
-
   it("should render username input field with placeholder 'Username'", () => {
     render(<SignIn />);
     const usernameInput = screen.getByPlaceholderText("Username");
@@ -53,6 +51,6 @@ describe("SignIn", () => {
     render(<SignIn />);
     const signUpLink = screen.getByText("Sign up");
     expect(signUpLink).toBeInTheDocument();
-    expect(signUpLink.closest("a")).toHaveAttribute("href", "/signup"); // Check for expected href
+    expect(signUpLink.closest("a")).toHaveAttribute("href", "/signup");
   });
 });

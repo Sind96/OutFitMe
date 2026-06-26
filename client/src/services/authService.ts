@@ -74,11 +74,11 @@ const updateUser = async (
   return handleResponse<UpdateUserResponse>(response);
 };
 
-const addFavoriteOutfit = async (
+const addFavouriteOutfit = async (
   id: string,
   outfit: Outfit,
 ): Promise<FavouriteOutfit[]> => {
-  const response = await fetch(`${baseURL}/favorites/add/${id}`, {
+  const response = await fetch(`${baseURL}/favourites/add/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -89,18 +89,18 @@ const addFavoriteOutfit = async (
   return handleResponse<FavouriteOutfit[]>(response);
 };
 
-const getFavoriteOutfits = async (id: string): Promise<FavouriteOutfit[]> => {
-  const response = await fetch(`${baseURL}/favorites/${id}`);
+const getFavouriteOutfits = async (id: string): Promise<FavouriteOutfit[]> => {
+  const response = await fetch(`${baseURL}/favourites/${id}`);
 
   return handleResponse<FavouriteOutfit[]>(response);
 };
 
-const removeFavoriteOutfit = async (
+const removeFavouriteOutfit = async (
   userId: string,
-  favoriteId: string,
+  favouriteId: string,
 ): Promise<RemoveFavouriteOutfitResponse> => {
   const response = await fetch(
-    `${baseURL}/favorites/remove/${userId}/${favoriteId}`,
+    `${baseURL}/favourites/remove/${userId}/${favouriteId}`,
     {
       method: "DELETE",
     },
@@ -115,7 +115,7 @@ export {
   logOut,
   deleteUser,
   updateUser,
-  addFavoriteOutfit,
-  getFavoriteOutfits,
-  removeFavoriteOutfit,
+  addFavouriteOutfit,
+  getFavouriteOutfits,
+  removeFavouriteOutfit,
 };

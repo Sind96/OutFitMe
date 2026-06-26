@@ -8,7 +8,7 @@ import type {
 interface UserState {
   currentUser: User | null;
   token: string | null;
-  favoriteOutfits: string[];
+  favouriteOutfits: string[];
   isLoading: boolean;
   error: string | null;
 }
@@ -16,7 +16,7 @@ interface UserState {
 const initialState: UserState = {
   currentUser: null,
   token: null,
-  favoriteOutfits: [],
+  favouriteOutfits: [],
   isLoading: false,
   error: null,
 };
@@ -32,7 +32,7 @@ const userSlice = createSlice({
     signInSuccess: (state, action: PayloadAction<AuthResponse>) => {
       state.currentUser = action.payload.user ?? null;
       state.token = action.payload.accessToken;
-      state.favoriteOutfits = [];
+      state.favouriteOutfits = [];
       state.isLoading = false;
       state.error = null;
     },
@@ -55,7 +55,7 @@ const userSlice = createSlice({
     signOut: (state) => {
       state.currentUser = null;
       state.token = null;
-      state.favoriteOutfits = [];
+      state.favouriteOutfits = [];
       state.isLoading = false;
       state.error = null;
     },

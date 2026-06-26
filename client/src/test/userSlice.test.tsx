@@ -15,8 +15,6 @@ describe("userSlice", () => {
     store = configureStore({ reducer: { user: userReducer } });
   });
 
-  // Sign In Actions
-
   it("should set isLoading to true on signInStart", () => {
     store.dispatch(signInStart());
     const state = store.getState();
@@ -52,8 +50,6 @@ describe("userSlice", () => {
     expect(state.user.error).toBe("Sign in failed");
   });
 
-  // Sign Up Actions
-
   it("should set isLoading to true on signUpStart", () => {
     store.dispatch(signUpStart());
     const state = store.getState();
@@ -74,14 +70,12 @@ describe("userSlice", () => {
     expect(state.user.error).toBe("Sign up failed");
   });
 
-  // Sign Out Action
-
   it("should reset all user state on signOut", () => {
     store.dispatch(signOut());
     const state = store.getState();
     expect(state.user.currentUser).toBeNull();
     expect(state.user.token).toBeNull();
-    expect(state.user.favoriteOutfits).toEqual([]);
+    expect(state.user.favouriteOutfits).toEqual([]);
     expect(state.user.isLoading).toBe(false);
     expect(state.user.error).toBeNull();
   });
