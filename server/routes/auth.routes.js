@@ -9,15 +9,14 @@ const {
   loginSchema,
 } = require("../validation/auth.validation");
 
-// User routes
 router.post("/register", validate(registerSchema), auth.register);
 router.post("/login", validate(loginSchema), auth.login);
 router.get("/profile", verifyToken, auth.profile);
 router.delete("/profile/delete/:id", auth.deleteProfile);
 router.put("/profile/update/:id", auth.updateProfile);
-router.get("/favorites/:id", auth.getFavorites);
-router.put("/favorites/add/:id", auth.addFavorite);
-router.delete("/favorites/remove/:userId/:favoriteId", auth.removeFavorite);
+router.get("/favourites/:id", auth.getFavourites);
+router.put("/favourites/add/:id", auth.addFavourite);
+router.delete("/favourites/remove/:userId/:favouriteId", auth.removeFavourite);
 router.get("/logout", auth.logout);
 
 module.exports = router;

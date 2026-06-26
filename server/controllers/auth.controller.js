@@ -108,19 +108,19 @@ exports.updateProfile = asyncHandler(async (req, res) => {
   });
 });
 
-exports.getFavorites = asyncHandler(async (req, res) => {
+exports.getFavourites = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  const user = await User.findById(id).select("favoriteOutfits");
+  const user = await User.findById(id).select("favouriteOutfits");
 
   if (!user) {
     throw new AppError("User not found", 404);
   }
 
-  return res.status(200).json(user.favoriteOutfits);
+  return res.status(200).json(user.favouriteOutfits);
 });
 
-exports.addFavorite = asyncHandler(async (req, res) => {
+exports.addFavourite = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const { top, bottom, shoe } = req.body;
@@ -131,7 +131,7 @@ exports.addFavorite = asyncHandler(async (req, res) => {
     throw new AppError("User not found", 404);
   }
 
-  const outfitAlreadySaved = user.favoriteOutfits.some(
+  const outfitAlreadySaved = user.favouriteOutfits.some(
     (outfit) =>
       outfit.top === top && outfit.bottom === bottom && outfit.shoe === shoe,
   );
@@ -140,7 +140,7 @@ exports.addFavorite = asyncHandler(async (req, res) => {
     throw new AppError("This outfit is already saved", 409);
   }
 
-  user.favoriteOutfits.push({
+  user.favouriteOutfits.push({
     top,
     bottom,
     shoe,
@@ -148,11 +148,11 @@ exports.addFavorite = asyncHandler(async (req, res) => {
 
   await user.save();
 
-  res.status(200).json(user.favoriteOutfits);
+  res.status(200).json(user.favouriteOutfits);
 });
 
-exports.removeFavorite = asyncHandler(async (req, res) => {
-  const { userId, favoriteId } = req.params;
+exports.removeFavourite = asyncHandler(async (req, res) => {
+  const { userId, favouriteId } = req.params;
 
   const user = await User.findById(userId);
 
@@ -160,13 +160,13 @@ exports.removeFavorite = asyncHandler(async (req, res) => {
     throw new AppError("User not found", 404);
   }
 
-  const originalLength = user.favoriteOutfits.length;
+  const originalLength = user.favouriteOutfits.length;
 
-  user.favoriteOutfits = user.favoriteOutfits.filter(
-    (outfit) => outfit._id.toString() !== favoriteId,
+  user.favouriteOutfits = user.favouriteOutfits.filter(
+    (outfit) => outfit._id.toString() !== favouriteId,
   );
 
-  if (user.favoriteOutfits.length === originalLength) {
+  if (user.favouriteOutfits.length === originalLength) {
     throw new AppError("Favourite outfit not found", 404);
   }
 
@@ -174,7 +174,7 @@ exports.removeFavorite = asyncHandler(async (req, res) => {
 
   return res.status(200).json({
     message: "Favourite outfit removed successfully",
-    favoriteOutfits: user.favoriteOutfits,
+    favouriteOutfits: user.favouriteOutfits,
   });
 });
 

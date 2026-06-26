@@ -16,17 +16,14 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "OutFitMe API is running" });
 });
 
-// Routes
 app.use(authRouter);
 app.use(clothingItemRouter);
 app.use(weatherRouter);
 
-// 404 handler
 app.use((req, res, next) => {
   next(new AppError("Route not found", 404));
 });
 
-// Global error handler LAST
 app.use(errorHandler);
 
 module.exports = app;
