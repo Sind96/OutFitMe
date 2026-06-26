@@ -1,18 +1,30 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi, beforeEach } from "vitest";
 
 import Gallery from "../components/Gallery/Gallery";
 import { getAllItemsFromCat } from "../services/clothingItemService";
 
+vi.mock("../store/hooks/reduxHooks", () => ({
+  useAppSelector: () => ({
+    currentUser: {
+      _id: "user-123",
+      username: "Test User",
+      email: "test@test.com",
+      profilePicture: "/default-profile.png",
+    },
+  }),
+}));
+
 vi.mock("../services/clothingItemService", () => ({
   getAllItemsFromCat: vi.fn(),
+  deleteClothingItem: vi.fn(),
 }));
 
 describe("Gallery", () => {
   it("shows loading state while fetching gallery items", () => {
     vi.mocked(getAllItemsFromCat).mockReturnValue(new Promise(() => {}));
 
-    render(<Gallery itemType="top" />);
+    render(<Gallery itemType="top" refreshKey={0} />);
 
     expect(screen.getByText("Loading gallery...")).toBeInTheDocument();
   });
@@ -21,6 +33,7 @@ describe("Gallery", () => {
     vi.mocked(getAllItemsFromCat).mockResolvedValue([
       {
         _id: "1",
+        userId: "user-123",
         imgURL: "https://example.com/top.jpg",
         item: "top",
         tempRange: ["warm"],
@@ -28,7 +41,7 @@ describe("Gallery", () => {
       },
     ]);
 
-    render(<Gallery itemType="top" />);
+    render(<Gallery itemType="top" refreshKey={0} />);
 
     const image = await screen.findByAltText("Clothing item");
 
@@ -39,7 +52,7 @@ describe("Gallery", () => {
   it("shows empty state when no gallery items are returned", async () => {
     vi.mocked(getAllItemsFromCat).mockResolvedValue([]);
 
-    render(<Gallery itemType="top" />);
+    render(<Gallery itemType="top" refreshKey={0} />);
 
     await waitFor(() => {
       expect(
@@ -59,7 +72,7 @@ describe("Gallery", () => {
 
     vi.mocked(getAllItemsFromCat).mockRejectedValue(new Error("API failed"));
 
-    render(<Gallery itemType="top" />);
+    render(<Gallery itemType="top" refreshKey={0} />);
 
     const errorHeading = await screen.findByRole("heading", {
       name: "We couldn't load your wardrobe.",

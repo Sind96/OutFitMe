@@ -9,6 +9,7 @@ import type {
 
 export const useOutfitGenerator = (
   weatherData: Pick<IWeatherDisplayProps, "temp" | "description">,
+  userId?: string,
 ) => {
   const [outfit, setOutfit] = useState<Outfit>({
     top: "",
@@ -29,22 +30,30 @@ export const useOutfitGenerator = (
       return;
     }
 
+    if (!userId) {
+      setError("You need to be signed in to generate an outfit.");
+      return;
+    }
+
     try {
       setIsLoading(true);
       setError(null);
 
       const [top, bottom, shoe] = await Promise.all([
         getRandomItem(
+          userId,
           "top",
           weatherCriteria.tempToday,
           weatherCriteria.isDryWeather,
         ),
         getRandomItem(
+          userId,
           "bottom",
           weatherCriteria.tempToday,
           weatherCriteria.isDryWeather,
         ),
         getRandomItem(
+          userId,
           "shoe",
           weatherCriteria.tempToday,
           weatherCriteria.isDryWeather,

@@ -1,4 +1,5 @@
 export interface ClothingItemFormData {
+  userId: string;
   imgURL: string;
   item: string;
   tempRange: string[];
@@ -7,6 +8,7 @@ export interface ClothingItemFormData {
 
 export interface ClothingItem {
   _id: string;
+  userId: string;
   imgURL: string;
   item: string;
   tempRange: string[];

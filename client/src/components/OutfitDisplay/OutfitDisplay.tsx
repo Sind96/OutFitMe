@@ -21,10 +21,12 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [savedFavouriteId, setSavedFavouriteId] = useState<string | null>(null);
 
-  const { outfit, generateOutfit, isLoading, error } =
-    useOutfitGenerator(weatherData);
-
   const { currentUser } = useAppSelector((state) => state.user);
+  
+  const { outfit, generateOutfit, isLoading, error } = useOutfitGenerator(
+    weatherData,
+    currentUser?._id,
+  );
 
   const isOutfitSaved = Boolean(savedFavouriteId);
 
@@ -60,7 +62,10 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
         return;
       }
 
-      const favouriteOutfits = await addFavouriteOutfit(currentUser._id, outfit);
+      const favouriteOutfits = await addFavouriteOutfit(
+        currentUser._id,
+        outfit,
+      );
 
       const savedOutfit = favouriteOutfits.find(
         (favourite) =>

@@ -20,12 +20,13 @@ const addClothingItem = async (
 };
 
 const getRandomItem = async (
+  userId: string,
   item: string,
   tempToday: string,
   rainToday: boolean,
 ): Promise<string> => {
   const response = await fetch(
-    `${baseURL}/api/clothing-items/random/${item}/${tempToday}/${rainToday}`,
+    `${baseURL}/api/clothing-items/random/${userId}/${item}/${tempToday}/${rainToday}`,
   );
 
   const randomItem = await handleResponse<ClothingItem>(response);
@@ -33,16 +34,27 @@ const getRandomItem = async (
   return randomItem.imgURL;
 };
 
-const getAllItemsFromCat = async (item: string): Promise<ClothingItem[]> => {
-  const response = await fetch(`${baseURL}/api/clothing-items/${item}`);
+const getAllItemsFromCat = async (
+  userId: string,
+  item: string,
+): Promise<ClothingItem[]> => {
+  const response = await fetch(
+    `${baseURL}/api/clothing-items/${userId}/${item}`,
+  );
 
   return handleResponse<ClothingItem[]>(response);
 };
 
-const deleteClothingItem = async (id: string): Promise<{ message: string }> => {
-  const response = await fetch(`${baseURL}/api/clothing-items/${id}`, {
-    method: "DELETE",
-  });
+const deleteClothingItem = async (
+  userId: string,
+  id: string,
+): Promise<{ message: string }> => {
+  const response = await fetch(
+    `${baseURL}/api/clothing-items/${userId}/${id}`,
+    {
+      method: "DELETE",
+    },
+  );
 
   return handleResponse<{ message: string }>(response);
 };

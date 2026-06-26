@@ -11,19 +11,22 @@ import type { ClothingItem } from "../../types/clothingItem.types";
 import GalleryCard from "../GalleryCard/GalleryCard";
 import type { IGalleryProps } from "./Gallery.types";
 import { toast } from "react-toastify";
+import { useAppSelector } from "../../store/hooks/reduxHooks";
 
 function Gallery({ itemType, refreshKey }: IGalleryProps) {
   const [itemGallery, setItemGallery] = useState<ClothingItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { currentUser } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     const fetchGalleryItems = async () => {
+      if (!currentUser?._id) return;
       try {
         setIsLoading(true);
         setError(null);
 
-        const items = await getAllItemsFromCat(itemType);
+        const items = await getAllItemsFromCat(currentUser._id, itemType);
         setItemGallery(items);
       } catch (error) {
         console.error("Failed to fetch gallery items", error);
@@ -35,11 +38,12 @@ function Gallery({ itemType, refreshKey }: IGalleryProps) {
     };
 
     fetchGalleryItems();
-  }, [itemType, refreshKey]);
+  }, [itemType, refreshKey, currentUser?._id]);
 
   const handleDeleteItem = async (id: string) => {
     try {
-      await deleteClothingItem(id);
+      if (!currentUser?._id) return;
+      await deleteClothingItem(currentUser._id, id);
       setItemGallery((prevItems) =>
         prevItems.filter((item) => item._id !== id),
       );

@@ -9,13 +9,16 @@ import type {
 } from "./UploadModal.types";
 import { ClothingItemFormData } from "../../types/clothingItem.types";
 import { toast } from "react-toastify";
+import { useAppSelector } from "../../store/hooks/reduxHooks";
 
 const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
   const cloudName = import.meta.env.VITE_CLOUD_NAME;
   const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
   const folder = import.meta.env.VITE_CLOUDINARY_FOLDER;
 
+  const { currentUser } = useAppSelector((state) => state.user);
   const [formData, setFormData] = useState<ClothingItemFormData>({
+    userId: "",
     imgURL: "",
     item: "",
     tempRange: [],
@@ -52,8 +55,7 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
       setTempChecks((prevTempChecks) => {
         return { tempChecks: [...prevTempChecks.tempChecks, value] };
       });
-    }
-    else {
+    } else {
       setTempChecks({
         tempChecks: tempChecks.tempChecks.filter((event) => event !== value),
       });
@@ -95,8 +97,14 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
         throw new Error("Cloudinary did not return an image URL.");
       }
 
+      if (!currentUser?._id) {
+        toast.error("You need to be signed in to upload clothing items.");
+        return;
+      }
+
       const clothingItemPayload: ClothingItemFormData = {
         ...formData,
+        userId: currentUser._id,
         imgURL: imageUrl,
         tempRange: tempChecks.tempChecks,
       };
