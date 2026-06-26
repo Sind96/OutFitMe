@@ -7,9 +7,6 @@
   </a>
 </div>
 <!-- ABOUT THE PROJECT -->
-
-## About the Project
-
 OutFitMe is a full-stack wardrobe management application that generates weather-appropriate outfits using clothing uploaded by each individual user.
 
 Users can create an account, upload clothing items, generate weather-appropriate outfits, save favourite combinations, and manage their personal wardrobe. Each user's wardrobe is stored independently, ensuring complete separation of wardrobe data between user accounts.
@@ -225,7 +222,3 @@ Distributed under the MIT License. See `license.txt` for more information.
 [JWT-url]: https://jwt.io/introduction
 [Cloudinary-Badge]: https://img.shields.io/badge/Cloudinary-3448C5?logo=cloudinary&logoColor=fff&style=for-the-badge
 [Cloudinary-Badge-url]: https://cloudinary.com/documentation
-
-```
-
-```
