@@ -1,11 +1,11 @@
 <a id="readme-top"></a>
-<br />
 
 <div align="center">
   <a href="https://github.com/Sind96/OutFitMe">
-    <img src="./client/public/logoOutFitMe.png" alt="Logo" width="350" >
+    <img src="./client/public/logo.png" alt="Logo" width="350" >
   </a>
 </div>
+</br>
 <!-- ABOUT THE PROJECT -->
 OutFitMe is a full-stack wardrobe management application that generates weather-appropriate outfits using clothing uploaded by each individual user.
 
