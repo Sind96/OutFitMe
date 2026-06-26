@@ -1,164 +1,190 @@
 <a id="readme-top"></a>
-
 <br />
+
 <div align="center">
   <a href="https://github.com/Sind96/OutFitMe">
-    <img src="client/public/Logo.png" alt="Logo" height="100" >
+    <img src="client/public/logo.png" alt="Logo" width="350" >
   </a>
-
-<h3 align="center">OutFitMe</h3>
-
-  <p align="center">
-    "Your Personal Digital Stylist & Weather-Ready Wardrobe!"
-    <br />
-  </p>
 </div>
+<!-- ABOUT THE PROJECT -->
+
+## About the Project
+
+OutFitMe is a full-stack wardrobe management application that generates weather-appropriate outfits using clothing uploaded by each individual user.
+
+Users can create an account, upload clothing items, generate weather-appropriate outfits, save favourite combinations, and manage their personal wardrobe. Each user's wardrobe is stored independently, ensuring complete separation of wardrobe data between user accounts.
 
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#built-with">Built With</a></li>
+    <li><a href="#screenshots">Screenshots</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#project-structure">Project Structure</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
-<!-- ABOUT THE PROJECT -->
-
-## About The Project
-
-OutFitMe is a user-friendly application that enables users to upload pictures of their clothing and tag them by type and optimal weather conditions (temperature range, rain suitability, etc.). With a simple click, users can generate outfits tailored to the day's weather forecast.
-
-The outfit randomizer display includes a live weather update for the user's location. Additionally, the navbar features icons that lead to galleries of all uploaded items categorized by type.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Built With
+## Built With
 
 [![React.js][React.js]][React-url]
-[![Vite][Vite]][Vite-url]
 [![TypeScript][TypeScript]][TypeScript-url]
-[![Koa][Koa]][Koa-url]
+[![Express.js][Express.js]][Express.js-url]
 [![MongoDB][Mongo-Db]][Mongo-Db-url]
-[![Cloudinary-Badge][Cloudinary-Badge]][Cloudinary-Badge-url]
 [![Redux][Redux]][Redux-url]
-[![JWT][JWT]][JWT]
-[![Git][Git]][Git-url]
-[![GitHub][GitHub]][GitHub-url]
-[![ESLint][ESLint]][ESLint-url]
-[![Prettier][Prettier]][Prettier-url]
+[![Vite][Vite]][Vite-url]
+[![Vitest][Vitest]][Vitest-url]
 [![Jest][Jest]][Jest-url]
+[![JWT][JWT]][JWT]
+[![Cloudinary-Badge][Cloudinary-Badge]][Cloudinary-Badge-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- Screenshots -->
+
+## Screenshots
+
+<p align="center">
+  <img src="./client/public/preview.png" width="900"  alt="OutFitMe preview"/>
+</p>
+
+<!-- Features -->
+
+## Features
+
+- User authentication with JWT
+- Secure password hashing using bcrypt
+- Upload wardrobe items
+- Weather-based outfit generation
+- Favourite outfit management
+- User-specific wardrobes
+- Responsive mobile-first design
+- Profile management
+- Secure user-specific wardrobe storage
+- Image zoom
+- Toast notifications
+- Loading and error states
+- Unit and integration testing
+
+<!-- Project Structure -->
+
+## Project Structure
+
+```text
+client/
+├── components/
+├── hooks/
+├── pages/
+├── services/
+├── store/
+├── tests/
+└── types/
+
+server/
+├── controllers/
+├── middleware/
+├── models/
+├── routes/
+├── tests/
+├── utils/
+└── validation/
+```
 
 <!-- GETTING STARTED -->
 
 ## Getting Started
 
-In order to get OutFitMe to work, there are two external services that need to be connected to the app. You will need to gather their information and store it in a .env file:
+To run OutFitMe locally, you'll need accounts for the following services:
+
+- OpenWeather API
+- Cloudinary
+- MongoDB Atlas
 
 ### Prerequisites
 
-- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- Install the latest version of [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
   ```sh
-  npm install npm@latest -g
+  npm install -g npm
   ```
 
-- Obtain API key for:
+- Create free accounts for:
   - [OpenWeatherMap API ](https://openweathermap.org/):
-    - Go to https://openweathermap.org/ and get a free membership.
-    - Once logged in, locate your username drop down in the navbar, and navigate to "My API Keys".
-    - In "My API Keys" make sure you have an **Active** key, and save its **Key** and **Name** to add them to the .env file.
+    - Once logged in, locate your username drop down in the navbar, and navigate to "My API Keys" and obtain an API key.
 
   - [Cloudinary API ](https://cloudinary.com/):
-    - Go to https://cloudinary.com/ and get a free membership.
-    - Once logged in, locate the "Assets" icon at the top of the navbar and click on it.
-    - Here you can create a new folder to upload pictures to, name it however you want and save the **Folder name** to add it to the .env file.
-    - Now locate the settings icon at the bottom of the navbar, and click on it.
-    - In "Settings", another navbar will become visible. Click on "API Keys" and save your **Cloud name** to add it to the .env file.
-    - Make sure you have an **Active** key, and save its **API Key** and **API Secret** to add them to the .env file.
-    - In "Settings", click on "Upload Presets" and add a new preset with Signing mode **Unsigned**. Leave all other options as is and save it, then save its **Name** to add it to the .env file.
+    - Create an unsigned upload preset and note your Cloud Name, Upload Preset and Folder Name.
 
-- Create a Database:
-  - [MongoDB Database](https://cloud.mongodb.com/v2/667ad5e61adbb32502264a5b#/overview/)
-    Set up your database account.
-
-Once you have collected all necessary information from both services, create a .env file in the client folder, and add the information like this:
-
-```
-VITE_CLOUD_NAME=placeholder
-VITE_UPLOAD_PRESET=placeholder
-VITE_CLOUDINARY_FOLDER=placeholder
-VITE_CLOUDINARY_API_KEY=placeholder
-VITE_CLOUDINARY_API_SECRET=placeholder
-
-VITE_OPENWEATHER_API_NAME=placeholder
-VITE_OPENWEATHER_API_KEY=placeholder
-```
+  - [MongoDB Database](https://www.mongodb.com/atlas/database):
+    - Create a cluster and copy your MongoDB connection string.
 
 ### Installation
 
-1. Clone the repo
+1. Clone the repository.
 
    ```sh
-   git clone github.com/Sind96/OutFitMe
+   git clone https://github.com/Sind96/OutFitMe.git
    ```
 
-2. Create your own .env file and insert the Api Keys as mentioned in (<a href="#Prerequisites">Prerequisites</a>)
-
-3. Install NPM packages in both client and server folders
+2. Install the frontend dependencies.
 
    ```sh
+   cd client
    npm install
    ```
 
-4. Start the app in both the client and server folders
+3. Install the backend dependencies.
+
    ```sh
-   client: npm run dev
-   server: nodemon server.js
+   cd ../server
+   npm install
+   ```
+
+Create your own .env file and insert the API Keys as mentioned in (<a href="#Prerequisites">Prerequisites</a>)
+
+4. Copy the example environment files.
+
+   ```sh
+   Backend
+   cp .env.example .env
+   ```
+
+   ```sh
+   Frontend
+   cd ../client
+   cp .env.local.example .env.local
+   ```
+
+5. Populate both environment files with your own credentials.
+
+6. Start the backend.
+
+   ```sh
+   cd ../server
+   npm run dev
+   ```
+
+7. Start the frontend.
+
+   ```sh
+   cd ../client
+   npm run dev
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- LICENSE -->
-
 ## License
-
 Distributed under the MIT License. See `license.txt` for more information.
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTACT -->
-
-## Contact
-
-Charbel Rouhana - [Github](https://github.com/Charbel-r) - [LinkedIn](https://www.linkedin.com/in/charbel-rouhana-0b6311135/) - charbelmrouhana@gmail.com
-
-Sindhu Yogu - [Github](https://github.com/Sind96) - [LinkedIn](www.linkedin.com/in/sindhu-yogu-657057318) - sindy96jan@gmail.com
-
-Sulo Siguur- [Github](https://github.com/Runicsaber) - [LinkedIn](https://www.linkedin.com/in/sulo-siigur-34a932225/) - sulo.siigur@gmail.com
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+<!-- Additional reusable badge definitions -->
 
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
+[Express.js]: https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white
+[Express.js-url]: https://expressjs.com/en/
 [ESLint]: https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white
 [ESLint-url]: https://eslint.org/
 [Prettier]: https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E
@@ -189,6 +215,8 @@ Sulo Siguur- [Github](https://github.com/Runicsaber) - [LinkedIn](https://www.li
 [Prisma-url]: https://www.prisma.io/docs
 [Vite]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
 [Vite-url]: https://vitejs.dev/
+[Vitest]: https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white
+[Vitest-url]: https://vitest.dev/
 [Jest]: https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
 [Jest-url]: https://jestjs.io/docs/getting-started
 [Koa]: https://img.shields.io/badge/Koa-33333D?logo=koa&logoColor=fff&style=for-the-badge
@@ -197,3 +225,7 @@ Sulo Siguur- [Github](https://github.com/Runicsaber) - [LinkedIn](https://www.li
 [JWT-url]: https://jwt.io/introduction
 [Cloudinary-Badge]: https://img.shields.io/badge/Cloudinary-3448C5?logo=cloudinary&logoColor=fff&style=for-the-badge
 [Cloudinary-Badge-url]: https://cloudinary.com/documentation
+
+```
+
+```
