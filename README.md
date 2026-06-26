@@ -3,7 +3,7 @@
 
 <div align="center">
   <a href="https://github.com/Sind96/OutFitMe">
-    <img src="./client/public/logo.png" alt="Logo" width="350" >
+    <img src="./client/public/logoOutFitMe.png" alt="Logo" width="350" >
   </a>
 </div>
 <!-- ABOUT THE PROJECT -->
