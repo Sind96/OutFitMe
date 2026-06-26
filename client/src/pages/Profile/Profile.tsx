@@ -79,7 +79,7 @@ export default function Profile({ onMenuClick }: ProfileProps) {
 
       <form className={styles.form}>
         <img
-          src={currentUser.profilePicture}
+          src={currentUser.profilePicture || "/default-profile.png"}
           alt={`${currentUser.username}'s profile`}
         />
 
