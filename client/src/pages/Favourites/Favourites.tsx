@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./Favourites.css";
-
+import type { NavbarProps } from "../../components/Navbar/Navbar.types";
 import Navbar from "../../components/Navbar/Navbar";
 import {
   getFavouriteOutfits,
@@ -11,7 +11,7 @@ import { useAppSelector } from "../../store/hooks/reduxHooks";
 import type { FavouriteOutfit } from "../../types/auth.types";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
-export default function Favourites() {
+export default function Favourites({ onMenuClick }: NavbarProps) {
   const { currentUser } = useAppSelector((state) => state.user);
   const [favouriteOutfits, setFavouriteOutfits] = useState<FavouriteOutfit[]>(
     [],
@@ -41,7 +41,10 @@ export default function Favourites() {
     if (!currentUser?._id) return;
 
     try {
-      const response = await removeFavouriteOutfit(currentUser._id, favouriteId);
+      const response = await removeFavouriteOutfit(
+        currentUser._id,
+        favouriteId,
+      );
       setFavouriteOutfits(response.favouriteOutfits);
       toast.success("Favourite outfit removed.");
     } catch (error) {
@@ -78,7 +81,7 @@ export default function Favourites() {
           ))}
         </ul>
       )}
-      <Navbar />
+      <Navbar onMenuClick={onMenuClick} />
     </main>
   );
 }

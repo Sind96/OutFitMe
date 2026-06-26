@@ -40,7 +40,10 @@ function App() {
             path="/profile"
             element={<Profile onMenuClick={onMenuClick} />}
           />
-          <Route path="/favourites" element={<Favourites />} />
+          <Route
+            path="/favourites"
+            element={<Favourites onMenuClick={onMenuClick} />}
+          />
         </Route>
       </Routes>
       <ToastContainer position="top-center" autoClose={4000} />
