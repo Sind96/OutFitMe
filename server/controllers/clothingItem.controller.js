@@ -12,9 +12,10 @@ exports.postImage = asyncHandler(async (req, res) => {
 });
 
 exports.getRandomItem = asyncHandler(async (req, res) => {
-  const { item, tempToday, rainToday } = req.params;
+  const { userId, item, tempToday, rainToday } = req.params;
 
   const allItems = await ClothingItem.find({
+    userId,
     item,
     tempRange: tempToday,
     rain: rainToday,
@@ -30,9 +31,9 @@ exports.getRandomItem = asyncHandler(async (req, res) => {
 });
 
 exports.getAllItems = asyncHandler(async (req, res) => {
-  const { item } = req.params;
+  const { userId, item } = req.params;
 
-  const allItems = await ClothingItem.find({ item });
+  const allItems = await ClothingItem.find({ userId, item });
 
   if (allItems.length === 0) {
     throw new AppError("No clothing items found for this category", 404);
@@ -42,9 +43,12 @@ exports.getAllItems = asyncHandler(async (req, res) => {
 });
 
 exports.deleteClothingItem = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { userId, id } = req.params;
 
-  const deletedItem = await ClothingItem.findByIdAndDelete(id);
+  const deletedItem = await ClothingItem.findOneAndDelete({
+    _id: id,
+    userId,
+  });
 
   if (!deletedItem) {
     throw new AppError("Clothing item not found", 404);

@@ -2,6 +2,11 @@ const { z } = require("zod");
 
 const createClothingItemSchema = z.object({
   body: z.object({
+    userId: z
+      .string({
+        error: "User ID is required",
+      })
+      .min(1, "User ID is required"),
     imgURL: z
       .string({
         error: "Image URL is required",

@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
+const { lowercase } = require("zod");
 
 const clothingItemSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   imgURL: {
     type: String,
-    lowercase: true,
-    unique: true,
     required: true,
   },
   item: {
@@ -14,7 +18,7 @@ const clothingItemSchema = new mongoose.Schema({
   },
   tempRange: {
     type: [String],
-    default: undefined,
+    lowercase: true,
     required: true,
   },
   rain: {

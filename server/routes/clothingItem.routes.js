@@ -13,14 +13,17 @@ router.post(
   clothingItem.postImage,
 );
 
-router.delete("/api/clothing-items/:id", clothingItem.deleteClothingItem);
+router.delete(
+  "/api/clothing-items/:userId/:id",
+  clothingItem.deleteClothingItem,
+);
 
 router.get(
-  "/api/clothing-items/random/:item/:tempToday/:rainToday",
+  "/api/clothing-items/random/:userId/:item/:tempToday/:rainToday",
   clothingItem.getRandomItem,
 );
 
-router.get("/api/clothing-items/:item", clothingItem.getAllItems);
+router.get("/api/clothing-items/:userId/:item", clothingItem.getAllItems);
 
 router.get("/api/health", (req, res) => {
   res.sendStatus(200);
