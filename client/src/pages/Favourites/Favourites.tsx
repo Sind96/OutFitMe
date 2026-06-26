@@ -67,9 +67,18 @@ export default function Favourites({ onMenuClick }: NavbarProps) {
         <ul className="favourites-grid">
           {favouriteOutfits.map((outfit) => (
             <li key={outfit._id} className="favourite-card">
-              <img src={outfit.top} alt="Favourite outfit top" />
-              <img src={outfit.bottom} alt="Favourite outfit bottom" />
-              <img src={outfit.shoe} alt="Favourite outfit shoe" />
+              <div className="favourite-outfit-piece">
+                <span>Top</span>
+                <img src={outfit.top} alt="Favourite outfit top" />
+              </div>
+              <div className="favourite-outfit-piece">
+                <span>Bottom</span>
+                <img src={outfit.bottom} alt="Favourite outfit bottom" />
+              </div>
+              <div className="favourite-outfit-piece">
+                <span>Shoes</span>
+                <img src={outfit.shoe} alt="Favourite outfit shoes" />
+              </div>
               <button
                 type="button"
                 className="remove-favourite-button"
