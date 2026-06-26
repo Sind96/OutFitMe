@@ -18,8 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      default:
-        "https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png",
+      default: "/default-profile.png",
     },
     favouriteOutfits: [
       {
