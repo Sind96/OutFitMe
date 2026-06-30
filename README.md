@@ -10,6 +10,7 @@
 OutFitMe is a full-stack wardrobe management application that generates weather-appropriate outfits using clothing uploaded by each individual user.
 <br/><br/>
 Users can create an account, upload clothing items, generate weather-appropriate outfits, save favourite combinations, and manage their personal wardrobe. Each user's wardrobe is stored independently, ensuring complete separation of wardrobe data between user accounts.
+<br/><br/>
 
 <!-- TABLE OF CONTENTS -->
 <details>
