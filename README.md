@@ -167,8 +167,6 @@ Create your own .env file and insert the API Keys as mentioned in (<a href="#Pre
    cd ../client
    npm run dev
    ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- LICENSE -->
 ## License
 Distributed under the MIT License. See `license.txt` for more information.
