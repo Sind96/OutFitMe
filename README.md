@@ -40,11 +40,13 @@ Users can create an account, upload clothing items, generate weather-appropriate
 
 <!-- Screenshots -->
 
-## Screenshots
+<!-- ## Screenshots
 
 <p align="center">
   <img src="./client/public/preview.png" width="900"  alt="OutFitMe preview"/>
 </p>
+
+-->
 
 <!-- Features -->
 
