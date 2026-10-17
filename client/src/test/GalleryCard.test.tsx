@@ -5,7 +5,9 @@ import GalleryCard from "../components/GalleryCard/GalleryCard";
 
 describe("GalleryCard", () => {
   it("renders the clothing image", () => {
-    render(<GalleryCard source="https://example.com/item.jpg" />);
+    render(
+      <GalleryCard source="https://example.com/item.jpg" onDelete={() => {}} />,
+    );
 
     const image = screen.getByAltText("Clothing item");
 

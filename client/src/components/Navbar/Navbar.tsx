@@ -37,15 +37,13 @@ function Navbar({ onMenuClick }: NavbarProps) {
   const handleSignOut = async () => {
     try {
       await logOut();
-      dispatch(signOut());
     } catch (error) {
-      console.error("Unauthorized: Invalid session or token.");
+      console.error("Logout request failed:", error);
     } finally {
-      localStorage.removeItem("accessToken");
-      window.location.href = "/";
+      dispatch(signOut());
+      navigate("/");
     }
   };
-
   const handleGalleryClick = (itemType: string) => {
     onMenuClick?.(itemType);
     setShowClothingMenu(false);

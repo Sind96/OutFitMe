@@ -25,30 +25,30 @@ const render = (
 
 describe("SignIn", () => {
   it("renders the Apps name", () => {
-    render(<SignIn />);
+    render(<SignIn getLocation={() => {}} />);
     expect(screen.getByText("OutFitMe")).toBeInTheDocument();
   });
 
   it("should render username input field with placeholder 'Username'", () => {
-    render(<SignIn />);
+    render(<SignIn getLocation={() => {}} />);
     const usernameInput = screen.getByPlaceholderText("Username");
     expect(usernameInput).toBeInTheDocument();
   });
 
   it("should render password input field with placeholder 'Password'", () => {
-    render(<SignIn />);
+    render(<SignIn getLocation={() => {}} />);
     const passwordInput = screen.getByPlaceholderText("Password");
     expect(passwordInput).toBeInTheDocument();
   });
 
   it("should disable the submit button when isLoading is true", () => {
-    render(<SignIn />);
+    render(<SignIn getLocation={() => {}} />);
     const submitButton = screen.getByRole("button");
     expect(submitButton).toBeEnabled();
   });
 
   it("should render a link to the SignUp component with text 'Sign up'", () => {
-    render(<SignIn />);
+    render(<SignIn getLocation={() => {}} />);
     const signUpLink = screen.getByText("Sign up");
     expect(signUpLink).toBeInTheDocument();
     expect(signUpLink.closest("a")).toHaveAttribute("href", "/signup");

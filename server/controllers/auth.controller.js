@@ -4,7 +4,11 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("../utils/asyncHandler");
 const AppError = require("../utils/AppError");
 
-const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET environment variable is required");
+}
 
 exports.register = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
@@ -25,7 +29,10 @@ exports.register = asyncHandler(async (req, res) => {
     password: hashedPassword,
   });
 
-  const accessToken = jwt.sign({ userId: newUser._id }, JWT_SECRET);
+  const accessToken = jwt.sign({ userId: newUser._id.toString() }, JWT_SECRET, {
+    expiresIn: "7d",
+    algorithm: "HS256",
+  });
 
   return res.status(201).json({
     message: "User created successfully",
@@ -48,7 +55,10 @@ exports.login = asyncHandler(async (req, res) => {
     throw new AppError("Invalid credentials", 401);
   }
 
-  const accessToken = jwt.sign({ userId: user._id }, JWT_SECRET);
+  const accessToken = jwt.sign({ userId: user._id.toString() }, JWT_SECRET, {
+    expiresIn: "7d",
+    algorithm: "HS256",
+  });
 
   const { password: hashedPassword, ...userData } = user._doc;
 

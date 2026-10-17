@@ -12,6 +12,11 @@ import type {
 } from "../types/auth.types";
 import { baseURL, handleResponse } from "./apiClient";
 
+const getAuthHeaders = (token: string) => ({
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${token}`,
+});
+
 const signUp = async (formData: SignUpFormData): Promise<AuthResponse> => {
   const response = await fetch(`${baseURL}/register`, {
     method: "POST",
@@ -48,10 +53,7 @@ const deleteUser = async (
 ): Promise<MessageResponse> => {
   const response = await fetch(`${baseURL}/profile/delete/${id}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token,
-    },
+    headers: getAuthHeaders(token),
   });
 
   return handleResponse<MessageResponse>(response);
@@ -64,10 +66,7 @@ const updateUser = async (
 ): Promise<UpdateUserResponse> => {
   const response = await fetch(`${baseURL}/profile/update/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token,
-    },
+    headers: getAuthHeaders(token),
     body: JSON.stringify(updates),
   });
 
