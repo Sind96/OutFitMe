@@ -1,4 +1,4 @@
-const { z } = require("zod");
+import { z } from "zod";
 
 const createClothingItemSchema = z.object({
   body: z
@@ -13,6 +13,4 @@ const createClothingItemSchema = z.object({
     .strict(),
 });
 
-module.exports = {
-  createClothingItemSchema,
-};
+export { createClothingItemSchema };

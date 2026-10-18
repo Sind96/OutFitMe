@@ -1,4 +1,4 @@
-const { z } = require("zod");
+import { z } from "zod";
 
 const registerSchema = z.object({
   body: z.object({
@@ -53,9 +53,4 @@ const addFavouriteSchema = z.object({
     .strict(),
 });
 
-module.exports = {
-  registerSchema,
-  loginSchema,
-  updateProfileSchema,
-  addFavouriteSchema,
-};
+export { registerSchema, loginSchema, updateProfileSchema, addFavouriteSchema };
