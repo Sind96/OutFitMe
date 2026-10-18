@@ -172,7 +172,7 @@ Create your own .env file and insert the API Keys as mentioned in (<a href="#Pre
    ```
 <!-- LICENSE -->
 ## License
-Distributed under the MIT License. See `license.txt` for more information.
+Distributed under the MIT License. See `license` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
