@@ -1,12 +1,24 @@
-const ClothingItem = require("../models/clothingItem.model");
-const asyncHandler = require("../utils/asyncHandler");
-const AppError = require("../utils/AppError");
+import type { Request, Response } from "express";
+import ClothingItem = require("../models/clothingItem.model");
+import asyncHandler = require("../utils/asyncHandler");
+import AppError = require("../utils/AppError");
 
-exports.postImage = asyncHandler(async (req, res) => {
+const getAuthenticatedUserId = (req: Request): string => {
+  const userId = req.user?.userId;
+
+  if (!userId) {
+    throw new AppError("Authentication required", 401);
+  }
+
+  return userId;
+};
+
+const postImage = asyncHandler(async (req: Request, res: Response) => {
+  const userId = getAuthenticatedUserId(req);
   const { imgURL, item, tempRange, rain } = req.body;
 
   const newClothingItem = await ClothingItem.create({
-    userId: req.user.userId,
+    userId,
     imgURL,
     item,
     tempRange,
@@ -19,11 +31,12 @@ exports.postImage = asyncHandler(async (req, res) => {
   });
 });
 
-exports.getRandomItem = asyncHandler(async (req, res) => {
+const getRandomItem = asyncHandler(async (req: Request, res: Response) => {
+  const userId = getAuthenticatedUserId(req);
   const { item, tempToday, rainToday } = req.params;
 
   const allItems = await ClothingItem.find({
-    userId: req.user.userId,
+    userId,
     item,
     tempRange: tempToday,
     rain: rainToday,
@@ -38,23 +51,25 @@ exports.getRandomItem = asyncHandler(async (req, res) => {
   return res.status(200).json(randomItem);
 });
 
-exports.getAllItems = asyncHandler(async (req, res) => {
+const getAllItems = asyncHandler(async (req: Request, res: Response) => {
+  const userId = getAuthenticatedUserId(req);
   const { item } = req.params;
 
   const allItems = await ClothingItem.find({
-    userId: req.user.userId,
+    userId,
     item,
   });
 
   return res.status(200).json(allItems);
 });
 
-exports.deleteClothingItem = asyncHandler(async (req, res) => {
+const deleteClothingItem = asyncHandler(async (req: Request, res: Response) => {
+  const userId = getAuthenticatedUserId(req);
   const { id } = req.params;
 
   const deletedItem = await ClothingItem.findOneAndDelete({
     _id: id,
-    userId: req.user.userId,
+    userId,
   });
 
   if (!deletedItem) {
@@ -65,3 +80,5 @@ exports.deleteClothingItem = asyncHandler(async (req, res) => {
     message: "Clothing item deleted successfully",
   });
 });
+
+export { postImage, getRandomItem, getAllItems, deleteClothingItem };
