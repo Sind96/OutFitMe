@@ -39,4 +39,4 @@ const ClothingItem = mongoose.model<IClothingItem>(
   clothingItemSchema,
 );
 
-export = ClothingItem;
+export default ClothingItem;

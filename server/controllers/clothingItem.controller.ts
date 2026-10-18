@@ -1,7 +1,8 @@
 import type { Request, Response } from "express";
-import ClothingItem = require("../models/clothingItem.model");
-import asyncHandler = require("../utils/asyncHandler");
-import AppError = require("../utils/AppError");
+
+import ClothingItem from "../models/clothingItem.model.js";
+import asyncHandler from "../utils/asyncHandler.js";
+import AppError from "../utils/AppError.js";
 
 const getAuthenticatedUserId = (req: Request): string => {
   const userId = req.user?.userId;

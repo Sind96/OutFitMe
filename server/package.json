@@ -2,6 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch server.ts",
@@ -37,28 +38,5 @@
     "ts-jest": "^29.4.15",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "setupFiles": [
-      "<rootDir>/tests/setupEnv.js"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": [
-        "ts-jest",
-        {
-          "tsconfig": {
-            "module": "CommonJS",
-            "moduleResolution": "Node10",
-            "types": [
-              "node",
-              "jest"
-            ],
-            "esModuleInterop": true,
-            "ignoreDeprecations": "6.0"
-          }
-        }
-      ]
-    }
   }
 }

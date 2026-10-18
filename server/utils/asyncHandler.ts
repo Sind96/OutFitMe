@@ -12,4 +12,4 @@ const asyncHandler = (controller: AsyncController): RequestHandler => {
   };
 };
 
-export = asyncHandler;
+export default asyncHandler;

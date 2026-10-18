@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
-import asyncHandler = require("../utils/asyncHandler");
-import AppError = require("../utils/AppError");
+
+import asyncHandler from "../utils/asyncHandler.js";
+import AppError from "../utils/AppError.js";
 
 interface WeatherQuery {
   lat?: string;

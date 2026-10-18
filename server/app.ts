@@ -1,11 +1,11 @@
 import express from "express";
 import cors from "cors";
 
-import authRouter = require("./routes/auth.routes");
-import clothingItemRouter = require("./routes/clothingItem.routes");
-import weatherRouter = require("./routes/weather.routes");
-import errorHandler = require("./middleware/error.middleware");
-import AppError = require("./utils/AppError");
+import authRouter from "./routes/auth.routes.js";
+import clothingItemRouter from "./routes/clothingItem.routes.js";
+import weatherRouter from "./routes/weather.routes.js";
+import errorHandler from "./middleware/error.middleware.js";
+import AppError from "./utils/AppError.js";
 
 const app = express();
 
@@ -26,4 +26,4 @@ app.use((_req, _res, next) => {
 
 app.use(errorHandler);
 
-export = app;
+export default app;

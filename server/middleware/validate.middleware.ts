@@ -24,4 +24,4 @@ const validate = (schema: z.ZodType): RequestHandler => {
   };
 };
 
-export = validate;
+export default validate;

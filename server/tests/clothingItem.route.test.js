@@ -3,9 +3,9 @@ require("dotenv").config();
 const request = require("supertest");
 const mongoose = require("mongoose");
 
-const app = require("../app");
-const User = require("../models/user.model");
-const ClothingItem = require("../models/clothingItem.model");
+const app = require("../app").default;
+const User = require("../models/user.model").default;
+const ClothingItem = require("../models/clothingItem.model").default;
 
 const clothingPayload = {
   imgURL: "https://example.com/top.jpg",

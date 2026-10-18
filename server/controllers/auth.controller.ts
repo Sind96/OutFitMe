@@ -2,10 +2,10 @@ import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-import User = require("../models/user.model");
-import ClothingItem = require("../models/clothingItem.model");
-import asyncHandler = require("../utils/asyncHandler");
-import AppError = require("../utils/AppError");
+import User from "../models/user.model.js";
+import ClothingItem from "../models/clothingItem.model.js";
+import asyncHandler from "../utils/asyncHandler.js";
+import AppError from "../utils/AppError.js";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 

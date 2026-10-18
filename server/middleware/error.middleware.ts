@@ -1,5 +1,5 @@
 import type { ErrorRequestHandler } from "express";
-import AppError = require("../utils/AppError");
+import AppError from "../utils/AppError.js";
 
 const errorHandler: ErrorRequestHandler = (
   error: unknown,
@@ -35,4 +35,4 @@ const errorHandler: ErrorRequestHandler = (
   });
 };
 
-export = errorHandler;
+export default errorHandler;

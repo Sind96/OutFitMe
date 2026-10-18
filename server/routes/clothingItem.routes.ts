@@ -1,9 +1,9 @@
 import express from "express";
 
-import * as clothingItem from "../controllers/clothingItem.controller";
-import { verifyToken } from "../middleware/auth.middleware";
-import validate = require("../middleware/validate.middleware");
-import { createClothingItemSchema } from "../validation/clothingItem.validation";
+import * as clothingItem from "../controllers/clothingItem.controller.js";
+import { verifyToken } from "../middleware/auth.middleware.js";
+import validate from "../middleware/validate.middleware.js";
+import { createClothingItemSchema } from "../validation/clothingItem.validation.js";
 
 const router = express.Router();
 
@@ -32,4 +32,4 @@ router.get("/api/health", (_req, res) => {
   res.sendStatus(200);
 });
 
-export = router;
+export default router;
