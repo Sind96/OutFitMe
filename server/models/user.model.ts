@@ -1,6 +1,24 @@
-const mongoose = require("mongoose");
+import mongoose, { type Types } from "mongoose";
 
-const userSchema = new mongoose.Schema(
+interface IFavouriteOutfit {
+  _id?: Types.ObjectId;
+  top: string;
+  bottom: string;
+  shoe: string;
+  createdAt?: Date;
+}
+
+interface IUser {
+  username: string;
+  email: string;
+  password: string;
+  profilePicture: string;
+  favouriteOutfits: IFavouriteOutfit[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+const userSchema = new mongoose.Schema<IUser>(
   {
     username: {
       type: String,
@@ -35,6 +53,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model<IUser>("User", userSchema);
 
-module.exports = User;
+export = User;

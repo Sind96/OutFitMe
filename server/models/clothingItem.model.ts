@@ -1,6 +1,14 @@
-const mongoose = require("mongoose");
+import mongoose, { type Types } from "mongoose";
 
-const clothingItemSchema = new mongoose.Schema({
+interface IClothingItem {
+  userId: Types.ObjectId;
+  imgURL: string;
+  item: string;
+  tempRange: string[];
+  rain: string;
+}
+
+const clothingItemSchema = new mongoose.Schema<IClothingItem>({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -26,6 +34,9 @@ const clothingItemSchema = new mongoose.Schema({
   },
 });
 
-const ClothingItem = mongoose.model("ClothingItem", clothingItemSchema);
+const ClothingItem = mongoose.model<IClothingItem>(
+  "ClothingItem",
+  clothingItemSchema,
+);
 
-module.exports = ClothingItem;
+export = ClothingItem;
