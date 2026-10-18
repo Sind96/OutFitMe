@@ -17,16 +17,19 @@ function Gallery({ itemType, refreshKey }: IGalleryProps) {
   const [itemGallery, setItemGallery] = useState<ClothingItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { currentUser } = useAppSelector((state) => state.user);
+  const { token } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     const fetchGalleryItems = async () => {
-      if (!currentUser?._id) return;
+      if (!token) {
+        setItemGallery([]);
+        return;
+      }
       try {
         setIsLoading(true);
         setError(null);
 
-        const items = await getAllItemsFromCat(currentUser._id, itemType);
+        const items = await getAllItemsFromCat(token, itemType);
         setItemGallery(items);
       } catch (error) {
         console.error("Failed to fetch gallery items", error);
@@ -38,15 +41,18 @@ function Gallery({ itemType, refreshKey }: IGalleryProps) {
     };
 
     fetchGalleryItems();
-  }, [itemType, refreshKey, currentUser?._id]);
+  }, [itemType, refreshKey, token]);
 
   const handleDeleteItem = async (id: string) => {
+    if (!token) return;
+
     try {
-      if (!currentUser?._id) return;
-      await deleteClothingItem(currentUser._id, id);
+      await deleteClothingItem(token, id);
+
       setItemGallery((prevItems) =>
         prevItems.filter((item) => item._id !== id),
       );
+
       toast.success("Clothing item deleted successfully.");
     } catch (error) {
       console.error("Failed to delete clothing item", error);

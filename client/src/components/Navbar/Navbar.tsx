@@ -3,7 +3,6 @@ import { PiPants, PiTShirt, PiSneaker, PiHeartStraight } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
-import { logOut } from "../../services/authService";
 import { useAppDispatch } from "../../store/hooks/reduxHooks";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "../../store/slices/userSlice";
@@ -34,16 +33,11 @@ function Navbar({ onMenuClick }: NavbarProps) {
     setShowOptionsMenu(!showOptionsMenu);
   };
 
-  const handleSignOut = async () => {
-    try {
-      await logOut();
-    } catch (error) {
-      console.error("Logout request failed:", error);
-    } finally {
-      dispatch(signOut());
-      navigate("/");
-    }
+  const handleSignOut = () => {
+    dispatch(signOut());
+    navigate("/");
   };
+
   const handleGalleryClick = (itemType: string) => {
     onMenuClick?.(itemType);
     setShowClothingMenu(false);

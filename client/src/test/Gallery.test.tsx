@@ -4,8 +4,15 @@ import { describe, expect, it, vi, beforeEach } from "vitest";
 import Gallery from "../components/Gallery/Gallery";
 import { getAllItemsFromCat } from "../services/clothingItemService";
 
+const { mockAuth } = vi.hoisted(() => ({
+  mockAuth: {
+    token: "test-jwt-token" as string | null,
+  },
+}));
+
 vi.mock("../store/hooks/reduxHooks", () => ({
   useAppSelector: () => ({
+    token: mockAuth.token,
     currentUser: {
       _id: "user-123",
       username: "Test User",
@@ -21,6 +28,11 @@ vi.mock("../services/clothingItemService", () => ({
 }));
 
 describe("Gallery", () => {
+  beforeEach(() => {
+    mockAuth.token = "test-jwt-token";
+    vi.clearAllMocks();
+  });
+
   it("shows loading state while fetching gallery items", () => {
     vi.mocked(getAllItemsFromCat).mockReturnValue(new Promise(() => {}));
 
@@ -46,7 +58,7 @@ describe("Gallery", () => {
     const image = await screen.findByAltText("Clothing item");
 
     expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute("src", "https://example.com/top.jpg");
+    expect(getAllItemsFromCat).toHaveBeenCalledWith("test-jwt-token", "top");
   });
 
   it("shows empty state when no gallery items are returned", async () => {
@@ -84,5 +96,19 @@ describe("Gallery", () => {
     ).toBeInTheDocument();
 
     consoleSpy.mockRestore();
+  });
+
+  it("does not fetch clothing items without a token", () => {
+    mockAuth.token = null;
+
+    render(<Gallery itemType="top" refreshKey={0} />);
+
+    expect(getAllItemsFromCat).not.toHaveBeenCalled();
+
+    expect(
+      screen.getByRole("heading", {
+        name: "No top items uploaded yet.",
+      }),
+    ).toBeInTheDocument();
   });
 });

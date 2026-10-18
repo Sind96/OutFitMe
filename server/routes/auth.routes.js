@@ -7,16 +7,34 @@ const validate = require("../middleware/validate.middleware");
 const {
   registerSchema,
   loginSchema,
+  updateProfileSchema,
+  addFavouriteSchema,
 } = require("../validation/auth.validation");
 
 router.post("/register", validate(registerSchema), auth.register);
 router.post("/login", validate(loginSchema), auth.login);
+
 router.get("/profile", verifyToken, auth.profile);
-router.delete("/profile/delete/:id", auth.deleteProfile);
-router.put("/profile/update/:id", auth.updateProfile);
-router.get("/favourites/:id", auth.getFavourites);
-router.put("/favourites/add/:id", auth.addFavourite);
-router.delete("/favourites/remove/:userId/:favouriteId", auth.removeFavourite);
-router.get("/logout", auth.logout);
+
+router.put(
+  "/profile/update",
+  verifyToken,
+  validate(updateProfileSchema),
+  auth.updateProfile,
+);
+
+router.delete("/profile/delete", verifyToken, auth.deleteProfile);
+
+router.get("/favourites", verifyToken, auth.getFavourites);
+
+router.post(
+  "/favourites",
+  verifyToken,
+  validate(addFavouriteSchema),
+  auth.addFavourite,
+);
+
+router.delete("/favourites/:favouriteId", verifyToken, auth.removeFavourite);
 
 module.exports = router;
+

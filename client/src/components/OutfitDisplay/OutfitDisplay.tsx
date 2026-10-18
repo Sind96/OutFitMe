@@ -21,11 +21,11 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [savedFavouriteId, setSavedFavouriteId] = useState<string | null>(null);
 
-  const { currentUser } = useAppSelector((state) => state.user);
-  
+  const { token } = useAppSelector((state) => state.user);
+
   const { outfit, generateOutfit, isLoading, error } = useOutfitGenerator(
     weatherData,
-    currentUser?._id,
+    token,
   );
 
   const isOutfitSaved = Boolean(savedFavouriteId);
@@ -44,7 +44,7 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
   };
 
   const toggleFavouriteOutfit = async () => {
-    if (!currentUser?._id) {
+    if (!token) {
       toast.error("You need to be signed in to save an outfit.");
       return;
     }
@@ -56,16 +56,13 @@ function OutfitDisplay({ weatherData, onUploadSuccess }: OutfitDisplayProps) {
 
     try {
       if (savedFavouriteId) {
-        await removeFavouriteOutfit(currentUser._id, savedFavouriteId);
+        await removeFavouriteOutfit(token, savedFavouriteId);
         setSavedFavouriteId(null);
         toast.success("Outfit removed from favourites.");
         return;
       }
 
-      const favouriteOutfits = await addFavouriteOutfit(
-        currentUser._id,
-        outfit,
-      );
+      const favouriteOutfits = await addFavouriteOutfit(token, outfit);
 
       const savedOutfit = favouriteOutfits.find(
         (favourite) =>

@@ -1,4 +1,10 @@
 const errorHandler = (error, req, res, next) => {
+  if (error.code === 11000) {
+    return res.status(409).json({
+      message: "A user with those details already exists",
+    });
+  }
+
   const statusCode = error.statusCode || 500;
 
   if (statusCode >= 500) {
@@ -6,7 +12,10 @@ const errorHandler = (error, req, res, next) => {
   }
 
   return res.status(statusCode).json({
-    message: error.message || "Internal server error",
+    message:
+      statusCode >= 500
+        ? "Internal server error"
+        : error.message || "Request failed",
   });
 };
 

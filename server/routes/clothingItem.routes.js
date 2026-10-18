@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const clothingItem = require("../controllers/clothingItem.controller");
+const { verifyToken } = require("../middleware/auth.middleware");
 const validate = require("../middleware/validate.middleware");
 const {
   createClothingItemSchema,
@@ -9,21 +10,24 @@ const {
 
 router.post(
   "/api/clothing-items",
+  verifyToken,
   validate(createClothingItemSchema),
   clothingItem.postImage,
 );
 
-router.delete(
-  "/api/clothing-items/:userId/:id",
-  clothingItem.deleteClothingItem,
-);
-
 router.get(
-  "/api/clothing-items/random/:userId/:item/:tempToday/:rainToday",
+  "/api/clothing-items/random/:item/:tempToday/:rainToday",
+  verifyToken,
   clothingItem.getRandomItem,
 );
 
-router.get("/api/clothing-items/:userId/:item", clothingItem.getAllItems);
+router.get("/api/clothing-items/:item", verifyToken, clothingItem.getAllItems);
+
+router.delete(
+  "/api/clothing-items/:id",
+  verifyToken,
+  clothingItem.deleteClothingItem,
+);
 
 router.get("/api/health", (req, res) => {
   res.sendStatus(200);

@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("../utils/asyncHandler");
 const AppError = require("../utils/AppError");
+const ClothingItem = require("../models/clothingItem.model");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -87,13 +88,17 @@ exports.profile = asyncHandler(async (req, res) => {
 });
 
 exports.deleteProfile = asyncHandler(async (req, res) => {
-  const { id: userId } = req.params;
+  const { userId } = req.user;
 
-  const deletedUser = await User.findByIdAndDelete(userId);
+  const user = await User.findById(userId);
 
-  if (!deletedUser) {
+  if (!user) {
     throw new AppError("User not found", 404);
   }
+
+  await ClothingItem.deleteMany({ userId });
+
+  await User.findByIdAndDelete(userId);
 
   return res.status(200).json({
     message: "Profile deleted successfully",
@@ -101,11 +106,22 @@ exports.deleteProfile = asyncHandler(async (req, res) => {
 });
 
 exports.updateProfile = asyncHandler(async (req, res) => {
-  const { id: userId } = req.params;
-  const updates = req.body;
+  const { userId } = req.user;
+  const { username, profilePicture } = req.body;
+
+  const updates = {};
+
+  if (username !== undefined) {
+    updates.username = username;
+  }
+
+  if (profilePicture !== undefined) {
+    updates.profilePicture = profilePicture;
+  }
 
   const updatedUser = await User.findByIdAndUpdate(userId, updates, {
     new: true,
+    runValidators: true,
   }).select("-password");
 
   if (!updatedUser) {
@@ -119,9 +135,9 @@ exports.updateProfile = asyncHandler(async (req, res) => {
 });
 
 exports.getFavourites = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { userId } = req.user;
 
-  const user = await User.findById(id).select("favouriteOutfits");
+  const user = await User.findById(userId).select("favouriteOutfits");
 
   if (!user) {
     throw new AppError("User not found", 404);
@@ -131,11 +147,10 @@ exports.getFavourites = asyncHandler(async (req, res) => {
 });
 
 exports.addFavourite = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-
+  const { userId } = req.user;
   const { top, bottom, shoe } = req.body;
 
-  const user = await User.findById(id);
+  const user = await User.findById(userId);
 
   if (!user) {
     throw new AppError("User not found", 404);
@@ -162,7 +177,8 @@ exports.addFavourite = asyncHandler(async (req, res) => {
 });
 
 exports.removeFavourite = asyncHandler(async (req, res) => {
-  const { userId, favouriteId } = req.params;
+  const { userId } = req.user;
+  const { favouriteId } = req.params;
 
   const user = await User.findById(userId);
 
@@ -187,10 +203,3 @@ exports.removeFavourite = asyncHandler(async (req, res) => {
     favouriteOutfits: user.favouriteOutfits,
   });
 });
-
-exports.logout = (req, res) => {
-  return res.status(200).json({
-    message: "Logout successful",
-    accessToken: null,
-  });
-};

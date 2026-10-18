@@ -3,7 +3,15 @@ const asyncHandler = require("../utils/asyncHandler");
 const AppError = require("../utils/AppError");
 
 exports.postImage = asyncHandler(async (req, res) => {
-  const newClothingItem = await ClothingItem.create(req.body);
+  const { imgURL, item, tempRange, rain } = req.body;
+
+  const newClothingItem = await ClothingItem.create({
+    userId: req.user.userId,
+    imgURL,
+    item,
+    tempRange,
+    rain,
+  });
 
   return res.status(201).json({
     message: "Clothing item uploaded successfully",
@@ -12,10 +20,10 @@ exports.postImage = asyncHandler(async (req, res) => {
 });
 
 exports.getRandomItem = asyncHandler(async (req, res) => {
-  const { userId, item, tempToday, rainToday } = req.params;
+  const { item, tempToday, rainToday } = req.params;
 
   const allItems = await ClothingItem.find({
-    userId,
+    userId: req.user.userId,
     item,
     tempRange: tempToday,
     rain: rainToday,
@@ -31,23 +39,22 @@ exports.getRandomItem = asyncHandler(async (req, res) => {
 });
 
 exports.getAllItems = asyncHandler(async (req, res) => {
-  const { userId, item } = req.params;
+  const { item } = req.params;
 
-  const allItems = await ClothingItem.find({ userId, item });
-
-  if (allItems.length === 0) {
-    throw new AppError("No clothing items found for this category", 404);
-  }
+  const allItems = await ClothingItem.find({
+    userId: req.user.userId,
+    item,
+  });
 
   return res.status(200).json(allItems);
 });
 
 exports.deleteClothingItem = asyncHandler(async (req, res) => {
-  const { userId, id } = req.params;
+  const { id } = req.params;
 
   const deletedItem = await ClothingItem.findOneAndDelete({
     _id: id,
-    userId,
+    userId: req.user.userId,
   });
 
   if (!deletedItem) {

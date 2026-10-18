@@ -1,5 +1,4 @@
 export interface ClothingItemFormData {
-  userId: string;
   imgURL: string;
   item: string;
   tempRange: string[];

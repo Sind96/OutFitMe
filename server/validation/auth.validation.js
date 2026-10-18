@@ -31,7 +31,31 @@ const loginSchema = z.object({
   }),
 });
 
+const updateProfileSchema = z.object({
+  body: z
+    .object({
+      username: z.string().min(2).optional(),
+      profilePicture: z.string().min(1).optional(),
+    })
+    .strict()
+    .refine((data) => Object.keys(data).length > 0, {
+      message: "At least one field is required",
+    }),
+});
+
+const addFavouriteSchema = z.object({
+  body: z
+    .object({
+      top: z.string().min(1),
+      bottom: z.string().min(1),
+      shoe: z.string().min(1),
+    })
+    .strict(),
+});
+
 module.exports = {
   registerSchema,
   loginSchema,
+  updateProfileSchema,
+  addFavouriteSchema,
 };

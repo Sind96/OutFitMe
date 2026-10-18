@@ -5,14 +5,18 @@ import type {
 } from "../types/clothingItem.types";
 import { baseURL, handleResponse } from "./apiClient";
 
+const getAuthHeaders = (token: string) => ({
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${token}`,
+});
+
 const addClothingItem = async (
+  token: string,
   formData: ClothingItemFormData,
 ): Promise<CreateClothingItemResponse> => {
   const response = await fetch(`${baseURL}/api/clothing-items`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getAuthHeaders(token),
     body: JSON.stringify(formData),
   });
 
@@ -20,39 +24,45 @@ const addClothingItem = async (
 };
 
 const getRandomItem = async (
-  userId: string,
+  token: string,
   item: string,
   tempToday: string,
   rainToday: boolean,
 ): Promise<string> => {
   const response = await fetch(
-    `${baseURL}/api/clothing-items/random/${userId}/${item}/${tempToday}/${rainToday}`,
+    `${baseURL}/api/clothing-items/random/${encodeURIComponent(item)}/${encodeURIComponent(tempToday)}/${rainToday}`,
+    {
+      headers: getAuthHeaders(token),
+    },
   );
 
   const randomItem = await handleResponse<ClothingItem>(response);
-
   return randomItem.imgURL;
 };
 
 const getAllItemsFromCat = async (
-  userId: string,
+  token: string,
   item: string,
 ): Promise<ClothingItem[]> => {
   const response = await fetch(
-    `${baseURL}/api/clothing-items/${userId}/${item}`,
+    `${baseURL}/api/clothing-items/${encodeURIComponent(item)}`,
+    {
+      headers: getAuthHeaders(token),
+    },
   );
 
   return handleResponse<ClothingItem[]>(response);
 };
 
 const deleteClothingItem = async (
-  userId: string,
+  token: string,
   id: string,
 ): Promise<{ message: string }> => {
   const response = await fetch(
-    `${baseURL}/api/clothing-items/${userId}/${id}`,
+    `${baseURL}/api/clothing-items/${encodeURIComponent(id)}`,
     {
       method: "DELETE",
+      headers: getAuthHeaders(token),
     },
   );
 

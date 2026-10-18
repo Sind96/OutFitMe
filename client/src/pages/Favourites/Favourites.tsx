@@ -12,19 +12,22 @@ import type { FavouriteOutfit } from "../../types/auth.types";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 export default function Favourites({ onMenuClick }: NavbarProps) {
-  const { currentUser } = useAppSelector((state) => state.user);
+  const { token } = useAppSelector((state) => state.user);
   const [favouriteOutfits, setFavouriteOutfits] = useState<FavouriteOutfit[]>(
     [],
   );
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchFavouriteOutfits = async () => {
-      if (!currentUser?._id) return;
+    if (!token) {
+      setFavouriteOutfits([]);
+      return;
+    }
 
+    const fetchFavouriteOutfits = async () => {
       try {
         setIsLoading(true);
-        const outfits = await getFavouriteOutfits(currentUser._id);
+        const outfits = await getFavouriteOutfits(token);
         setFavouriteOutfits(outfits);
       } catch (error) {
         console.error("Failed to fetch favourite outfits", error);
@@ -35,16 +38,14 @@ export default function Favourites({ onMenuClick }: NavbarProps) {
     };
 
     fetchFavouriteOutfits();
-  }, [currentUser?._id]);
+  }, [token]);
 
   const handleRemoveFavourite = async (favouriteId: string) => {
-    if (!currentUser?._id) return;
+    if (!token) return;
 
     try {
-      const response = await removeFavouriteOutfit(
-        currentUser._id,
-        favouriteId,
-      );
+      const response = await removeFavouriteOutfit(token, favouriteId);
+
       setFavouriteOutfits(response.favouriteOutfits);
       toast.success("Favourite outfit removed.");
     } catch (error) {

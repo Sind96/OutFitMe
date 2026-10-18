@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { lowercase } = require("zod");
 
 const clothingItemSchema = new mongoose.Schema({
   userId: {

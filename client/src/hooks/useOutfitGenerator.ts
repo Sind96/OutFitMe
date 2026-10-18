@@ -9,7 +9,7 @@ import type {
 
 export const useOutfitGenerator = (
   weatherData: Pick<IWeatherDisplayProps, "temp" | "description">,
-  userId?: string,
+  token?: string | null,
 ) => {
   const [outfit, setOutfit] = useState<Outfit>({
     top: "",
@@ -30,7 +30,7 @@ export const useOutfitGenerator = (
       return;
     }
 
-    if (!userId) {
+    if (!token) {
       setError("You need to be signed in to generate an outfit.");
       return;
     }
@@ -41,19 +41,19 @@ export const useOutfitGenerator = (
 
       const [top, bottom, shoe] = await Promise.all([
         getRandomItem(
-          userId,
+          token,
           "top",
           weatherCriteria.tempToday,
           weatherCriteria.isDryWeather,
         ),
         getRandomItem(
-          userId,
+          token,
           "bottom",
           weatherCriteria.tempToday,
           weatherCriteria.isDryWeather,
         ),
         getRandomItem(
-          userId,
+          token,
           "shoe",
           weatherCriteria.tempToday,
           weatherCriteria.isDryWeather,

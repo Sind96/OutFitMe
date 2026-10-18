@@ -16,9 +16,8 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
   const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
   const folder = import.meta.env.VITE_CLOUDINARY_FOLDER;
 
-  const { currentUser } = useAppSelector((state) => state.user);
+  const { token } = useAppSelector((state) => state.user);
   const [formData, setFormData] = useState<ClothingItemFormData>({
-    userId: "",
     imgURL: "",
     item: "",
     tempRange: [],
@@ -64,10 +63,26 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
 
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!image.file) {
-      console.error("No file selected");
+
+    if (!token) {
+      toast.error("You need to be signed in to upload clothing items.");
       return;
     }
+
+    if (!image.file) {
+      toast.error("Please select an image.");
+      return;
+    }
+
+    if (
+      !formData.item ||
+      tempChecks.tempChecks.length === 0 ||
+      !formData.rain
+    ) {
+      toast.error("Please complete all clothing details before uploading.");
+      return;
+    }
+
     try {
       const uploadFormData = new FormData();
 
@@ -97,19 +112,14 @@ const UploadModal = ({ onClose, onUploadSuccess }: UploadModalProps) => {
         throw new Error("Cloudinary did not return an image URL.");
       }
 
-      if (!currentUser?._id) {
-        toast.error("You need to be signed in to upload clothing items.");
-        return;
-      }
-
       const clothingItemPayload: ClothingItemFormData = {
         ...formData,
-        userId: currentUser._id,
         imgURL: imageUrl,
         tempRange: tempChecks.tempChecks,
       };
 
-      await addClothingItem(clothingItemPayload);
+      await addClothingItem(token, clothingItemPayload);
+
       toast.success("Clothing item uploaded successfully.");
       onUploadSuccess();
       onClose();
