@@ -1,9 +1,11 @@
-const User = require("../models/user.model");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const asyncHandler = require("../utils/asyncHandler");
-const AppError = require("../utils/AppError");
-const ClothingItem = require("../models/clothingItem.model");
+import type { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+
+import User = require("../models/user.model");
+import ClothingItem = require("../models/clothingItem.model");
+import asyncHandler = require("../utils/asyncHandler");
+import AppError = require("../utils/AppError");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -11,7 +13,17 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET environment variable is required");
 }
 
-exports.register = asyncHandler(async (req, res) => {
+const getAuthenticatedUserId = (req: Request): string => {
+  const userId = req.user?.userId;
+
+  if (!userId) {
+    throw new AppError("Authentication required", 401);
+  }
+
+  return userId;
+};
+
+const register = asyncHandler(async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
   const existingUser = await User.findOne({
@@ -41,7 +53,7 @@ exports.register = asyncHandler(async (req, res) => {
   });
 });
 
-exports.login = asyncHandler(async (req, res) => {
+const login = asyncHandler(async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({ username });
@@ -61,7 +73,7 @@ exports.login = asyncHandler(async (req, res) => {
     algorithm: "HS256",
   });
 
-  const { password: hashedPassword, ...userData } = user._doc;
+  const { password: _hashedPassword, ...userData } = user.toObject();
 
   return res.status(200).json({
     message: "Login successful",
@@ -70,8 +82,8 @@ exports.login = asyncHandler(async (req, res) => {
   });
 });
 
-exports.profile = asyncHandler(async (req, res) => {
-  const { userId } = req.user;
+const profile = asyncHandler(async (req: Request, res: Response) => {
+  const userId = getAuthenticatedUserId(req);
 
   const user = await User.findById(userId);
 
@@ -79,7 +91,7 @@ exports.profile = asyncHandler(async (req, res) => {
     throw new AppError("User not found", 404);
   }
 
-  const { password: hashedPassword, ...userData } = user._doc;
+  const { password: _hashedPassword, ...userData } = user.toObject();
 
   return res.status(200).json({
     message: "Profile retrieved successfully",
@@ -87,8 +99,8 @@ exports.profile = asyncHandler(async (req, res) => {
   });
 });
 
-exports.deleteProfile = asyncHandler(async (req, res) => {
-  const { userId } = req.user;
+const deleteProfile = asyncHandler(async (req: Request, res: Response) => {
+  const userId = getAuthenticatedUserId(req);
 
   const user = await User.findById(userId);
 
@@ -97,7 +109,6 @@ exports.deleteProfile = asyncHandler(async (req, res) => {
   }
 
   await ClothingItem.deleteMany({ userId });
-
   await User.findByIdAndDelete(userId);
 
   return res.status(200).json({
@@ -105,11 +116,14 @@ exports.deleteProfile = asyncHandler(async (req, res) => {
   });
 });
 
-exports.updateProfile = asyncHandler(async (req, res) => {
-  const { userId } = req.user;
+const updateProfile = asyncHandler(async (req: Request, res: Response) => {
+  const userId = getAuthenticatedUserId(req);
   const { username, profilePicture } = req.body;
 
-  const updates = {};
+  const updates: {
+    username?: string;
+    profilePicture?: string;
+  } = {};
 
   if (username !== undefined) {
     updates.username = username;
@@ -134,8 +148,8 @@ exports.updateProfile = asyncHandler(async (req, res) => {
   });
 });
 
-exports.getFavourites = asyncHandler(async (req, res) => {
-  const { userId } = req.user;
+const getFavourites = asyncHandler(async (req: Request, res: Response) => {
+  const userId = getAuthenticatedUserId(req);
 
   const user = await User.findById(userId).select("favouriteOutfits");
 
@@ -146,8 +160,8 @@ exports.getFavourites = asyncHandler(async (req, res) => {
   return res.status(200).json(user.favouriteOutfits);
 });
 
-exports.addFavourite = asyncHandler(async (req, res) => {
-  const { userId } = req.user;
+const addFavourite = asyncHandler(async (req: Request, res: Response) => {
+  const userId = getAuthenticatedUserId(req);
   const { top, bottom, shoe } = req.body;
 
   const user = await User.findById(userId);
@@ -173,11 +187,11 @@ exports.addFavourite = asyncHandler(async (req, res) => {
 
   await user.save();
 
-  res.status(200).json(user.favouriteOutfits);
+  return res.status(200).json(user.favouriteOutfits);
 });
 
-exports.removeFavourite = asyncHandler(async (req, res) => {
-  const { userId } = req.user;
+const removeFavourite = asyncHandler(async (req: Request, res: Response) => {
+  const userId = getAuthenticatedUserId(req);
   const { favouriteId } = req.params;
 
   const user = await User.findById(userId);
@@ -189,7 +203,7 @@ exports.removeFavourite = asyncHandler(async (req, res) => {
   const originalLength = user.favouriteOutfits.length;
 
   user.favouriteOutfits = user.favouriteOutfits.filter(
-    (outfit) => outfit._id.toString() !== favouriteId,
+    (outfit) => outfit._id?.toString() !== favouriteId,
   );
 
   if (user.favouriteOutfits.length === originalLength) {
@@ -203,3 +217,14 @@ exports.removeFavourite = asyncHandler(async (req, res) => {
     favouriteOutfits: user.favouriteOutfits,
   });
 });
+
+export {
+  register,
+  login,
+  profile,
+  deleteProfile,
+  updateProfile,
+  getFavourites,
+  addFavourite,
+  removeFavourite,
+};
