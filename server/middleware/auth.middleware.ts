@@ -1,24 +1,28 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
+import type { RequestHandler } from "express";
 
-const verifyToken = (req, res, next) => {
+const verifyToken: RequestHandler = (req, res, next) => {
   const authorization = req.get("Authorization");
 
   if (!authorization) {
-    return res.status(401).json({
+    res.status(401).json({
       message: "Authorisation token required",
     });
+    return;
   }
 
   const match = /^Bearer ([^\s]+)$/.exec(authorization);
 
   if (!match) {
-    return res.status(401).json({
+    res.status(401).json({
       message: "Invalid authorisation format",
     });
+    return;
   }
 
   if (!process.env.JWT_SECRET) {
-    return next(new Error("JWT_SECRET is not configured"));
+    next(new Error("JWT_SECRET is not configured"));
+    return;
   }
 
   try {
@@ -31,28 +35,27 @@ const verifyToken = (req, res, next) => {
       typeof decoded !== "object" ||
       typeof decoded.userId !== "string"
     ) {
-      return res.status(401).json({
+      res.status(401).json({
         message: "Invalid token payload",
       });
+      return;
     }
 
-    req.user = decoded;
-    return next();
+    req.user = { userId: decoded.userId };
+    next();
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
-      return res.status(401).json({
-        message: "Token expired",
-      });
+      res.status(401).json({ message: "Token expired" });
+      return;
     }
 
     if (error instanceof jwt.JsonWebTokenError) {
-      return res.status(401).json({
-        message: "Invalid token",
-      });
+      res.status(401).json({ message: "Invalid token" });
+      return;
     }
 
-    return next(error);
+    next(error);
   }
 };
 
-module.exports = { verifyToken };
+export { verifyToken };
