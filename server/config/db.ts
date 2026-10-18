@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const connectDB = async () => {
+const connectDB = async (): Promise<void> => {
   const mongoUri =
     process.env.NODE_ENV === "test"
       ? process.env.MONGO_TEST_URI
@@ -14,4 +14,4 @@ const connectDB = async () => {
   console.log("MongoDB connected successfully");
 };
 
-module.exports = connectDB;
+export = connectDB;
