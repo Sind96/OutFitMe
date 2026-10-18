@@ -1,15 +1,17 @@
-const express = require("express");
-const router = express.Router();
+import express from "express";
 
-const auth = require("../controllers/auth.controller");
-const { verifyToken } = require("../middleware/auth.middleware");
-const validate = require("../middleware/validate.middleware");
-const {
+import * as auth from "../controllers/auth.controller";
+import { verifyToken } from "../middleware/auth.middleware";
+import validate = require("../middleware/validate.middleware");
+
+import {
   registerSchema,
   loginSchema,
   updateProfileSchema,
   addFavouriteSchema,
-} = require("../validation/auth.validation");
+} from "../validation/auth.validation";
+
+const router = express.Router();
 
 router.post("/register", validate(registerSchema), auth.register);
 router.post("/login", validate(loginSchema), auth.login);
@@ -36,5 +38,4 @@ router.post(
 
 router.delete("/favourites/:favouriteId", verifyToken, auth.removeFavourite);
 
-module.exports = router;
-
+export = router;

@@ -1,12 +1,11 @@
-const express = require("express");
-const router = express.Router();
+import express from "express";
 
-const clothingItem = require("../controllers/clothingItem.controller");
-const { verifyToken } = require("../middleware/auth.middleware");
-const validate = require("../middleware/validate.middleware");
-const {
-  createClothingItemSchema,
-} = require("../validation/clothingItem.validation");
+import * as clothingItem from "../controllers/clothingItem.controller";
+import { verifyToken } from "../middleware/auth.middleware";
+import validate = require("../middleware/validate.middleware");
+import { createClothingItemSchema } from "../validation/clothingItem.validation";
+
+const router = express.Router();
 
 router.post(
   "/api/clothing-items",
@@ -29,8 +28,8 @@ router.delete(
   clothingItem.deleteClothingItem,
 );
 
-router.get("/api/health", (req, res) => {
+router.get("/api/health", (_req, res) => {
   res.sendStatus(200);
 });
 
-module.exports = router;
+export = router;
