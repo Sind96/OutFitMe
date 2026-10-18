@@ -1,11 +1,11 @@
-require("dotenv").config();
+import "dotenv/config";
 
-const app = require("./app");
-const connectDB = require("./config/db");
+import app = require("./app");
+import connectDB = require("./config/db");
 
 const PORT = process.env.PORT || 3000;
 
-(async function startServer() {
+async function startServer(): Promise<void> {
   try {
     if (!process.env.JWT_SECRET) {
       throw new Error("JWT_SECRET environment variable is required");
@@ -20,4 +20,6 @@ const PORT = process.env.PORT || 3000;
     console.error("Failed to start server:", error);
     process.exitCode = 1;
   }
-})();
+}
+
+void startServer();
